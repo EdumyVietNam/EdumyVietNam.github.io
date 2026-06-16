@@ -36,7 +36,7 @@
         <a href="courses.html" class="nav-link active">Khóa học</a>
         <a href="exam.html" class="nav-link">Thi trực tuyến</a>
         <a href="ai.html" class="nav-link">Công nghệ AI</a>
-        <a href="pricing.html" class="nav-link">Bảng giá</a>
+        <a href="pricing.html" class="nav-link">Vai trò</a>
         <a href="blog.html" class="nav-link">Blog</a>
         <a href="contact.html" class="nav-link">Liên hệ</a>
       </div>
@@ -57,144 +57,92 @@
         <span class="current">Khóa học</span>
       </div>
       <h1>Quản lý <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">khóa học</span></h1>
-      <p>Module quản lý khóa học với cấu trúc bài giảng phân tầng, ngân hàng câu hỏi và đánh giá trực tuyến.</p>
+      <p>Module Quản lý khóa học (Course Management) là module trung tâm của EDUMY, đảm nhận toàn bộ vòng đời khóa học từ tạo lập, tổ chức nội dung, quản lý ngân hàng câu hỏi, thiết lập đánh giá đến theo dõi doanh thu.</p>
     </div>
   </section>
 
+  <!-- Vòng đời khóa học -->
   <section class="section">
     <div class="container">
-      <div class="courses-toolbar fade-in">
-        <div class="course-filters">
-          <button class="filter-btn active" data-filter="all">Tất cả</button>
-          <button class="filter-btn" data-filter="programming">Lập trình</button>
-          <button class="filter-btn" data-filter="data">Data & AI</button>
-          <button class="filter-btn" data-filter="design">Thiết kế</button>
-          <button class="filter-btn" data-filter="devops">DevOps</button>
-          <button class="filter-btn" data-filter="mobile">Mobile</button>
+      <div class="section-header fade-in">
+        <span class="section-tag">Tổng quan</span>
+        <h2>Vòng đời khóa học <span>trên EDUMY</span></h2>
+        <p>Giảng viên tạo khóa học ở trạng thái Draft, hoàn thiện nội dung rồi gửi Review. Admin phê duyệt để chuyển sang Published. Khi không còn sử dụng, khóa học được chuyển sang Archived.</p>
+      </div>
+      <div class="about-values">
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F4CB;</div>
+          <h4>Tạo &amp; Quản lý (CRUD)</h4>
+          <p>Giảng viên tạo khóa học mới với đầy đủ metadata: tiêu đề, mô tả, giá bán, danh mục, thumbnail, tags. Hỗ trợ 4 trạng thái Draft, Review, Published, Archived.</p>
         </div>
-        <div class="courses-sort">
-          <select>
-            <option>Mới nhất</option>
-            <option>Phổ biến nhất</option>
-            <option>Giá thấp đến cao</option>
-            <option>Giá cao đến thấp</option>
-          </select>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F4DA;</div>
+          <h4>Cấu trúc học liệu</h4>
+          <p>Tổ chức nội dung theo cấp bậc Section &rarr; Lesson. Mỗi lesson chứa tài liệu đa phương tiện: Video (MP4), PDF, Slide trình chiếu và nội dung văn bản.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F4AD;</div>
+          <h4>Ngân hàng câu hỏi</h4>
+          <p>Hệ thống ngân hàng câu hỏi tập trung với 4 định dạng: Trắc nghiệm một đáp án, Trắc nghiệm nhiều đáp án, Đúng / Sai, Tự luận. Hỗ trợ Import / Export dữ liệu.</p>
+        </div>
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F3AF;</div>
+          <h4>Thiết lập bài kiểm tra</h4>
+          <p>Tạo đề thi từ ngân hàng câu hỏi: cấu hình thời gian làm bài, điểm chuẩn đạt, số câu hỏi, xáo trộn thứ tự câu hỏi và đáp án.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F4C8;</div>
+          <h4>Chấm điểm &amp; Phản hồi</h4>
+          <p>Câu hỏi trắc nghiệm, Đúng/Sai, Điền khuyết chấm tự động. Câu hỏi tự luận được chấm thủ công bởi giảng viên kèm phản hồi ghi chú.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F4B0;</div>
+          <h4>Doanh thu &amp; Thanh toán</h4>
+          <p>Tích hợp cổng thanh toán VNPAY qua QR Code. Giảng viên theo dõi doanh thu, đối soát giao dịch và thực hiện yêu cầu rút tiền.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="courses-grid">
-        <div class="course-card fade-in stagger-1" data-category="programming">
-            <div class="course-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-              <span class="course-level">Quản lý</span>
-            </div>
-            <div class="course-body">
-              <h4>Quản lý vòng đời khóa học</h4>
-              <p class="instructor-name">CRUD: Draft, Review, Published, Archived</p>
-              <div class="course-meta">
-                <span class="rating">&#x1F4C1; Metadata</span>
-                <span class="students">&#x1F4B0; Giá bán & Danh mục</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-2" data-category="programming">
-            <div class="course-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
-              <span class="course-level">Cấu trúc</span>
-            </div>
-            <div class="course-body">
-              <h4>Cấu trúc học liệu phân tầng</h4>
-              <p class="instructor-name">Section &rarr; Lesson</p>
-              <div class="course-meta">
-                <span class="rating">&#x1F4F9; Video MP4</span>
-                <span class="students">&#x1F4C4; PDF & Slide</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-3" data-category="data">
-            <div class="course-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
-              <span class="course-level">Câu hỏi</span>
-            </div>
-            <div class="course-body">
-              <h4>Ngân hàng câu hỏi</h4>
-              <p class="instructor-name">4 định dạng: Single/Multiple/TrueFalse/Essay</p>
-              <div class="course-meta">
-                <span class="rating">&#x1F4E5; Import/Export</span>
-                <span class="students">&#x2705; Đáp án kèm theo</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-4" data-category="data">
-            <div class="course-image" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
-              <span class="course-level">Kiểm tra</span>
-            </div>
-            <div class="course-body">
-              <h4>Thiết lập bài kiểm tra</h4>
-              <p class="instructor-name">Thời gian, điểm chuẩn, xáo trộn đề</p>
-              <div class="course-meta">
-                <span class="rating">&#x23F1; Bộ đếm thời gian</span>
-                <span class="students">&#x1F504; Xáo trộn câu hỏi</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-1" data-category="design">
-            <div class="course-image" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
-              <span class="course-level">Chấm điểm</span>
-            </div>
-            <div class="course-body">
-              <h4>Chấm điểm & Phản hồi</h4>
-              <p class="instructor-name">Tự động (trắc nghiệm) + Thủ công (tự luận)</p>
-              <div class="course-meta">
-                <span class="rating">&#x26A1; Kết quả tức thời</span>
-                <span class="students">&#x1F4DD; Ghi chú phản hồi</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-2" data-category="devops">
-            <div class="course-image" style="background: linear-gradient(135deg, #89f7fe, #66a6ff);">
-              <span class="course-level">Thanh toán</span>
-            </div>
-            <div class="course-body">
-              <h4>Mua bán & Doanh thu</h4>
-              <p class="instructor-name">Giỏ hàng, QR Code, Đối soát</p>
-              <div class="course-meta">
-                <span class="rating">&#x1F4B3; Cổng thanh toán</span>
-                <span class="students">&#x1F4C8; Doanh thu & Rút tiền</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-3" data-category="mobile">
-            <div class="course-image" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-              <span class="course-level">AI</span>
-            </div>
-            <div class="course-body">
-              <h4>AI hỗ trợ giảng dạy</h4>
-              <p class="instructor-name">Tự động tạo đề thi & Chatbot RAG</p>
-              <div class="course-meta">
-                <span class="rating">&#x1F916; Machine Learning</span>
-                <span class="students">&#x1F4AC; Hỗ trợ 24/7</span>
-              </div>
-            </div>
-        </div>
-        <div class="course-card fade-in stagger-4" data-category="devops">
-            <div class="course-image" style="background: linear-gradient(135deg, #30cfd0, #330867);">
-              <span class="course-level">Lưu trữ</span>
-            </div>
-            <div class="course-body">
-              <h4>Cloud Storage</h4>
-              <p class="instructor-name">Lưu trữ đa phương tiện qua Cloud</p>
-              <div class="course-meta">
-                <span class="rating">&#x2601; Giảm tải Server</span>
-                <span class="students">&#x1F4E5; Video dung lượng lớn</span>
-              </div>
-            </div>
-        </div>
+  <!-- Sơ đồ luồng -->
+  <section class="section" style="background: var(--bg-alt);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Luồng hoạt động</span>
+        <h2>Cách thức <span>vận hành</span></h2>
+        <p>Quy trình từ khi giảng viên tạo khóa học đến khi học viên tham gia và làm bài kiểm tra.</p>
       </div>
-
-      <div class="pagination">
-        <a href="#">&laquo;</a>
-        <a href="#" class="active">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">&raquo;</a>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">1</div>
+          <h4>Tạo khóa học</h4>
+          <p>Giảng viên tạo khóa học, nhập thông tin, đặt giá và tải thumbnail. Hệ thống ghi nhận với trạng thái Draft.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">2</div>
+          <h4>Soạn nội dung</h4>
+          <p>Tạo các Section và Lesson. Mỗi lesson chứa bài giảng (video/PDF/slide) và liên kết bài kiểm tra tương ứng.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">3</div>
+          <h4>Xây ngân hàng câu hỏi</h4>
+          <p>Tạo hoặc Import câu hỏi vào ngân hàng với 4 định dạng, gán đáp án và thang điểm cho từng câu.</p>
+        </div>
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">4</div>
+          <h4>Gửi duyệt &amp; Xuất bản</h4>
+          <p>Giảng viên chuyển trạng thái sang Published (hoặc gửi Review để Admin duyệt). Khóa học hiển thị cho học viên.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">5</div>
+          <h4>Học viên đăng ký</h4>
+          <p>Học viên xem danh mục, chọn khóa học, thanh toán qua VNPAY QR Code và truy cập nội dung.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">6</div>
+          <h4>Đánh giá &amp; Điểm số</h4>
+          <p>Học viên làm bài kiểm tra. Hệ thống chấm tự động câu khách quan, giảng viên chấm tự luận. Điểm được lưu vào hồ sơ học tập.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -219,7 +167,7 @@
             <a href="../index.html">Trang chủ</a>
             <a href="about.html">Giới thiệu</a>
             <a href="courses.html">Khóa học</a>
-            <a href="pricing.html">Bảng giá</a>
+            <a href="pricing.html">Vai trò</a>
             <a href="blog.html">Blog</a>
             <a href="contact.html">Liên hệ</a>
           </div>
