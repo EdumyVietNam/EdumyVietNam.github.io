@@ -71,6 +71,7 @@
           <h2>Xây dựng nền tảng E-learning <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">tích hợp quản lý khóa học và đánh giá trực tuyến</span></h2>
           <p style="margin-top: 20px; line-height: 1.9;">EDUMY là đề tài khóa luận tốt nghiệp của nhóm sinh viên Quang Nhật Hưng, Nguyễn Châu Kha và Anh Tuấn, dưới sự hướng dẫn của TS.Nguyễn Thị Bích Ngân.</p>
           <p style="margin-top: 16px; line-height: 1.9;">Mục tiêu của đề tài là nghiên cứu, phân tích, thiết kế và xây dựng một nền tảng E-learning với kiến trúc Microservices, tích hợp liền mạch giữa quản lý khóa học và đánh giá trực tuyến, mang lại trải nghiệm tối ưu cho cả giảng viên và học viên.</p>
+          <p style="margin-top: 16px; line-height: 1.9;">Hệ thống gồm <strong>5 module chính</strong>: Xác thực (JWT + RBAC), Quản lý hệ thống (Admin Dashboard + Workflow), Thanh toán (VNPAY QR), Quản lý khóa học (CRUD + Ngân hàng câu hỏi + Đánh giá) và AI (Chatbot RAG + Tự động sinh đề thi).</p>
           <div style="display: flex; gap: 40px; margin-top: 32px;">
             <div>
               <h3 style="color: var(--primary);">2026</h3>
@@ -93,28 +94,44 @@
     </div>
   </section>
 
-  <!-- Values -->
+  <!-- Modules -->
   <section class="section" style="background: var(--bg-alt);">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">Định hướng thiết kế</span>
-        <h2>Kiến trúc và công nghệ <span>cốt lõi</span></h2>
+        <span class="section-tag">Kiến trúc hệ thống</span>
+        <h2>5 module chức năng <span>cốt lõi</span></h2>
+        <p>EDUMY được thiết kế theo kiến trúc Microservices, chia làm 5 module độc lập, mỗi module đảm nhiệm một nhóm chức năng riêng biệt.</p>
       </div>
       <div class="about-values">
         <div class="value-card fade-in stagger-1">
-          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x2699;</div>
-          <h4>Kiến trúc Microservices</h4>
-          <p>Hệ thống được chia nhỏ thành các dịch vụ độc lập, dễ bảo trì và mở rộng theo lưu lượng người dùng thực tế.</p>
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F510;</div>
+          <h4>Module 1: Xác thực (Authentication)</h4>
+          <p>Quản lý đăng ký (Email + OTP), đăng nhập Google/Microsoft SSO, cấp phát JWT và phân quyền RBAC cho 3 vai trò: Admin, Giảng viên, Học viên.</p>
         </div>
         <div class="value-card fade-in stagger-2">
-          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F510;</div>
-          <h4>Bảo mật JWT & RBAC</h4>
-          <p>Xác thực bằng JSON Web Token, phân quyền Role-Based Access Control giữa Admin, Giảng viên và Học viên.</p>
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F4CA;</div>
+          <h4>Module 2: Quản lý hệ thống (System Management)</h4>
+          <p>Quản lý người dùng tập trung, phê duyệt giảng viên qua Workflow, CRUD danh mục khóa học, Admin Dashboard với biểu đồ thống kê và nhật ký hoạt động.</p>
         </div>
         <div class="value-card fade-in stagger-3">
-          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F504;</div>
-          <h4>Luồng đánh giá tích hợp</h4>
-          <p>Bài kiểm tra được liên kết trực tiếp vào tiến trình học, tự động hóa lưu trữ điểm số với độ toàn vẹn dữ liệu cao.</p>
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F4B3;</div>
+          <h4>Module 3: Thanh toán (Payment)</h4>
+          <p>Tích hợp cổng thanh toán VNPAY qua mã QR, quản lý giao dịch mua khóa học, đối soát doanh thu cho giảng viên và thực hiện yêu cầu rút tiền.</p>
+        </div>
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F4D6;</div>
+          <h4>Module 4: Quản lý khóa học (Course Management)</h4>
+          <p>CRUD khóa học, cấu trúc học liệu Section &rarr; Lesson, ngân hàng câu hỏi 4 định dạng (Trắc nghiệm, Điền khuyết, Đúng/Sai, Tự luận), tạo đề thi và chấm điểm tự động hoặc thủ công.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F916;</div>
+          <h4>Module 5: Trí tuệ nhân tạo (AI)</h4>
+          <p>Chatbot hỏi đáp sử dụng kỹ thuật RAG để giải đáp thắc mắc theo ngữ cảnh tài liệu khóa học. Tự động sinh bài kiểm tra trắc nghiệm từ nội dung bài giảng (PDF, Slide, Transcript).</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x2699;</div>
+          <h4>Kiến trúc Microservices</h4>
+          <p>Backend .NET 8, Frontend React Vite &amp; Flutter, cơ sở dữ liệu MySQL + Redis, API Gateway Nginx, đóng gói Docker, hỗ trợ Horizontal Scaling và CI/CD.</p>
         </div>
       </div>
     </div>
