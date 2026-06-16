@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EdumyVietNam - Nền tảng học trực tuyến thế hệ mới với AI. Học tập thông minh, giảng dạy dễ dàng.">
+  <meta name="keywords" content="Edumy, học trực tuyến, e-learning, AI education, khóa học online">
+  <meta name="author" content="EdumyVietNam">
+  <meta property="og:title" content="EdumyVietNam - Học tập thông minh cùng AI">
+  <meta property="og:description" content="Nền tảng học trực tuyến thế hệ mới với sức mạnh AI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edumyvietnam.com">
+  <meta name="theme-color" content="#4F46E5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>EdumyVietNam - Học tập thông minh cùng AI</title>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen">
+    <div class="loading-logo">Edumy</div>
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Back To Top -->
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Edumy</a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link active">Trang chủ</a>
+        <a href="pages/about.html" class="nav-link">Giới thiệu</a>
+        <a href="pages/courses.html" class="nav-link">Khóa học</a>
+        <a href="pages/exam.html" class="nav-link">Thi trực tuyến</a>
+        <a href="pages/ai.html" class="nav-link">Công nghệ AI</a>
+        <a href="pages/pricing.html" class="nav-link">Bảng giá</a>
+        <a href="pages/blog.html" class="nav-link">Blog</a>
+        <a href="pages/contact.html" class="nav-link">Liên hệ</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle theme"></button>
+        <a href="pages/contact.html" class="btn btn-primary btn-sm">Đăng nhập</a>
+        <a href="pages/contact.html" class="btn btn-outline btn-sm">Đăng ký</a>
+        <div class="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text fade-in">
+          <span class="section-tag">EdTech 2026</span>
+          <h1>Học tập thông minh <br><span class="highlight">cùng AI</span></h1>
+          <p>Nền tảng học trực tuyến thế hệ mới giúp học viên học hiệu quả hơn, giảng viên giảng dạy dễ dàng hơn với sức mạnh AI.</p>
+          <div class="hero-buttons">
+            <a href="pages/courses.html" class="btn btn-primary btn-lg">Khám phá khóa học</a>
+            <a href="pages/contact.html" class="btn btn-secondary btn-lg">Dùng thử miễn phí</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <h3><span class="count-num" data-target="1200000">0</span>+</h3>
+              <p>Học viên</p>
+            </div>
+            <div class="hero-stat">
+              <h3><span class="count-num" data-target="35000">0</span>+</h3>
+              <p>Khóa học</p>
+            </div>
+            <div class="hero-stat">
+              <h3><span class="count-num" data-target="15000">0</span>+</h3>
+              <p>Giảng viên</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image fade-in-right">
+          <div class="hero-image-placeholder">&#x1F4DA;</div>
+          <div class="hero-floating-badge">&#x1F916; AI-Powered</div>
+          <div class="hero-floating-badge">&#x1F393; 15K+ Courses</div>
+          <div class="hero-floating-badge">&#x1F3C6; Trusted Platform</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Tính năng nổi bật</span>
+        <h2>Mọi thứ bạn cần trong <span>một nền tảng</span></h2>
+        <p>Edumy cung cấp đầy đủ công cụ cho cả học viên và giảng viên, được hỗ trợ bởi công nghệ AI tiên tiến.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in stagger-1">
+          <div class="feature-icon gradient-1">&#x1F4BB;</div>
+          <h4>Học trực tuyến mọi lúc</h4>
+          <p>Học mọi lúc, mọi nơi với nền tảng tối ưu cho mọi thiết bị.</p>
+        </div>
+        <div class="feature-card fade-in stagger-2">
+          <div class="feature-icon gradient-2">&#x1F4B0;</div>
+          <h4>Mua bán khóa học</h4>
+          <p>Thị trường khóa học sôi động với thanh toán an toàn, bảo mật.</p>
+        </div>
+        <div class="feature-card fade-in stagger-3">
+          <div class="feature-icon gradient-3">&#x1F9EA;</div>
+          <h4>Thi trực tuyến</h4>
+          <p>Hệ thống thi chống gian lận với AI giám sát thông minh.</p>
+        </div>
+        <div class="feature-card fade-in stagger-4">
+          <div class="feature-icon gradient-4">&#x1F4CA;</div>
+          <h4>Quản lý học tập</h4>
+          <p>Dashboard chi tiết giúp theo dõi tiến độ học tập hiệu quả.</p>
+        </div>
+        <div class="feature-card fade-in stagger-1">
+          <div class="feature-icon gradient-1">&#x1F4C8;</div>
+          <h4>Phân tích học tập</h4>
+          <p>Báo cáo chi tiết về hiệu suất và tiến bộ của học viên.</p>
+        </div>
+        <div class="feature-card fade-in stagger-2">
+          <div class="feature-icon gradient-2">&#x1F4DC;</div>
+          <h4>Chứng chỉ điện tử</h4>
+          <p>Cấp chứng chỉ hoàn thành khóa học với xác thực blockchain.</p>
+        </div>
+        <div class="feature-card fade-in stagger-3">
+          <div class="feature-icon gradient-3">&#x1F916;</div>
+          <h4>Tích hợp AI</h4>
+          <p>Công nghệ AI hỗ trợ cá nhân hóa lộ trình học tập.</p>
+        </div>
+        <div class="feature-card fade-in stagger-4">
+          <div class="feature-icon gradient-4">&#x2B50;</div>
+          <h4>Đánh giá chất lượng</h4>
+          <p>Hệ thống đánh giá đa chiều đảm bảo chất lượng giảng dạy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Con số ấn tượng</span>
+        <h2>Edumy <span>by the numbers</span></h2>
+        <p>Sự tin tưởng của cộng đồng giáo dục và đối tác là động lực lớn nhất của chúng tôi.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item fade-in stagger-1">
+          <span class="stat-number"><span class="count-num" data-target="1200000">0</span>+</span>
+          <span class="stat-label">Học viên</span>
+        </div>
+        <div class="stat-item fade-in stagger-2">
+          <span class="stat-number"><span class="count-num" data-target="35000">0</span>+</span>
+          <span class="stat-label">Khóa học</span>
+        </div>
+        <div class="stat-item fade-in stagger-3">
+          <span class="stat-number"><span class="count-num" data-target="15000">0</span>+</span>
+          <span class="stat-label">Giảng viên</span>
+        </div>
+        <div class="stat-item fade-in stagger-4">
+          <span class="stat-number"><span class="count-num" data-target="20000000">0</span>+</span>
+          <span class="stat-label">Bài thi</span>
+        </div>
+        <div class="stat-item fade-in stagger-5">
+          <span class="stat-number"><span class="count-num" data-target="98">0</span>%</span>
+          <span class="stat-label">Hài lòng</span>
+        </div>
+        <div class="stat-item fade-in stagger-6">
+          <span class="stat-number"><span class="count-num" data-target="50">0</span>+</span>
+          <span class="stat-label">Đối tác</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Section -->
+  <section class="section ai-section" id="ai">
+    <div class="ai-bg"></div>
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">AI Technology</span>
+        <h2>Công nghệ AI <span>tiên tiến</span></h2>
+        <p>Ứng dụng trí tuệ nhân tạo thế hệ mới để nâng cao trải nghiệm học tập và giảng dạy.</p>
+      </div>
+      <div class="ai-content">
+        <div class="ai-visual fade-in">
+          <div class="ai-brain">
+            &#x1F916;
+            <div class="ai-pulse"></div>
+            <div class="ai-pulse"></div>
+            <div class="ai-pulse"></div>
+          </div>
+        </div>
+        <div class="ai-features">
+          <div class="ai-feature-item fade-in-left stagger-1">
+            <div class="ai-feature-icon">&#x1F4CB;</div>
+            <span>AI tóm tắt bài giảng</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-2">
+            <div class="ai-feature-icon">&#x1F4DD;</div>
+            <span>AI tạo đề thi tự động</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-3">
+            <div class="ai-feature-icon">&#x2753;</div>
+            <span>AI sinh câu hỏi trắc nghiệm</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-4">
+            <div class="ai-feature-icon">&#x1F4A1;</div>
+            <span>AI giải thích kiến thức khó</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-5">
+            <div class="ai-feature-icon">&#x1F3EB;</div>
+            <span>AI gợi ý lộ trình học</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-6">
+            <div class="ai-feature-icon">&#x2705;</div>
+            <span>AI chấm bài tự động</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-7">
+            <div class="ai-feature-icon">&#x1F4AC;</div>
+            <span>AI chatbot học tập</span>
+          </div>
+          <div class="ai-feature-item fade-in-left stagger-8">
+            <div class="ai-feature-icon">&#x1F9E0;</div>
+            <span>AI phân tích năng lực</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section class="section" id="courses">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Khóa học nổi bật</span>
+        <h2>Khám phá <span>khóa học</span></h2>
+        <p>Hàng ngàn khóa học chất lượng cao từ các giảng viên hàng đầu trong và ngoài nước.</p>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card fade-in stagger-1">
+          <div class="course-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+            <span class="course-level">Mới nhất</span>
+            <span class="course-price">1.299.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>Lập trình Web Fullstack</h4>
+            <p class="instructor-name">Nguyễn Văn A</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.8</span>
+              <span class="students">&#x1F465; 12,345</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-2">
+          <div class="course-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+            <span class="course-level">Phổ biến</span>
+            <span class="course-price">1.499.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>Java Spring Boot</h4>
+            <p class="instructor-name">Trần Thị B</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.7</span>
+              <span class="students">&#x1F465; 8,920</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-3">
+          <div class="course-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+            <span class="course-level">Hot</span>
+            <span class="course-price">1.199.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>Golang Backend Development</h4>
+            <p class="instructor-name">Lê Văn C</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.9</span>
+              <span class="students">&#x1F465; 5,678</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-4">
+          <div class="course-image" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
+            <span class="course-level">Mới</span>
+            <span class="course-price">2.499.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>Python AI & Machine Learning</h4>
+            <p class="instructor-name">Phạm Thị D</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.8</span>
+              <span class="students">&#x1F465; 15,234</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-1">
+          <div class="course-image" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
+            <span class="course-level">Phổ biến</span>
+            <span class="course-price">1.999.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>Data Science với Python</h4>
+            <p class="instructor-name">Hoàng Văn E</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.6</span>
+              <span class="students">&#x1F465; 9,876</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-2">
+          <div class="course-image" style="background: linear-gradient(135deg, #89f7fe, #66a6ff);">
+            <span class="course-level">Mới</span>
+            <span class="course-price">899.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>UI/UX Design Masterclass</h4>
+            <p class="instructor-name">Mai Thị F</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.9</span>
+              <span class="students">&#x1F465; 7,654</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-3">
+          <div class="course-image" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+            <span class="course-level">Hot</span>
+            <span class="course-price">1.799.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>DevOps & Cloud Computing</h4>
+            <p class="instructor-name">Đặng Văn G</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.7</span>
+              <span class="students">&#x1F465; 6,543</span>
+            </div>
+          </div>
+        </div>
+        <div class="course-card fade-in stagger-4">
+          <div class="course-image" style="background: linear-gradient(135deg, #30cfd0, #330867);">
+            <span class="course-level">Mới</span>
+            <span class="course-price">2.199.000&#x20AB;</span>
+          </div>
+          <div class="course-body">
+            <h4>Mobile Development React Native</h4>
+            <p class="instructor-name">Vũ Thị H</p>
+            <div class="course-meta">
+              <span class="rating">&#x2B50; 4.8</span>
+              <span class="students">&#x1F465; 4,321</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="pages/courses.html" class="btn btn-primary btn-lg">Xem tất cả khóa học</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Khách hàng nói gì</span>
+        <h2>Phản hồi từ <span>cộng đồng</span></h2>
+        <p>Trải nghiệm thực tế từ học viên, giảng viên và đối tác đã tin tưởng sử dụng Edumy.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-in stagger-1">
+          <div class="testimonial-stars">&#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;</div>
+          <p class="testimonial-text">"Edumy đã thay đổi cách tôi học tập hoàn toàn. AI đề xuất lộ trình học phù hợp với năng lực của tôi, giúp tôi tiến bộ nhanh hơn rất nhiều."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar avatar-1">N</div>
+            <div class="testimonial-author-info">
+              <h5>Nguyễn Minh Anh</h5>
+              <p>Học viên - Lập trình Web</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in stagger-2">
+          <div class="testimonial-stars">&#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;</div>
+          <p class="testimonial-text">"Là giảng viên, tôi rất ấn tượng với công cụ AI hỗ trợ tạo đề thi và chấm bài tự động. Tiết kiệm thời gian rất nhiều để tập trung vào giảng dạy."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar avatar-2">T</div>
+            <div class="testimonial-author-info">
+              <h5>Trần Văn Bình</h5>
+              <p>Giảng viên - Khoa học Máy tính</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in stagger-3">
+          <div class="testimonial-stars">&#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;</div>
+          <p class="testimonial-text">"Chúng tôi đã hợp tác với Edumy để đào tạo nhân viên. Nền tảng quản lý học tập tuyệt vời, báo cáo chi tiết và dễ sử dụng."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar avatar-3">L</div>
+            <div class="testimonial-author-info">
+              <h5>Lê Thị Hương</h5>
+              <p>HR Director - TechCorp</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in stagger-1">
+          <div class="testimonial-stars">&#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;</div>
+          <p class="testimonial-text">"Hệ thống thi trực tuyến của Edumy rất chuyên nghiệp, chống gian lận hiệu quả. Học viên có thể thi mọi lúc mọi nơi."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar avatar-4">P</div>
+            <div class="testimonial-author-info">
+              <h5>Phạm Quốc Dũng</h5>
+              <p>Hiệu trưởng - Đại học FPT</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in stagger-2">
+          <div class="testimonial-stars">&#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;</div>
+          <p class="testimonial-text">"Tôi đã bán khóa học đầu tiên trên Edumy và nhận được sự hỗ trợ rất tốt. Nền tảng giúp tôi tiếp cận được hàng ngàn học viên mới."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar avatar-5">H</div>
+            <div class="testimonial-author-info">
+              <h5>Hoàng Nữ Mai</h5>
+              <p>Giảng viên - Thiết kế Đồ họa</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in stagger-3">
+          <div class="testimonial-stars">&#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;</div>
+          <p class="testimonial-text">"Dashboard phân tích học tập của Edumy rất chi tiết. Tôi có thể theo dõi tiến độ của từng học viên và điều chỉnh phương pháp giảng dạy kịp thời."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar avatar-6">Đ</div>
+            <div class="testimonial-author-info">
+              <h5>Đặng Quang Hải</h5>
+              <p>Giảng viên - Data Science</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section class="partners-section section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Đối tác</span>
+        <h2>Được tin tưởng bởi <span>các tổ chức</span></h2>
+      </div>
+      <div class="partners-grid">
+        <div class="partner-item fade-in stagger-1">&#x1F393; Đại học FPT</div>
+        <div class="partner-item fade-in stagger-2">&#x1F4BB; TechCorp</div>
+        <div class="partner-item fade-in stagger-3">&#x1F4A1; InnovateHub</div>
+        <div class="partner-item fade-in stagger-4">&#x1F4FD; EduMedia</div>
+        <div class="partner-item fade-in stagger-5">&#x1F310; CloudNet</div>
+        <div class="partner-item fade-in stagger-6">&#x1F3C6; FutureLearn</div>
+        <div class="partner-item fade-in stagger-7">&#x1F4F1; MobiEdu</div>
+        <div class="partner-item fade-in stagger-8">&#x1F504; DataViz</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section section">
+    <div class="container">
+      <div class="cta-content fade-in-scale">
+        <h2>Bắt đầu hành trình học tập ngay hôm nay</h2>
+        <p>Tham gia cùng hơn 1.2 triệu học viên và 15,000 giảng viên đã tin tưởng Edumy.</p>
+        <div class="cta-buttons">
+          <a href="pages/contact.html" class="btn btn-primary btn-lg">Đăng ký miễn phí</a>
+          <a href="pages/contact.html" class="btn btn-secondary btn-lg">Tư vấn ngay</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Edumy</h3>
+          <p>Nền tảng học trực tuyến thế hệ mới, ứng dụng công nghệ AI tiên tiến giúp việc học tập và giảng dạy trở nên hiệu quả hơn bao giờ hết.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="YouTube">&#x25B6;</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="TikTok">&#x266C;</a>
+          </div>
+        </div>
+        <div>
+          <h4>Liên kết nhanh</h4>
+          <div class="footer-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="pages/about.html">Giới thiệu</a>
+            <a href="pages/courses.html">Khóa học</a>
+            <a href="pages/pricing.html">Bảng giá</a>
+            <a href="pages/blog.html">Blog</a>
+            <a href="pages/contact.html">Liên hệ</a>
+          </div>
+        </div>
+        <div>
+          <h4>Chính sách</h4>
+          <div class="footer-links">
+            <a href="pages/policy.html">Điều khoản sử dụng</a>
+            <a href="pages/policy.html">Chính sách bảo mật</a>
+            <a href="pages/policy.html">Chính sách thanh toán</a>
+            <a href="pages/policy.html">Chính sách hoàn trả</a>
+            <a href="pages/faq.html">Câu hỏi thường gặp</a>
+          </div>
+        </div>
+        <div>
+          <h4>Liên hệ</h4>
+          <div class="footer-contact">
+            <p>&#x1F4CD; 123 Nguyễn Huệ, Q1, TP.HCM</p>
+            <p>&#x1F4DE; 1900 1234 5678</p>
+            <p>&#x2709; hello@edumyvietnam.com</p>
+            <p>&#x1F310; www.edumyvietnam.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 EdumyVietNam. All rights reserved.</p>
+        <p>Made with &#x2764; for Education</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
