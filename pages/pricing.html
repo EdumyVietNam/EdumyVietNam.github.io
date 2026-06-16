@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Bảng giá dịch vụ EDUMY - Các gói dự kiến dành cho học viên, giảng viên và tổ chức giáo dục">
-  <meta name="keywords" content="bảng giá, pricing, gói dịch vụ, e-learning">
+  <meta name="description" content="Vai trò người dùng EDUMY - Toàn bộ chức năng chi tiết dành cho Học viên, Giảng viên và Quản trị viên">
+  <meta name="keywords" content="vai trò người dùng, phân quyền, RBAC, học viên, giảng viên, quản trị">
   <meta name="author" content="Quang Nhat Hung">
   <meta name="theme-color" content="#4F46E5">
   <link rel="icon" type="image/png" href="../images/logo.png">
@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <title>Bảng giá - EDUMY</title>
+  <title>Vai trò người dùng - EDUMY</title>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
         <a href="courses.html" class="nav-link">Khóa học</a>
         <a href="exam.html" class="nav-link">Thi trực tuyến</a>
         <a href="ai.html" class="nav-link">Công nghệ AI</a>
-        <a href="pricing.html" class="nav-link active">Bảng giá</a>
+        <a href="pricing.html" class="nav-link active">Vai trò</a>
         <a href="blog.html" class="nav-link">Blog</a>
         <a href="contact.html" class="nav-link">Liên hệ</a>
       </div>
@@ -52,168 +52,137 @@
       <div class="breadcrumb">
         <a href="../index.html">Trang chủ</a>
         <span>/</span>
-        <span class="current">Bảng giá</span>
+        <span class="current">Vai trò người dùng</span>
       </div>
-      <h1>Bảng giá <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">dự kiến</span></h1>
-      <p>Các gói dịch vụ dự kiến dành cho học viên, giảng viên và tổ chức giáo dục.</p>
+      <h1>Vai trò <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">người dùng</span></h1>
+      <p>EDUMY phân quyền 3 vai trò chính, mỗi vai trò có bộ chức năng riêng biệt phục vụ nhu cầu học tập, giảng dạy và quản lý.</p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="pricing-toggle fade-in">
-        <span style="font-weight: 500;">Thanh toán hàng tháng</span>
-        <div class="toggle-switch"></div>
-        <span style="font-weight: 500;">Hàng năm <span style="color: var(--accent); font-size: 0.85rem;">(Tiết kiệm dự kiến)</span></span>
-      </div>
-
-      <div class="pricing-grid">
-        <div class="pricing-card fade-in stagger-1">
-          <div class="pricing-header">
-            <h3>Học viên</h3>
-            <div class="price">
-              <span class="price-monthly">Miễn phí</span>
-              <span class="price-yearly" style="display: none;">Miễn phí</span>
-            </div>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="check">&#x2714;</span> Đăng ký tài khoản email + OTP</li>
-            <li><span class="check">&#x2714;</span> Đăng nhập Google/Microsoft SSO</li>
-            <li><span class="check">&#x2714;</span> Xem khóa học đã đăng ký</li>
-            <li><span class="check">&#x2714;</span> Làm bài kiểm tra trực tuyến</li>
-            <li><span class="check">&#x2714;</span> Trợ lý ảo AI (Chatbot RAG)</li>
-            <li><span class="check">&#x2714;</span> Theo dõi tiến độ học tập</li>
-          </ul>
-          <a href="contact.html" class="btn btn-outline">Bắt đầu miễn phí</a>
-        </div>
-
-        <div class="pricing-card featured fade-in stagger-2">
-          <span class="pricing-badge">Phổ biến nhất</span>
-          <div class="pricing-header">
-            <h3>Giảng viên</h3>
-            <div class="price">
-              <span class="price-monthly">Chia sẻ doanh thu</span>
-              <span class="price-yearly" style="display: none;">Chia sẻ doanh thu</span>
-            </div>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="check">&#x2714;</span> Tạo và quản lý khóa học (CRUD)</li>
-            <li><span class="check">&#x2714;</span> Cấu trúc học liệu Section &rarr; Lesson</li>
-            <li><span class="check">&#x2714;</span> Ngân hàng câu hỏi 4 định dạng</li>
-            <li><span class="check">&#x2714;</span> Tạo bài kiểm tra trực tuyến</li>
-            <li><span class="check">&#x2714;</span> Chấm điểm tự động & thủ công</li>
-            <li><span class="check">&#x2714;</span> Đối soát doanh thu & rút tiền</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">Đăng ký ngay</a>
-        </div>
-
-        <div class="pricing-card fade-in stagger-3">
-          <div class="pricing-header">
-            <h3>Tổ chức</h3>
-            <div class="price">
-              <span class="price-monthly">Liên hệ</span>
-              <span class="price-yearly" style="display: none;">Liên hệ</span>
-            </div>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="check">&#x2714;</span> Quản lý người dùng tập trung</li>
-            <li><span class="check">&#x2714;</span> Phê duyệt giảng viên (Workflow)</li>
-            <li><span class="check">&#x2714;</span> Admin Dashboard & thống kê</li>
-            <li><span class="check">&#x2714;</span> Quản lý danh mục hệ thống</li>
-            <li><span class="check">&#x2714;</span> Phân quyền chi tiết (RBAC)</li>
-            <li><span class="check">&#x2714;</span> API tích hợp RESTful</li>
-          </ul>
-          <a href="contact.html" class="btn btn-outline">Liên hệ tư vấn</a>
-        </div>
-
-        <div class="pricing-card fade-in stagger-4">
-          <div class="pricing-header">
-            <h3>Doanh nghiệp</h3>
-            <div class="price">
-              <span class="price-monthly">Liên hệ</span>
-              <span class="price-yearly" style="display: none;">Liên hệ</span>
-            </div>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="check">&#x2714;</span> Tất cả tính năng Tổ chức</li>
-            <li><span class="check">&#x2714;</span> Tùy chỉnh theo yêu cầu</li>
-            <li><span class="check">&#x2714;</span> Docker triển khai linh hoạt</li>
-            <li><span class="check">&#x2714;</span> Horizontal Scaling</li>
-            <li><span class="check">&#x2714;</span> 99.9% Uptime mục tiêu</li>
-            <li><span class="check">&#x2714;</span> Hỗ trợ ưu tiên</li>
-          </ul>
-          <a href="contact.html" class="btn btn-outline">Liên hệ ngay</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Học viên -->
   <section class="section" style="background: var(--bg-alt);">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">So sánh</span>
-        <h2>So sánh chi tiết <span>các gói</span></h2>
+        <span class="section-tag">Role 1</span>
+        <h2>Học viên <span>Student</span></h2>
+        <p>Vai trò học viên tập trung vào trải nghiệm học tập và đánh giá trực tuyến. Mỗi khóa học là một hành trình với timeline bài học, bài kiểm tra tích hợp và theo dõi tiến độ.</p>
       </div>
-      <div style="overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);">
-        <table style="width: 100%; border-collapse: collapse; background: var(--bg-card);">
-          <thead>
-            <tr style="border-bottom: 2px solid var(--border);">
-              <th style="padding: 16px 20px; text-align: left; font-weight: 600;">Tính năng</th>
-              <th style="padding: 16px 20px; text-align: center; font-weight: 600;">Free</th>
-              <th style="padding: 16px 20px; text-align: center; font-weight: 600; color: var(--primary);">Pro</th>
-              <th style="padding: 16px 20px; text-align: center; font-weight: 600;">Business</th>
-              <th style="padding: 16px 20px; text-align: center; font-weight: 600;">Enterprise</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 14px 20px;">Số khóa học</td>
-              <td style="padding: 14px 20px; text-align: center;">5</td>
-              <td style="padding: 14px 20px; text-align: center;">Không giới hạn</td>
-              <td style="padding: 14px 20px; text-align: center;">Không giới hạn</td>
-              <td style="padding: 14px 20px; text-align: center;">Không giới hạn</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 14px 20px;">Học viên tối đa</td>
-              <td style="padding: 14px 20px; text-align: center;">50</td>
-              <td style="padding: 14px 20px; text-align: center;">500</td>
-              <td style="padding: 14px 20px; text-align: center;">5,000</td>
-              <td style="padding: 14px 20px; text-align: center;">Không giới hạn</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 14px 20px;">AI hỗ trợ học tập</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2718;</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2714;</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2714;</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2714; Nâng cao</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 14px 20px;">Chứng chỉ</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2718;</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2714;</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2714;</td>
-              <td style="padding: 14px 20px; text-align: center;">&#x2714; Tùy chỉnh</td>
-            </tr>
-            <tr>
-              <td style="padding: 14px 20px;">Hỗ trợ</td>
-              <td style="padding: 14px 20px; text-align: center;">Email</td>
-              <td style="padding: 14px 20px; text-align: center;">Email & Chat</td>
-              <td style="padding: 14px 20px; text-align: center;">Ưu tiên</td>
-              <td style="padding: 14px 20px; text-align: center;">24/7</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="about-values">
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F511;</div>
+          <h4>Xác thực tài khoản</h4>
+          <p>Đăng ký qua Email kèm xác thực OTP, hoặc đăng nhập nhanh với Google / Microsoft SSO.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F4DA;</div>
+          <h4>Quản lý đăng ký khóa học</h4>
+          <p>Xem danh mục khóa học, xem chi tiết chương trình học, timeline nội dung và đăng ký tham gia.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F9EE;</div>
+          <h4>Bài kiểm tra trực tuyến</h4>
+          <p>Làm bài kiểm tra 4 dạng câu hỏi: Trắc nghiệm, Điền khuyết, Đúng / Sai, Tự luận. Nhận điểm ngay sau khi nộp.</p>
+        </div>
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F440;</div>
+          <h4>Theo dõi tiến độ</h4>
+          <p>Dashboard cá nhân hiển thị tiến trình từng khóa học, bài đã hoàn thành và điểm số đạt được.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F916;</div>
+          <h4>Trợ lý ảo AI (Chatbot RAG)</h4>
+          <p>Đặt câu hỏi về nội dung khóa học, Chatbot đọc hiểu tài liệu và giải đáp thắc mắc theo ngữ cảnh 24/7.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F30D;</div>
+          <h4>Đa nền tảng</h4>
+          <p>Trải nghiệm đồng nhất trên Web (React) và Mobile (Flutter). Học mọi lúc, mọi nơi.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="cta-section section">
+  <!-- Giảng viên -->
+  <section class="section">
     <div class="container">
-      <div class="cta-content fade-in-scale">
-        <h2>Chưa chắc chắn gói nào phù hợp?</h2>
-        <p>Đội ngũ của chúng tôi sẵn sàng tư vấn giải pháp tốt nhất cho bạn.</p>
-        <div class="cta-buttons">
-          <a href="contact.html" class="btn btn-primary btn-lg">Nhận tư vấn miễn phí</a>
+      <div class="section-header fade-in">
+        <span class="section-tag">Role 2</span>
+        <h2>Giảng viên <span>Instructor</span></h2>
+        <p>Vai trò giảng viên cung cấp toàn bộ công cụ xây dựng khóa học và quản lý đánh giá. Từ tạo nội dung, xây ngân hàng câu hỏi, đến chấm điểm và theo dõi doanh thu.</p>
+      </div>
+      <div class="about-values">
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F4C4;</div>
+          <h4>CRUD khóa học</h4>
+          <p>Tạo, sửa, xóa khóa học. Cấu trúc phân cấp Section &rarr; Lesson, hỗ trợ nhiều định dạng tài liệu PDF, Slide, Video.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F4D1;</div>
+          <h4>Ngân hàng câu hỏi</h4>
+          <p>Xây dựng và quản lý tập trung ngân hàng câu hỏi với 4 định dạng: Trắc nghiệm, Điền khuyết, Đúng / Sai, Tự luận.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F3AF;</div>
+          <h4>Tạo bài kiểm tra</h4>
+          <p>Tạo đề thi từ ngân hàng câu hỏi hoặc để AI tự động sinh đề dựa trên tài liệu bài giảng đã tải lên.</p>
+        </div>
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F522;</div>
+          <h4>Chấm điểm & phản hồi</h4>
+          <p>Câu hỏi trắc nghiệm chấm tự động, câu hỏi tự luận chấm thủ công. Gửi điểm và nhận xét cho học viên.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x2709;</div>
+          <h4>Quản lý ghi danh</h4>
+          <p>Xem danh sách học viên đã đăng ký, gửi thông báo và quản lý lớp học.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F4B0;</div>
+          <h4>Đối soát doanh thu</h4>
+          <p>Theo dõi doanh thu từ khóa học, đối soát giao dịch và thực hiện yêu cầu rút tiền.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quản trị viên -->
+  <section class="section" style="background: var(--bg-alt);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Role 3</span>
+        <h2>Quản trị viên <span>Admin</span></h2>
+        <p>Vai trò quản trị viên vận hành toàn bộ hệ thống. Kiểm soát người dùng, danh mục, phê duyệt giảng viên xác thực và giám sát hoạt động qua Dashboard.</p>
+      </div>
+      <div class="about-values">
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F465;</div>
+          <h4>Quản lý người dùng</h4>
+          <p>Xem, tìm kiếm, khóa / mở khóa tài khoản. Quản lý tập trung toàn bộ người dùng thuộc mọi vai trò.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F5D1;</div>
+          <h4>Phê duyệt giảng viên</h4>
+          <p>Xét duyệt hồ sơ giảng viên qua luồng Workflow, đảm bảo chất lượng người dạy trên nền tảng.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x1F4CA;</div>
+          <h4>Dashboard & Thống kê</h4>
+          <p>Biểu đồ tổng quan số lượng người dùng, khóa học, bài kiểm tra, doanh thu và xu hướng hoạt động.</p>
+        </div>
+        <div class="value-card fade-in stagger-1">
+          <div class="value-icon" style="background: rgba(79,70,229,0.1); color: var(--primary);">&#x1F4C1;</div>
+          <h4>Quản lý danh mục</h4>
+          <p>CRUD danh mục khóa học, phân loại nội dung, cấu hình tags cho hệ thống tìm kiếm.</p>
+        </div>
+        <div class="value-card fade-in stagger-2">
+          <div class="value-icon" style="background: rgba(6,182,212,0.1); color: var(--secondary);">&#x1F6E1;</div>
+          <h4>Phân quyền RBAC</h4>
+          <p>Thiết lập và quản lý Role-Based Access Control chi tiết cho từng vai trò trong hệ thống.</p>
+        </div>
+        <div class="value-card fade-in stagger-3">
+          <div class="value-icon" style="background: rgba(34,197,94,0.1); color: var(--accent);">&#x2699;</div>
+          <h4>Cấu hình API & Hệ thống</h4>
+          <p>Quản lý API RESTful, cấu hình hệ thống, theo dõi nhật ký hoạt động và sao lưu dữ liệu.</p>
         </div>
       </div>
     </div>
@@ -239,7 +208,7 @@
             <a href="../index.html">Trang chủ</a>
             <a href="about.html">Giới thiệu</a>
             <a href="courses.html">Khóa học</a>
-            <a href="pricing.html">Bảng giá</a>
+            <a href="pricing.html">Vai trò</a>
             <a href="blog.html">Blog</a>
             <a href="contact.html">Liên hệ</a>
           </div>
