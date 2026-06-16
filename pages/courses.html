@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Danh sách khóa học trực tuyến tại EdumyVietNam - Lập trình, Data Science, AI, UI/UX Design">
-  <meta name="keywords" content="khóa học trực tuyến, lập trình web, AI, machine learning, data science">
-  <meta name="author" content="EdumyVietNam">
-  <meta property="og:title" content="Khóa học - EdumyVietNam">
-  <meta property="og:description" content="Hàng ngàn khóa học chất lượng cao từ các giảng viên hàng đầu.">
+  <meta name="description" content="Hệ thống quản lý khóa học EDUMY - Tạo, quản lý và tổ chức khóa học trực tuyến với cấu trúc bài giảng đa phương tiện">
+  <meta name="keywords" content="quản lý khóa học, course management, e-learning, bài giảng trực tuyến">
+  <meta name="author" content="Quang Nhat Hung - HUFI">
+  <meta property="og:title" content="Khóa học - EDUMY">
+  <meta property="og:description" content="Hệ thống quản lý khóa học với cấu trúc Section→Lesson, hỗ trợ video, PDF, Slide.">
   <meta name="theme-color" content="#4F46E5">
   <link rel="icon" type="image/png" href="../images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <title>Khóa học - EdumyVietNam</title>
+  <title>Khóa học - EDUMY</title>
 </head>
 <body>
 
@@ -56,8 +56,8 @@
         <span>/</span>
         <span class="current">Khóa học</span>
       </div>
-      <h1>Khóa học <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">trực tuyến</span></h1>
-      <p>Khám phá hàng ngàn khóa học chất lượng cao từ các giảng viên hàng đầu.</p>
+      <h1>Quản lý <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">khóa học</span></h1>
+      <p>Module quản lý khóa học với cấu trúc bài giảng phân tầng, ngân hàng câu hỏi và đánh giá trực tuyến.</p>
     </div>
   </section>
 
@@ -84,196 +84,108 @@
 
       <div class="courses-grid">
         <div class="course-card fade-in stagger-1" data-category="programming">
-          <a href="course-detail.html">
             <div class="course-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-              <span class="course-level">Mới nhất</span>
-              <span class="course-price">1.299.000&#x20AB;</span>
+              <span class="course-level">Quản lý</span>
             </div>
             <div class="course-body">
-              <h4>Lập trình Web Fullstack - React & Node.js</h4>
-              <p class="instructor-name">Nguyễn Văn An</p>
+              <h4>Quản lý vòng đời khóa học</h4>
+              <p class="instructor-name">CRUD: Draft, Review, Published, Archived</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.8</span>
-                <span class="students">&#x1F465; 12,345</span>
+                <span class="rating">&#x1F4C1; Metadata</span>
+                <span class="students">&#x1F4B0; Giá bán & Danh mục</span>
               </div>
             </div>
-          </a>
         </div>
         <div class="course-card fade-in stagger-2" data-category="programming">
-          <a href="course-detail.html">
             <div class="course-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
-              <span class="course-level">Phổ biến</span>
-              <span class="course-price">1.499.000&#x20AB;</span>
+              <span class="course-level">Cấu trúc</span>
             </div>
             <div class="course-body">
-              <h4>Java Spring Boot - Từ Zero đến Pro</h4>
-              <p class="instructor-name">Trần Thị Bích</p>
+              <h4>Cấu trúc học liệu phân tầng</h4>
+              <p class="instructor-name">Section &rarr; Lesson</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.7</span>
-                <span class="students">&#x1F465; 8,920</span>
+                <span class="rating">&#x1F4F9; Video MP4</span>
+                <span class="students">&#x1F4C4; PDF & Slide</span>
               </div>
             </div>
-          </a>
         </div>
-        <div class="course-card fade-in stagger-3" data-category="programming">
-          <a href="course-detail.html">
+        <div class="course-card fade-in stagger-3" data-category="data">
             <div class="course-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
-              <span class="course-level">Hot</span>
-              <span class="course-price">1.199.000&#x20AB;</span>
+              <span class="course-level">Câu hỏi</span>
             </div>
             <div class="course-body">
-              <h4>Golang Backend Development</h4>
-              <p class="instructor-name">Lê Văn Cường</p>
+              <h4>Ngân hàng câu hỏi</h4>
+              <p class="instructor-name">4 định dạng: Single/Multiple/TrueFalse/Essay</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.9</span>
-                <span class="students">&#x1F465; 5,678</span>
+                <span class="rating">&#x1F4E5; Import/Export</span>
+                <span class="students">&#x2705; Đáp án kèm theo</span>
               </div>
             </div>
-          </a>
         </div>
         <div class="course-card fade-in stagger-4" data-category="data">
-          <a href="course-detail.html">
             <div class="course-image" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
-              <span class="course-level">Mới</span>
-              <span class="course-price">2.499.000&#x20AB;</span>
+              <span class="course-level">Kiểm tra</span>
             </div>
             <div class="course-body">
-              <h4>Python AI & Machine Learning</h4>
-              <p class="instructor-name">Phạm Thị Dung</p>
+              <h4>Thiết lập bài kiểm tra</h4>
+              <p class="instructor-name">Thời gian, điểm chuẩn, xáo trộn đề</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.8</span>
-                <span class="students">&#x1F465; 15,234</span>
+                <span class="rating">&#x23F1; Bộ đếm thời gian</span>
+                <span class="students">&#x1F504; Xáo trộn câu hỏi</span>
               </div>
             </div>
-          </a>
         </div>
-        <div class="course-card fade-in stagger-1" data-category="data">
-          <a href="course-detail.html">
+        <div class="course-card fade-in stagger-1" data-category="design">
             <div class="course-image" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
-              <span class="course-level">Phổ biến</span>
-              <span class="course-price">1.999.000&#x20AB;</span>
+              <span class="course-level">Chấm điểm</span>
             </div>
             <div class="course-body">
-              <h4>Data Science với Python</h4>
-              <p class="instructor-name">Hoàng Văn Em</p>
+              <h4>Chấm điểm & Phản hồi</h4>
+              <p class="instructor-name">Tự động (trắc nghiệm) + Thủ công (tự luận)</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.6</span>
-                <span class="students">&#x1F465; 9,876</span>
+                <span class="rating">&#x26A1; Kết quả tức thời</span>
+                <span class="students">&#x1F4DD; Ghi chú phản hồi</span>
               </div>
             </div>
-          </a>
         </div>
-        <div class="course-card fade-in stagger-2" data-category="design">
-          <a href="course-detail.html">
+        <div class="course-card fade-in stagger-2" data-category="devops">
             <div class="course-image" style="background: linear-gradient(135deg, #89f7fe, #66a6ff);">
-              <span class="course-level">Mới</span>
-              <span class="course-price">899.000&#x20AB;</span>
+              <span class="course-level">Thanh toán</span>
             </div>
             <div class="course-body">
-              <h4>UI/UX Design Masterclass</h4>
-              <p class="instructor-name">Mai Thị Phương</p>
+              <h4>Mua bán & Doanh thu</h4>
+              <p class="instructor-name">Giỏ hàng, QR Code, Đối soát</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.9</span>
-                <span class="students">&#x1F465; 7,654</span>
+                <span class="rating">&#x1F4B3; Cổng thanh toán</span>
+                <span class="students">&#x1F4C8; Doanh thu & Rút tiền</span>
               </div>
             </div>
-          </a>
         </div>
-        <div class="course-card fade-in stagger-3" data-category="devops">
-          <a href="course-detail.html">
+        <div class="course-card fade-in stagger-3" data-category="mobile">
             <div class="course-image" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-              <span class="course-level">Hot</span>
-              <span class="course-price">1.799.000&#x20AB;</span>
+              <span class="course-level">AI</span>
             </div>
             <div class="course-body">
-              <h4>DevOps & Cloud Computing</h4>
-              <p class="instructor-name">Đặng Văn Giang</p>
+              <h4>AI hỗ trợ giảng dạy</h4>
+              <p class="instructor-name">Tự động tạo đề thi & Chatbot RAG</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.7</span>
-                <span class="students">&#x1F465; 6,543</span>
+                <span class="rating">&#x1F916; Machine Learning</span>
+                <span class="students">&#x1F4AC; Hỗ trợ 24/7</span>
               </div>
             </div>
-          </a>
-        </div>
-        <div class="course-card fade-in stagger-4" data-category="mobile">
-          <a href="course-detail.html">
-            <div class="course-image" style="background: linear-gradient(135deg, #30cfd0, #330867);">
-              <span class="course-level">Mới</span>
-              <span class="course-price">2.199.000&#x20AB;</span>
-            </div>
-            <div class="course-body">
-              <h4>Mobile Development React Native</h4>
-              <p class="instructor-name">Vũ Thị Hạnh</p>
-              <div class="course-meta">
-                <span class="rating">&#x2B50; 4.8</span>
-                <span class="students">&#x1F465; 4,321</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="course-card fade-in stagger-1" data-category="programming">
-          <a href="course-detail.html">
-            <div class="course-image" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
-              <span class="course-level">Phổ biến</span>
-              <span class="course-price">1.599.000&#x20AB;</span>
-            </div>
-            <div class="course-body">
-              <h4>Python cho người mới bắt đầu</h4>
-              <p class="instructor-name">Nguyễn Văn An</p>
-              <div class="course-meta">
-                <span class="rating">&#x2B50; 4.8</span>
-                <span class="students">&#x1F465; 20,456</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="course-card fade-in stagger-2" data-category="data">
-          <a href="course-detail.html">
-            <div class="course-image" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-              <span class="course-level">Mới</span>
-              <span class="course-price">2.999.000&#x20AB;</span>
-            </div>
-            <div class="course-body">
-              <h4>Deep Learning & Neural Networks</h4>
-              <p class="instructor-name">Phạm Thị Dung</p>
-              <div class="course-meta">
-                <span class="rating">&#x2B50; 4.9</span>
-                <span class="students">&#x1F465; 3,210</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="course-card fade-in stagger-3" data-category="design">
-          <a href="course-detail.html">
-            <div class="course-image" style="background: linear-gradient(135deg, #a8edea, #fed6e3);">
-              <span class="course-level">Hot</span>
-              <span class="course-price">699.000&#x20AB;</span>
-            </div>
-            <div class="course-body">
-              <h4>Figma cho UI/UX Designer</h4>
-              <p class="instructor-name">Mai Thị Phương</p>
-              <div class="course-meta">
-                <span class="rating">&#x2B50; 4.7</span>
-                <span class="students">&#x1F465; 11,234</span>
-              </div>
-            </div>
-          </a>
         </div>
         <div class="course-card fade-in stagger-4" data-category="devops">
-          <a href="course-detail.html">
-            <div class="course-image" style="background: linear-gradient(135deg, #0c3483, #a2b6df);">
-              <span class="course-level">Mới</span>
-              <span class="course-price">2.299.000&#x20AB;</span>
+            <div class="course-image" style="background: linear-gradient(135deg, #30cfd0, #330867);">
+              <span class="course-level">Lưu trữ</span>
             </div>
             <div class="course-body">
-              <h4>Docker & Kubernetes Mastery</h4>
-              <p class="instructor-name">Đặng Văn Giang</p>
+              <h4>Cloud Storage</h4>
+              <p class="instructor-name">Lưu trữ đa phương tiện qua Cloud</p>
               <div class="course-meta">
-                <span class="rating">&#x2B50; 4.8</span>
-                <span class="students">&#x1F465; 4,567</span>
+                <span class="rating">&#x2601; Giảm tải Server</span>
+                <span class="students">&#x1F4E5; Video dung lượng lớn</span>
               </div>
             </div>
-          </a>
         </div>
       </div>
 
@@ -292,7 +204,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <h3><img src="../images/logo.png" alt="Edumy" style="width:32px;height:32px;display:inline;vertical-align:middle;margin-right:8px;"> Edumy</h3>
-          <p>Nền tảng học trực tuyến thế hệ mới, ứng dụng công nghệ AI tiên tiến.</p>
+          <p>Nền tảng E-learning tích hợp quản lý khóa học và đánh giá trực tuyến.</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook">f</a>
             <a href="#" aria-label="YouTube">&#x25B6;</a>

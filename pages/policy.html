@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chính sách và điều khoản sử dụng dịch vụ EdumyVietNam">
-  <meta name="keywords" content="chính sách, điều khoản, bảo mật, thanh toán, hoàn trả">
-  <meta name="author" content="EdumyVietNam">
+  <meta name="description" content="Chính sách và điều khoản tham khảo của nền tảng EDUMY - Dựa trên yêu cầu phi chức năng của hệ thống">
+  <meta name="keywords" content="chính sách, điều khoản, bảo mật, EDUMY">
+  <meta name="author" content="Quang Nhat Hung - HUFI">
   <meta name="theme-color" content="#4F46E5">
   <link rel="icon" type="image/png" href="../images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <title>Chính sách - EdumyVietNam</title>
+  <title>Chính sách - EDUMY</title>
 </head>
 <body>
 
@@ -55,7 +55,7 @@
         <span class="current">Chính sách</span>
       </div>
       <h1>Chính sách & <span style="background: linear-gradient(135deg, #4F46E5, #06B6D4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Điều khoản</span></h1>
-      <p>Thông tin chi tiết về chính sách và điều khoản sử dụng dịch vụ EdumyVietNam.</p>
+      <p>Thông tin tham khảo về chính sách và điều khoản sử dụng nền tảng EDUMY dựa trên yêu cầu thiết kế hệ thống.</p>
     </div>
   </section>
 
@@ -65,61 +65,60 @@
 
         <div class="policy-section fade-in">
           <h3>&#x1F4DC; 1. Điều khoản sử dụng</h3>
-          <p>Chào mừng bạn đến với EdumyVietNam. Bằng việc truy cập và sử dụng website của chúng tôi, bạn đồng ý tuân thủ các điều khoản và điều kiện dưới đây. Nếu bạn không đồng ý với bất kỳ phần nào của điều khoản, vui lòng không sử dụng dịch vụ của chúng tôi.</p>
-          <p>EdumyVietNam có quyền thay đổi, cập nhật các điều khoản này bất cứ lúc nào. Việc tiếp tục sử dụng dịch vụ sau khi thay đổi đồng nghĩa với việc bạn chấp nhận các điều khoản mới.</p>
+          <p>EDUMY là nền tảng E-learning được phát triển như một đề tài khóa luận tốt nghiệp. Bằng việc truy cập và sử dụng nền tảng, bạn đồng ý tuân thủ các điều khoản và điều kiện dưới đây.</p>
           <ul>
-            <li>Người dùng phải từ 13 tuổi trở lên để sử dụng dịch vụ</li>
-            <li>Người dùng chịu trách nhiệm bảo mật thông tin tài khoản</li>
+            <li>Người dùng chịu trách nhiệm bảo mật thông tin tài khoản và mật khẩu</li>
             <li>Không được sử dụng dịch vụ cho mục đích bất hợp pháp</li>
             <li>Không được sao chép, phân phối nội dung khi chưa được cho phép</li>
+            <li>Hệ thống áp dụng phân quyền RBAC giữa Admin, Giảng viên và Học viên</li>
           </ul>
         </div>
 
         <div class="policy-section fade-in">
           <h3>&#x1F512; 2. Chính sách bảo mật</h3>
-          <p>EdumyVietNam cam kết bảo vệ thông tin cá nhân của người dùng. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn.</p>
-          <p><strong>Thông tin chúng tôi thu thập:</strong></p>
+          <p>EDUMY cam kết bảo vệ thông tin người dùng dựa trên các yêu cầu phi chức năng của hệ thống:</p>
+          <p><strong>Biện pháp bảo mật:</strong></p>
           <ul>
-            <li>Thông tin đăng ký: tên, email, số điện thoại</li>
-            <li>Thông tin thanh toán: được mã hóa và bảo mật tuyệt đối</li>
-            <li>Dữ liệu học tập: tiến độ, kết quả thi, bài tập</li>
-            <li>Dữ liệu sử dụng: thời gian truy cập, thiết bị, trình duyệt</li>
+            <li>Toàn bộ giao tiếp Client-Server được mã hóa qua HTTPS (SSL/TLS)</li>
+            <li>Xác thực sử dụng chuẩn JSON Web Token (JWT)</li>
+            <li>Mật khẩu người dùng được băm bằng thuật toán Bcrypt trước khi lưu vào Database</li>
+            <li>Cơ chế Rate Limiting tại API Gateway chống tấn công DDoS và Brute-force</li>
+            <li>Phân quyền Role-Based Access Control (RBAC) giữa các vai trò</li>
           </ul>
-          <p>Chúng tôi sử dụng các biện pháp bảo mật tiên tiến như mã hóa SSL, tường lửa và xác thực đa lớp để bảo vệ dữ liệu của bạn.</p>
         </div>
 
         <div class="policy-section fade-in">
           <h3>&#x1F4B3; 3. Chính sách thanh toán</h3>
-          <p>EdumyVietNam hỗ trợ nhiều phương thức thanh toán an toàn và tiện lợi:</p>
+          <p>Module thanh toán của EDUMY được thiết kế với các đặc điểm sau:</p>
           <ul>
-            <li>Chuyển khoản ngân hàng nội địa</li>
-            <li>Thẻ tín dụng/ghi nợ quốc tế (Visa, Mastercard)</li>
-            <li>Ví điện tử (MoMo, ZaloPay, VNPay)</li>
-            <li>Thanh toán qua cổng VNPay</li>
+            <li>Khởi tạo đơn hàng với mã Order ID duy nhất</li>
+            <li>Tích hợp cổng thanh toán bên thứ ba qua mã QR Code bảo mật</li>
+            <li>Xử lý Webhook/IPN bất đồng bộ để xác thực giao dịch</li>
+            <li>Toàn bộ giao dịch tuân thủ nguyên tắc ACID của cơ sở dữ liệu quan hệ</li>
+            <li>Hỗ trợ đối soát doanh thu và yêu cầu rút tiền cho giảng viên</li>
           </ul>
-          <p>Tất cả giao dịch thanh toán đều được bảo mật và mã hóa theo tiêu chuẩn PCI DSS. Hóa đơn điện tử sẽ được gửi đến email của bạn sau khi thanh toán thành công.</p>
         </div>
 
         <div class="policy-section fade-in">
-          <h3>&#x1F504; 4. Chính sách hoàn trả</h3>
-          <p>Chúng tôi cam kết mang đến sự hài lòng cho học viên. Chính sách hoàn trả của EdumyVietNam như sau:</p>
+          <h3>&#x1F504; 4. Chính sách dữ liệu</h3>
+          <p>EDUMY áp dụng chiến lược quản trị dữ liệu phân tầng:</p>
           <ul>
-            <li><strong>Thời gian hoàn trả:</strong> Trong vòng 7 ngày kể từ ngày đăng ký khóa học</li>
-            <li><strong>Điều kiện:</strong> Nội dung khóa học chưa được xem quá 20%</li>
-            <li><strong>Quy trình:</strong> Gửi yêu cầu qua email support@edumyvietnam.com</li>
-            <li><strong>Thời gian xử lý:</strong> 3-5 ngày làm việc</li>
+            <li><strong>MySQL:</strong> Lưu trữ vĩnh viễn dữ liệu quan hệ cốt lõi (hồ sơ người dùng, cấu trúc bài giảng, ngân hàng câu hỏi, lịch sử giao dịch)</li>
+            <li><strong>Redis:</strong> Bộ nhớ đệm In-Memory cho danh mục tĩnh và trạng thái bài thi thời gian thực</li>
+            <li><strong>Cloud Storage:</strong> Lưu trữ tệp đa phương tiện (video, PDF, hình ảnh)</li>
+            <li>Sao lưu định kỳ (Automated Backup) và khả năng phục hồi thảm họa (Disaster Recovery)</li>
           </ul>
-          <p>Đối với các gói đăng ký định kỳ, bạn có thể hủy bất cứ lúc nào và sẽ không bị tính phí cho kỳ tiếp theo.</p>
         </div>
 
         <div class="policy-section fade-in">
-          <h3>&#x1F4C5; 5. Chính sách cập nhật</h3>
-          <p>EdumyVietNam có quyền cập nhật và thay đổi các chính sách này để phù hợp với quy định pháp luật và nhu cầu kinh doanh. Chúng tôi sẽ thông báo cho người dùng về những thay đổi quan trọng qua email hoặc thông báo trên website.</p>
-          <p>Mọi thắc mắc về chính sách, vui lòng liên hệ chúng tôi qua:</p>
+          <h3>&#x1F4C5; 5. Chính sách kỹ thuật</h3>
+          <p>Các tiêu chuẩn kỹ thuật của nền tảng EDUMY:</p>
           <ul>
-            <li>Email: quangnhathung2005@gmail.com</li>
-            <li>Hotline: 0838557433</li>
-            <li>Địa chỉ: 77 Bùi Xuân Phái, TPHCM</li>
+            <li><strong>Hiệu năng:</strong> API thông thường phản hồi dưới 2 giây, API nộp bài dưới 500ms</li>
+            <li><strong>Khả năng chịu tải:</strong> Tối thiểu 1000 người dùng đồng thời, hỗ trợ Horizontal Scaling</li>
+            <li><strong>Độ tin cậy:</strong> Hướng tới Uptime 99.9%</li>
+            <li><strong>Triển khai:</strong> Docker Containerization, sẵn sàng cho CI/CD</li>
+            <li><strong>Responsive:</strong> Giao diện tối ưu cho Desktop, Tablet và Mobile</li>
           </ul>
         </div>
 
@@ -132,7 +131,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <h3><img src="../images/logo.png" alt="Edumy" style="width:32px;height:32px;display:inline;vertical-align:middle;margin-right:8px;"> Edumy</h3>
-          <p>Nền tảng học trực tuyến thế hệ mới, ứng dụng công nghệ AI tiên tiến.</p>
+          <p>Nền tảng E-learning tích hợp quản lý khóa học và đánh giá trực tuyến.</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook">f</a>
             <a href="#" aria-label="YouTube">&#x25B6;</a>
