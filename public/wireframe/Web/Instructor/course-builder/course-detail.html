@@ -834,28 +834,74 @@
         color: var(--neutral-700);
       }
 
-      /* ============ INLINE ADD FORM ============ */
-      .add-panel {
-        flex-shrink: 0;
-      }
-      .add-panel > summary {
-        list-style: none;
-      }
-      .add-panel > summary::-webkit-details-marker {
+      /* ============ MODAL DIALOG ============ */
+      .modal-toggle {
         display: none;
       }
-      .add-body {
-        margin-top: 12px;
-        background: var(--neutral-0);
-        border: 1px solid var(--border-default);
-        border-radius: 14px;
-        padding: 22px 24px;
-        box-shadow: var(--shadow-sm);
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
       }
-      .add-title {
+      .modal-toggle:checked ~ .modal {
+        display: flex;
+      }
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+      }
+      .modal-card {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+        max-height: calc(100vh - 40px);
+        overflow: auto;
+        background: var(--neutral-0);
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+      }
+      .modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--neutral-100);
+      }
+      .modal-title {
         font-size: 15px;
         font-weight: 800;
-        margin-bottom: 16px;
+      }
+      .modal-close {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--neutral-500);
+        background: var(--neutral-100);
+        cursor: pointer;
+        transition:
+          color 0.15s,
+          background 0.15s;
+      }
+      .modal-close:hover {
+        color: var(--neutral-900);
+        background: var(--neutral-200);
+      }
+      .modal-body {
+        padding: 22px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
       }
       .field {
         margin-bottom: 16px;
@@ -899,11 +945,15 @@
         min-height: 90px;
         line-height: 1.6;
       }
-      .add-actions {
+      .modal-actions {
         display: flex;
         justify-content: flex-end;
         gap: 12px;
-        margin-top: 4px;
+        padding: 16px 22px;
+        border-top: 1px solid var(--neutral-100);
+      }
+      .modal-actions .btn-ghost {
+        color: var(--neutral-600);
       }
 
       /* ============ LESSON TYPE SELECTOR ============ */
@@ -958,13 +1008,16 @@
         .list-head {
           align-items: stretch;
         }
-        .add-panel {
+        .list-head .btn {
           width: 100%;
         }
-        .add-actions {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal-actions {
           flex-direction: column-reverse;
         }
-        .add-actions .btn {
+        .modal-actions .btn {
           width: 100%;
         }
         .type-select {
@@ -1047,31 +1100,6 @@
         gap: 16px;
         position: sticky;
         top: 88px;
-      }
-
-      .stat-row {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 14px;
-        margin-bottom: 26px;
-      }
-      .stat {
-        background: var(--neutral-0);
-        border: 1px solid var(--border-default);
-        border-radius: 14px;
-        padding: 16px 14px;
-        text-align: center;
-      }
-      .stat .n {
-        font-size: 20px;
-        font-weight: 800;
-        letter-spacing: -0.3px;
-      }
-      .stat .l {
-        font-size: 12px;
-        color: var(--text-tertiary);
-        font-weight: 600;
-        margin-top: 3px;
       }
 
       .curriculum {
@@ -1164,14 +1192,8 @@
           width: 100%;
           height: 180px;
         }
-        .stat-row {
-          grid-template-columns: repeat(3, 1fr);
-        }
       }
       @media (max-width: 640px) {
-        .stat-row {
-          grid-template-columns: repeat(2, 1fr);
-        }
         .detail-aside {
           grid-template-columns: 1fr;
         }
@@ -1507,21 +1529,6 @@
                   React phổ biến nhất hiện nay.
                 </p>
                 <div class="hero-actions">
-                  <a href="course-detail.html" class="btn btn-outline">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                    Preview
-                  </a>
                   <a href="create-course.html" class="btn btn-outline">
                     <svg
                       width="15"
@@ -1561,81 +1568,109 @@
 
             <div class="detail-grid">
               <div class="detail-main">
-                <div class="stat-row">
-                  <div class="stat">
-                    <div class="n">1.2k</div>
-                    <div class="l">Students</div>
-                  </div>
-                  <div class="stat">
-                    <div class="n">4.8</div>
-                    <div class="l">Rating</div>
-                  </div>
-                  <div class="stat">
-                    <div class="n">19</div>
-                    <div class="l">Lessons</div>
-                  </div>
-                  <div class="stat">
-                    <div class="n">7h 05m</div>
-                    <div class="l">Duration</div>
-                  </div>
-                  <div class="stat">
-                    <div class="n">3</div>
-                    <div class="l">Sections</div>
-                  </div>
-                </div>
-
                 <div class="curriculum">
                   <div class="list-head">
                     <div class="list-title">
                       Curriculum <span class="count">3</span>
                     </div>
-                    <details class="add-panel">
-                      <summary class="btn btn-primary">
-                        <svg
-                          width="15"
-                          height="15"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.4"
-                          stroke-linecap="round"
-                        >
-                          <line x1="12" y1="5" x2="12" y2="19" />
-                          <line x1="5" y1="12" x2="19" y2="12" />
-                        </svg>
-                        Add Section
-                      </summary>
-                      <div class="add-body">
-                        <div class="add-title">Create Section</div>
-                        <div class="field">
-                          <label for="secName"
-                            >Section Name <span class="req">*</span></label
+                    <input
+                      type="checkbox"
+                      id="addSectionModal"
+                      class="modal-toggle"
+                      hidden
+                    />
+                    <label for="addSectionModal" class="btn btn-primary">
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                      >
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                      Add Section
+                    </label>
+
+                    <div class="modal">
+                      <label
+                        for="addSectionModal"
+                        class="modal-backdrop"
+                      ></label>
+                      <div class="modal-card">
+                        <div class="modal-head">
+                          <div class="modal-title">Create Section</div>
+                          <label for="addSectionModal" class="modal-close"
+                            >✕</label
                           >
-                          <input
-                            class="input"
-                            id="secName"
-                            type="text"
-                            placeholder="Enter section name"
-                          />
                         </div>
-                        <div class="field">
-                          <label for="secDesc">Description</label>
-                          <textarea
-                            class="textarea"
-                            id="secDesc"
-                            placeholder="Section description..."
-                          ></textarea>
+                        <div class="modal-body">
+                          <div class="field">
+                            <label for="secName"
+                              >Section Name <span class="req">*</span></label
+                            >
+                            <input
+                              class="input"
+                              id="secName"
+                              type="text"
+                              placeholder="VD: Giới thiệu về React"
+                            />
+                          </div>
+                          <div class="field">
+                            <label for="secDesc">Description</label>
+                            <textarea
+                              class="textarea"
+                              id="secDesc"
+                              placeholder="Mô tả ngắn nội dung của section này..."
+                            ></textarea>
+                          </div>
+                          <div class="form-grid">
+                            <div class="field">
+                              <label for="secOrder">Order</label>
+                              <select class="input" id="secOrder">
+                                <option>1 — Đầu tiên</option>
+                                <option>2 — Sau Section 1</option>
+                                <option>3 — Sau Section 2</option>
+                                <option>4 — Cuối khóa học</option>
+                              </select>
+                            </div>
+                            <div class="field">
+                              <label for="secDuration"
+                                >Estimated Duration</label
+                              >
+                              <input
+                                class="input"
+                                id="secDuration"
+                                type="text"
+                                placeholder="VD: 1 giờ 20 phút"
+                              />
+                            </div>
+                          </div>
+                          <div class="field">
+                            <label for="secStatus">Status</label>
+                            <select class="input" id="secStatus">
+                              <option>Draft</option>
+                              <option>Published</option>
+                            </select>
+                          </div>
                         </div>
-                        <div class="add-actions">
-                          <button type="button" class="btn btn-ghost">
-                            Cancel
-                          </button>
-                          <a href="course-detail.html" class="btn btn-primary"
+                        <div class="modal-actions">
+                          <label
+                            for="addSectionModal"
+                            class="btn btn-ghost"
+                            >Cancel</label
+                          >
+                          <a
+                            href="course-detail.html"
+                            class="btn btn-primary"
                             >Create Section</a
                           >
                         </div>
                       </div>
-                    </details>
+                    </div>
                   </div>
 
                   <div class="builder-list">
@@ -1780,9 +1815,6 @@
                   <button class="btn btn-primary btn-block">
                     Publish Course
                   </button>
-                  <a href="course-detail.html" class="btn btn-outline btn-block"
-                    >Preview Course</a
-                  >
                 </div>
                 <div class="panel panel-danger">
                   <div class="panel-title">Danger Zone</div>
