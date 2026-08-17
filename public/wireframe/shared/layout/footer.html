@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUMY — Footer</title>
+<style>
+  /* ============ DESIGN TOKENS (color_desc.xlsx) ============ */
+  :root {
+    --primary-50:   #EFF4FF;
+    --primary-100:  #DBE8FF;
+    --primary-200:  #BFD3FF;
+    --primary-300:  #93B4FF;
+    --primary-400:  #608CFF;
+    --primary-500:  #2558E5;
+    --primary-600:  #1D44CD;
+    --primary-700:  #1634A1;
+    --primary-800:  #122A7F;
+    --primary-900:  #0E1F5A;
+    --secondary-400:#FF8265;
+    --secondary-500:#FF6B4A;
+    --secondary-600:#E65132;
+    --neutral-0:   #FFFFFF;
+    --neutral-50:  #F8FAFC;
+    --neutral-100: #F1F5F9;
+    --neutral-200: #E2E8F0;
+    --neutral-300: #CBD5E1;
+    --neutral-400: #94A3B8;
+    --neutral-500: #64748B;
+    --neutral-600: #475569;
+    --neutral-700: #334155;
+    --neutral-800: #1E293B;
+    --neutral-900: #0F172A;
+    --success-500: #10B981;
+    --warning-500: #F59E0B;
+    --error-500:   #F43F5E;
+    --info-500:    #0EA5E9;
+
+    --text-secondary:var(--neutral-600);
+    --text-tertiary: var(--neutral-500);
+    --border-default: var(--neutral-200);
+    --font: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); color: var(--neutral-900); min-height: 100vh; display: flex; flex-direction: column; background: var(--neutral-50); }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: var(--font); cursor: pointer; }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    background: var(--neutral-800);
+    color: var(--neutral-300);
+    margin-top: auto;
+  }
+
+  /* ===== Main columns ===== */
+  .footer-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr 1.4fr;
+    gap: 40px;
+  }
+
+  .footer-brand .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .footer-brand img { height: 34px; width: auto; }
+  .footer-brand .brand-name { font-size: 20px; font-weight: 800; color: #fff; }
+  .footer-brand p { font-size: 14px; line-height: 1.7; color: var(--neutral-400); margin-bottom: 20px; max-width: 320px; }
+
+  .socials { display: flex; gap: 10px; }
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06);
+    color: var(--neutral-300);
+    display: grid;
+    place-items: center;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .social-btn:hover { background: var(--primary-500); color: #fff; transform: translateY(-2px); border-color: var(--primary-500); }
+
+  .footer-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+  .footer-col ul { list-style: none; display: grid; gap: 12px; }
+  .footer-col li a { font-size: 14px; color: var(--neutral-400); transition: color 0.2s, padding-left 0.2s; }
+  .footer-col li a:hover { color: var(--primary-300); padding-left: 4px; }
+
+  /* ===== Contact ===== */
+  .contact-list { list-style: none; display: grid; gap: 14px; }
+  .contact-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--neutral-400); line-height: 1.6; }
+  .contact-list .contact-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+  }
+
+  /* ===== Bottom bar ===== */
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 24px;
+  }
+  .footer-bottom-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--neutral-500);
+  }
+  .footer-bottom-inner .make { color: var(--neutral-400); }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a { color: var(--neutral-400); transition: color 0.2s; }
+  .footer-bottom-links a:hover { color: var(--primary-300); }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 600px) {
+    .footer-main { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ DEMO CONTENT ============ -->
+  <main style="max-width: 1280px; margin: 0 auto; padding: 48px 24px;">
+    <h1 style="font-size: 26px; font-weight: 800; margin-bottom: 8px;">Trang demo</h1>
+    <p style="color: var(--text-secondary);">Footer nằm đáy trang, nền Neutral 800 (#1E293B) — không dùng màu Primary.</p>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+
+    <!-- Main columns -->
+    <div class="footer-main">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="logo-row">
+          <img src="logo/logo-removebg-preview.png" alt="EDUMY logo">
+          <span class="brand-name">EDUMY</span>
+        </div>
+        <p>Nền tảng E-learning tích hợp quản lý khóa học và đánh giá trực tuyến — kết hợp sức mạnh AI, hướng tới nền giáo dục số toàn diện.</p>
+        <div class="socials">
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="YouTube">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Zalo">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.03 2 11.04c0 2.73 1.4 5.15 3.6 6.75-.06.43-.25 1.56-.27 1.8 0 0-.03.3.25.33.25.03.47-.13 1.2-.6.52-.34.96-.66 1.32-.94 1.17.36 2.42.55 3.7.55 5.5 0 10-4.03 10-9.05C22 6.03 17.5 2 12 2zm3.55 11.02H8.45c-.3 0-.54-.24-.54-.54v-1.3c0-.3.24-.54.54-.54h7.1c.3 0 .54.24.54.54v1.3c0 .3-.24.54-.54.54zm0-4.35H8.45c-.3 0-.54-.24-.54-.54v-1.3c0-.3.24-.54.54-.54h7.1c.3 0 .54.24.54.54v1.3c0 .3-.24.54-.54.54z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="TikTok">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Email">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column: Về EDUMY -->
+      <div class="footer-col">
+        <h4>Về EDUMY</h4>
+        <ul>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Tin tức & Blog</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+          <li><a href="#">Hợp tác đào tạo</a></li>
+          <li><a href="#">Hướng dẫn sử dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- Column: Khóa học -->
+      <div class="footer-col">
+        <h4>Khóa học</h4>
+        <ul>
+          <li><a href="#">Lập trình Web</a></li>
+          <li><a href="#">Công nghệ thông tin</a></li>
+          <li><a href="#">AI & Machine Learning</a></li>
+          <li><a href="#">Ngoại ngữ</a></li>
+          <li><a href="#">Kỹ năng mềm</a></li>
+        </ul>
+      </div>
+
+      <!-- Column: Hỗ trợ -->
+      <div class="footer-col">
+        <h4>Hỗ trợ</h4>
+        <ul>
+          <li><a href="#">Trung tâm trợ giúp</a></li>
+          <li><a href="#">Câu hỏi thường gặp</a></li>
+          <li><a href="#">Điều khoản dịch vụ</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Khiếu nại & bồi hoàn</a></li>
+        </ul>
+      </div>
+
+      <!-- Column: Liên hệ -->
+      <div class="footer-col">
+        <h4>Liên hệ</h4>
+        <ul class="contact-list">
+          <li><span class="contact-icon">📍</span> 77 Bùi Xuân Phái, Phường Phú Mỹ Hưng, Quận 7, TP.HCM</li>
+          <li><span class="contact-icon">📞</span> 0838 557 433</li>
+          <li><span class="contact-icon">✉️</span> quangnhathung2005@gmail.com</li>
+          <li><span class="contact-icon">🌐</span> edumy.nhathungdev.site</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <div>© 2026 EDUMY. Đề tài khóa luận tốt nghiệp — Khoa CNTT, Đại học Công Thương TP.HCM.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Điều khoản</a>
+          <a href="#">Bảo mật</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+</body>
+</html>

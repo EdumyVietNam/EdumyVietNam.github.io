@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUMY — Secondary Button</title>
+<style>
+  :root {
+    --secondary-50:#FFF0ED; --secondary-100:#FFDFD6; --secondary-200:#FFC4B5;
+    --secondary-300:#FFA18A; --secondary-400:#FF8265; --secondary-500:#FF6B4A;
+    --secondary-600:#E65132; --secondary-700:#B33A21;
+    --neutral-0:#FFFFFF; --neutral-50:#F8FAFC; --neutral-100:#F1F5F9;
+    --neutral-200:#E2E8F0; --neutral-300:#CBD5E1; --neutral-400:#94A3B8;
+    --neutral-700:#334155; --neutral-900:#0F172A;
+    --radius:12px;
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font);background:var(--neutral-50);color:var(--neutral-900);padding:40px;min-height:100vh;}
+  .wrap{max-width:960px;margin:0 auto;}
+  h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+  .sub{font-size:13px;color:var(--neutral-400);margin-bottom:32px;}
+  h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--neutral-700);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--neutral-200);}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  .stat{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .stat-name{font-size:11px;font-weight:600;color:var(--neutral-400);text-transform:uppercase;letter-spacing:1px;}
+
+  /* ================= SECONDARY BUTTON ================= */
+  .btn-secondary{
+    font-family:var(--font);
+    font-size:15px;font-weight:700;
+    padding:13px 28px;
+    color:#fff;background:var(--secondary-500);
+    border:1px solid var(--secondary-500);border-radius:var(--radius);
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(255,107,74,0.30);
+    transition:background .2s,border-color .2s,box-shadow .2s,transform .05s;
+  }
+  .btn-secondary:hover{background:var(--secondary-400);border-color:var(--secondary-400);box-shadow:0 8px 20px rgba(255,107,74,0.38);}
+  .btn-secondary:active{background:var(--secondary-600);border-color:var(--secondary-600);box-shadow:0 2px 8px rgba(255,107,74,0.30);}
+  .btn-secondary:disabled{background:var(--neutral-100);border-color:var(--neutral-100);color:var(--neutral-400);box-shadow:none;cursor:not-allowed;}
+
+  /* Preview */
+  .btn-secondary.is-hover{background:var(--secondary-400);border-color:var(--secondary-400);box-shadow:0 8px 20px rgba(255,107,74,0.38);}
+  .btn-secondary.is-active{background:var(--secondary-600);border-color:var(--secondary-600);box-shadow:0 2px 8px rgba(255,107,74,0.30);}
+  .btn-secondary.is-disable{background:var(--neutral-100);border-color:var(--neutral-100);color:var(--neutral-400);box-shadow:none;cursor:not-allowed;}
+
+  .note{font-size:12px;color:var(--neutral-400);margin-top:14px;line-height:1.7;}
+  .box{background:#fff;border:1px solid var(--neutral-200);border-radius:12px;padding:20px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Secondary Button</h1>
+    <p class="sub">Màu phụ trợ EDUMY — Secondary 500 <code>#FF6B4A</code>. Dùng cho Course Tags, Badges, hành động phụ.</p>
+
+    <h2>Demo live — di chuột để xem Hover, nhấn giữ để xem Active</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-secondary">Mua ngay</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-secondary">Mua ngay</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-secondary">Mua ngay</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-secondary" disabled>Mua ngay</button><span class="stat-name">Disable</span></div>
+      </div>
+    </div>
+
+    <h2>Preview — hiển thị tĩnh 4 trạng thái</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-secondary">Mua ngay</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-secondary is-hover">Mua ngay</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-secondary is-active">Mua ngay</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-secondary is-disable" disabled>Mua ngay</button><span class="stat-name">Disable</span></div>
+      </div>
+      <p class="note">Hover: Secondary 400 · Active: Secondary 600 · Disable: Neutral 100 nền + Neutral 400 chữ.</p>
+    </div>
+  </div>
+</body>
+</html>

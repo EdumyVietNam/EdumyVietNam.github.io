@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUMY — Nền tảng học trực tuyến tích hợp AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ DESIGN TOKENS (color_desc.xlsx) ============ */
+  :root {
+    --primary-50:#EFF4FF; --primary-100:#DBE8FF; --primary-200:#BFD3FF;
+    --primary-300:#93B4FF; --primary-400:#608CFF; --primary-500:#2558E5;
+    --primary-600:#1D44CD; --primary-700:#1634A1; --primary-800:#122A7F; --primary-900:#0E1F5A;
+    --secondary-50:#FFF0ED; --secondary-100:#FFDFD6; --secondary-200:#FFC4B5;
+    --secondary-400:#FF8265; --secondary-500:#FF6B4A; --secondary-600:#E65132; --secondary-700:#B33A21;
+    --neutral-0:#FFFFFF; --neutral-50:#F8FAFC; --neutral-100:#F1F5F9; --neutral-200:#E2E8F0;
+    --neutral-300:#CBD5E1; --neutral-400:#94A3B8; --neutral-500:#64748B; --neutral-600:#475569;
+    --neutral-700:#334155; --neutral-800:#1E293B; --neutral-900:#0F172A;
+    --success-50:#ECFDF5; --success-500:#10B981; --success-600:#059669; --success-700:#047857;
+    --warning-500:#F59E0B; --error-500:#F43F5E; --info-500:#0EA5E9;
+
+    --text-primary: var(--neutral-900);
+    --text-secondary: var(--neutral-600);
+    --text-tertiary: var(--neutral-500);
+    --border-default: var(--neutral-200);
+    --surface-hover: var(--neutral-50);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 4px 20px rgba(15,23,42,0.08);
+    --shadow-lg: 0 12px 32px rgba(15,23,42,0.12);
+    --font:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--neutral-50);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: var(--font); cursor: pointer; }
+  img { display: block; }
+
+  .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  /* ============ NAVBAR (shared/layout/navbar.html) ============ */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--neutral-0);
+    border-bottom: 1px solid var(--border-default);
+    box-shadow: 0 1px 0 var(--border-default), 0 4px 24px rgba(15,23,42,0.06);
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-logo img { height: 34px; width: auto; }
+  .nav-logo .brand-name { font-size: 20px; font-weight: 800; letter-spacing: 0.3px; }
+  .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; }
+  .nav-link {
+    padding: 9px 14px; font-size: 14px; font-weight: 600; color: var(--text-secondary);
+    border-radius: 10px; border: none; background: transparent; transition: color 0.2s, background 0.2s;
+  }
+  .nav-link:hover { color: var(--primary-600); background: var(--surface-hover); }
+  .nav-link.active { color: var(--primary-600); background: var(--primary-50); }
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .search-box { position: relative; width: 220px; }
+  .search-box input {
+    width: 100%; padding: 10px 14px 10px 40px; font-size: 14px; color: var(--text-primary);
+    background: var(--neutral-50); border: 1.5px solid var(--border-default); border-radius: 10px;
+    outline: none; transition: all 0.2s;
+  }
+  .search-box input::placeholder { color: var(--neutral-400); }
+  .search-box input:focus { background: var(--neutral-0); border-color: var(--primary-500); box-shadow: 0 0 0 4px var(--primary-50); }
+  .search-box svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--neutral-400); }
+  .icon-btn {
+    position: relative; width: 42px; height: 42px; border-radius: 11px; border: none;
+    background: var(--neutral-50); color: var(--neutral-600); display: grid; place-items: center;
+    transition: background 0.2s, color 0.2s;
+  }
+  .icon-btn:hover { background: var(--primary-50); color: var(--primary-600); }
+  .icon-btn .badge {
+    position: absolute; top: 6px; right: 6px; min-width: 16px; height: 16px; padding: 0 4px;
+    border-radius: 999px; background: var(--error-500); color: #fff; font-size: 10px; font-weight: 700;
+    display: grid; place-items: center; border: 2px solid var(--neutral-0);
+  }
+  .icon-btn .badge.secondary { background: var(--secondary-500); }
+  .user-btn {
+    display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px;
+    border-radius: 999px; border: 1.5px solid var(--border-default); background: var(--neutral-0);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .user-btn:hover { background: var(--surface-hover); border-color: var(--neutral-300); }
+  .user-btn .avatar {
+    position: relative; width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-700)); color: #fff;
+    font-size: 13px; font-weight: 700; display: grid; place-items: center; overflow: hidden;
+  }
+  .user-btn .user-name { font-size: 14px; font-weight: 600; }
+  .user-btn .chevron { color: var(--neutral-400); font-size: 12px; }
+  .hamburger { display: none; background: none; border: none; width: 42px; height: 42px; border-radius: 11px; color: var(--neutral-700); place-items: center; }
+  .hamburger:hover { background: var(--neutral-100); }
+
+  /* ============ HERO ============ */
+  .hero {
+    background:
+      radial-gradient(900px 420px at 85% -10%, rgba(37,88,229,0.10), transparent 60%),
+      radial-gradient(700px 380px at -10% 110%, rgba(255,107,74,0.08), transparent 60%),
+      var(--neutral-0);
+    border-bottom: 1px solid var(--border-default);
+  }
+  .hero-inner {
+    max-width: 1280px; margin: 0 auto; padding: 72px 24px 84px;
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px; border-radius: 999px;
+    background: var(--primary-50); border: 1px solid var(--primary-100);
+    color: var(--primary-700); font-size: 13px; font-weight: 700; margin-bottom: 22px;
+  }
+  .hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success-500); }
+  .hero h1 {
+    font-size: 48px; line-height: 1.12; font-weight: 800; letter-spacing: -0.6px;
+    margin-bottom: 18px;
+  }
+  .hero h1 .hl {
+    background: linear-gradient(120deg, var(--primary-500), var(--primary-700));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero h1 .hl-ai {
+    background: linear-gradient(120deg, var(--secondary-500), var(--secondary-600));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-desc {
+    font-size: 17px; line-height: 1.65; color: var(--text-secondary);
+    max-width: 540px; margin-bottom: 30px;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; font-size: 15px; font-weight: 700; color: #fff;
+    background: var(--primary-500); border: 1.5px solid var(--primary-500); border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(37,88,229,0.3); transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--primary-400); border-color: var(--primary-400); transform: translateY(-1px); }
+  .btn-primary:active { background: var(--primary-600); transform: translateY(0); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; font-size: 15px; font-weight: 700; color: var(--text-primary);
+    background: var(--neutral-0); border: 1.5px solid var(--border-default); border-radius: 12px;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--primary-400); color: var(--primary-600); background: var(--primary-50); }
+
+  .hero-meta {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--border-default);
+  }
+  .hero-stat .num { font-size: 20px; font-weight: 800; color: var(--neutral-900); }
+  .hero-stat .lbl { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+  .hero-stat .num em { font-style: normal; color: var(--secondary-500); }
+
+  /* Hero visual */
+  .hero-visual { position: relative; }
+  .hero-card {
+    position: relative; background: var(--neutral-0);
+    border: 1px solid var(--border-default); border-radius: 20px;
+    box-shadow: var(--shadow-lg); overflow: hidden;
+  }
+  .hero-card-media { height: 300px; position: relative; background: linear-gradient(135deg, var(--primary-500), var(--primary-900)); }
+  .hero-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+  .hero-card-play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(255,255,255,0.95); color: var(--primary-600);
+    display: grid; place-items: center; box-shadow: 0 10px 30px rgba(15,23,42,0.25);
+  }
+  .hero-card-body { padding: 20px 22px 22px; }
+  .hero-card-body h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .hero-card-body p { font-size: 13px; color: var(--text-tertiary); margin-bottom: 14px; }
+  .hero-card-progress { display: flex; align-items: center; gap: 12px; }
+  .hero-card-progress .track { flex: 1; height: 8px; border-radius: 999px; background: var(--neutral-100); overflow: hidden; }
+  .hero-card-progress .fill { height: 100%; width: 68%; border-radius: 999px; background: linear-gradient(90deg, var(--primary-500), var(--primary-400)); }
+  .hero-card-progress .pct { font-size: 13px; font-weight: 700; color: var(--primary-600); }
+
+  .hero-float {
+    position: absolute; display: flex; align-items: center; gap: 12px;
+    background: var(--neutral-0); border: 1px solid var(--border-default);
+    border-radius: 14px; padding: 12px 16px; box-shadow: var(--shadow-md);
+  }
+  .hero-float .fi {
+    width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+    display: grid; place-items: center;
+  }
+  .fi-blue { background: var(--primary-50); color: var(--primary-600); }
+  .fi-orange { background: var(--secondary-50); color: var(--secondary-500); }
+  .fi-green { background: var(--success-50); color: var(--success-600); }
+  .hero-float .ft { font-size: 13px; font-weight: 700; }
+  .hero-float .fs { font-size: 12px; color: var(--text-tertiary); }
+  .float-1 { top: 24px; left: -34px; animation: floaty 4s ease-in-out infinite; }
+  .float-2 { bottom: 96px; right: -26px; animation: floaty 5s ease-in-out 0.6s infinite; }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  /* ============ LOGO STRIP ============ */
+  .logo-strip { border-bottom: 1px solid var(--border-default); background: var(--neutral-0); }
+  .logo-strip-inner {
+    max-width: 1280px; margin: 0 auto; padding: 22px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap;
+  }
+  .logo-strip .ls-label { font-size: 13px; font-weight: 600; color: var(--text-tertiary); white-space: nowrap; }
+  .logo-strip .ls-list { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
+  .logo-strip .ls-item { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; color: var(--neutral-400); }
+  .logo-strip .ls-item svg { color: var(--neutral-300); }
+
+  /* ============ SECTION COMMON ============ */
+  .section { padding: 84px 24px; }
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--secondary-600); background: var(--secondary-50);
+    border: 1px solid var(--secondary-100); border-radius: 999px; padding: 6px 14px; margin-bottom: 16px;
+  }
+  .section-head h2 { font-size: 36px; line-height: 1.15; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 14px; }
+  .section-head p { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+
+  /* ============ CATEGORIES ============ */
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .cat-card {
+    display: flex; flex-direction: column; gap: 14px;
+    background: var(--neutral-0); border: 1px solid var(--border-default);
+    border-radius: 16px; padding: 24px; transition: all 0.25s;
+  }
+  .cat-card:hover { transform: translateY(-4px); border-color: var(--primary-200); box-shadow: var(--shadow-md); }
+  .cat-icon { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; }
+  .cat-card h3 { font-size: 16px; font-weight: 700; }
+  .cat-card .cat-count { font-size: 13px; color: var(--text-tertiary); }
+  .cat-card .cat-link {
+    margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 700; color: var(--primary-600);
+  }
+  .cat-card:hover .cat-link { color: var(--primary-700); }
+
+  /* ============ COURSE GRID (course-list) ============ */
+  .course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .course-card {
+    display: flex; flex-direction: column; background: var(--neutral-0);
+    border: 1px solid var(--border-default); border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  }
+  .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary-200); }
+  .card-media { position: relative; height: 140px; display: grid; place-items: center; overflow: hidden; }
+  .card-media img.thumb-img { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .course-card:hover .card-media img.thumb-img { transform: scale(1.06); }
+  .card-media .media-veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(15,23,42,0.05), rgba(15,23,42,0.28)); opacity: 0; transition: opacity 0.3s; }
+  .course-card:hover .card-media .media-veil { opacity: 1; }
+  .card-media .play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.85); z-index: 2;
+    width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,0.94); color: var(--primary-600);
+    display: grid; place-items: center; opacity: 0;
+    transition: opacity 0.3s, transform 0.3s; box-shadow: 0 8px 22px rgba(15,23,42,0.28);
+  }
+  .course-card:hover .card-media .play-btn { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  .grad-web { background: linear-gradient(135deg, var(--primary-500), var(--primary-800)); }
+  .grad-ai { background: linear-gradient(135deg, var(--primary-800), var(--primary-900)); }
+  .grad-mobile { background: linear-gradient(135deg, var(--secondary-400), var(--secondary-600)); }
+  .grad-lang { background: linear-gradient(135deg, #34d399, var(--success-600)); }
+  .badge-sale {
+    position: absolute; left: 14px; top: 14px; z-index: 2;
+    background: var(--secondary-500); color: #fff; font-size: 12px; font-weight: 700;
+    padding: 4px 10px; border-radius: 999px; box-shadow: 0 4px 12px rgba(255,107,74,0.35);
+  }
+  .card-media .cart-btn {
+    position: absolute; right: 12px; top: 12px; z-index: 3; width: 34px; height: 34px;
+    border-radius: 50%; background: rgba(255,255,255,0.94); border: none; color: var(--neutral-600);
+    display: grid; place-items: center; opacity: 0; transform: translateY(-4px) scale(0.9);
+    transition: opacity 0.25s, transform 0.25s, color 0.2s, background 0.2s;
+    box-shadow: 0 6px 16px rgba(15,23,42,0.18);
+  }
+  .course-card:hover .card-media .cart-btn { opacity: 1; transform: translateY(0) scale(1); }
+  .cart-btn:hover { color: var(--primary-600); background: var(--neutral-0); transform: translateY(0) scale(1.08); }
+  .card-body { display: flex; flex-direction: column; flex: 1; padding: 14px 16px 0; }
+  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .cat-tag { font-size: 11px; font-weight: 700; color: var(--secondary-600); background: var(--secondary-50); border: 1px solid var(--secondary-100); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .level { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .level-basic { color: var(--success-700); background: var(--success-50); }
+  .card-title { margin-top: 10px; font-size: 15px; font-weight: 700; line-height: 1.35; color: var(--neutral-900); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px; }
+  .card-title a { color: inherit; transition: color 0.2s; }
+  .course-card:hover .card-title a { color: var(--primary-600); }
+  .card-desc { margin-top: 6px; font-size: 12.5px; line-height: 1.55; color: var(--text-tertiary); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-rating { display: flex; align-items: center; gap: 6px; margin-top: 12px; }
+  .card-rating .score { font-size: 13px; font-weight: 700; color: var(--neutral-800); }
+  .card-rating .count { font-size: 12px; color: var(--text-tertiary); }
+  .card-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--neutral-200); }
+  .meta-item { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-tertiary); }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 16px 16px; margin-top: auto; border-top: 1px solid var(--neutral-100); background: var(--neutral-0); }
+  .price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .price-old { font-size: 12px; color: var(--neutral-400); text-decoration: line-through; }
+  .price-new { font-size: 16px; font-weight: 800; color: var(--secondary-600); }
+  .card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn-card { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; font-size: 13px; font-weight: 700; border-radius: 10px; transition: all 0.2s; white-space: nowrap; }
+  .btn-card-primary { background: var(--primary-500); color: #fff; border: 1.5px solid var(--primary-500); box-shadow: 0 4px 12px rgba(37,88,229,0.28); }
+  .btn-card-primary:hover { background: var(--primary-400); border-color: var(--primary-400); }
+  .btn-card-primary:active { background: var(--primary-600); border-color: var(--primary-600); }
+
+  .section-foot { text-align: center; margin-top: 44px; }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; font-size: 14px; font-weight: 700; color: var(--primary-600);
+    background: var(--primary-50); border: 1.5px solid var(--primary-100); border-radius: 12px;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--primary-100); border-color: var(--primary-200); }
+
+  /* ============ AI FEATURE (why EDUMY) ============ */
+  .feature { background: var(--neutral-900); color: #fff; }
+  .feature .section-eyebrow { background: rgba(255,107,74,0.16); border-color: rgba(255,107,74,0.3); color: var(--secondary-400); }
+  .feature .section-head p { color: var(--neutral-400); }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .feature-list { display: grid; gap: 22px; }
+  .feature-item { display: flex; gap: 16px; align-items: flex-start; }
+  .feature-item .ficon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: var(--primary-300);
+  }
+  .feature-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .feature-item p { font-size: 14px; line-height: 1.6; color: var(--neutral-400); }
+  .feature-visual { position: relative; }
+  .ai-card {
+    background: var(--neutral-800); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 26px; box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  }
+  .ai-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .ai-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
+    display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 15px;
+  }
+  .ai-card-head .ainame { font-size: 14px; font-weight: 700; }
+  .ai-card-head .aisub { font-size: 12px; color: var(--neutral-400); }
+  .ai-card-head .live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--success-500); }
+  .ai-card-head .live .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--success-500); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .ai-chat { display: grid; gap: 12px; margin-bottom: 18px; }
+  .ai-msg { max-width: 88%; padding: 12px 16px; font-size: 13.5px; line-height: 1.6; border-radius: 14px; }
+  .ai-msg.user { background: var(--primary-500); color: #fff; border-bottom-right-radius: 4px; justify-self: end; }
+  .ai-msg.bot { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08); color: var(--neutral-200); border-bottom-left-radius: 4px; }
+  .ai-msg.bot .tag-inline { color: var(--secondary-400); font-weight: 600; }
+  .ai-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ai-chip {
+    padding: 7px 14px; font-size: 12px; font-weight: 600; color: var(--neutral-300);
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px;
+  }
+  .ai-input {
+    display: flex; align-items: center; gap: 10px; margin-top: 16px;
+    padding: 6px 6px 6px 16px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
+  }
+  .ai-input span { flex: 1; font-size: 13px; color: var(--neutral-500); }
+  .ai-input button {
+    padding: 9px 16px; font-size: 13px; font-weight: 700; color: #fff;
+    background: var(--primary-500); border: none; border-radius: 9px;
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .testi-card {
+    background: var(--neutral-0); border: 1px solid var(--border-default);
+    border-radius: 16px; padding: 26px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; gap: 18px; transition: all 0.25s;
+  }
+  .testi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .testi-stars { display: flex; gap: 3px; color: var(--warning-500); }
+  .testi-card blockquote { font-size: 14.5px; line-height: 1.7; color: var(--text-secondary); flex: 1; }
+  .testi-person { display: flex; align-items: center; gap: 12px; }
+  .testi-ava { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: var(--primary-100); flex-shrink: 0; }
+  .testi-ava img { width: 100%; height: 100%; object-fit: cover; }
+  .testi-person .name { font-size: 14px; font-weight: 700; }
+  .testi-person .role { font-size: 12.5px; color: var(--text-tertiary); }
+
+  /* ============ CTA ============ */
+  .cta-wrap { padding: 40px 24px 84px; }
+  .cta {
+    position: relative; overflow: hidden;
+    max-width: 1232px; margin: 0 auto; border-radius: 24px;
+    background: linear-gradient(120deg, var(--primary-700), var(--primary-900));
+    padding: 56px 56px; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+  }
+  .cta::before {
+    content: ""; position: absolute; width: 320px; height: 320px; border-radius: 50%;
+    background: rgba(255,255,255,0.07); top: -140px; right: -80px;
+  }
+  .cta::after {
+    content: ""; position: absolute; width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.05); bottom: -90px; right: 120px;
+  }
+  .cta h2 { font-size: 32px; line-height: 1.2; font-weight: 800; color: #fff; margin-bottom: 12px; position: relative; z-index: 1; }
+  .cta p { font-size: 15px; line-height: 1.6; color: var(--primary-200); max-width: 520px; position: relative; z-index: 1; }
+  .cta .btn-white {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 30px; font-size: 15px; font-weight: 700; color: var(--primary-700);
+    background: #fff; border: 1.5px solid #fff; border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: all 0.2s; white-space: nowrap;
+  }
+  .cta .btn-white:hover { background: var(--primary-50); transform: translateY(-2px); }
+
+  /* ============ FOOTER (shared/layout/footer.html) ============ */
+  .footer { background: var(--neutral-800); color: var(--neutral-300); margin-top: auto; }
+  .footer-main {
+    max-width: 1280px; margin: 0 auto; padding: 56px 24px 40px;
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.4fr; gap: 40px;
+  }
+  .footer-brand .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .footer-brand img { height: 34px; width: auto; }
+  .footer-brand .brand-name { font-size: 20px; font-weight: 800; color: #fff; }
+  .footer-brand p { font-size: 14px; line-height: 1.7; color: var(--neutral-400); margin-bottom: 20px; max-width: 320px; }
+  .socials { display: flex; gap: 10px; }
+  .social-btn {
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.06);
+    color: var(--neutral-300); display: grid; place-items: center;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .social-btn:hover { background: var(--primary-500); color: #fff; transform: translateY(-2px); border-color: var(--primary-500); }
+  .footer-col h4 { font-size: 14px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+  .footer-col ul { list-style: none; display: grid; gap: 12px; }
+  .footer-col li a { font-size: 14px; color: var(--neutral-400); transition: color 0.2s, padding-left 0.2s; }
+  .footer-col li a:hover { color: var(--primary-300); padding-left: 4px; }
+  .contact-list { list-style: none; display: grid; gap: 14px; }
+  .contact-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--neutral-400); line-height: 1.6; }
+  .contact-list .contact-icon {
+    width: 30px; height: 30px; flex-shrink: 0; border-radius: 8px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    display: grid; place-items: center; font-size: 13px;
+  }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 20px 24px; }
+  .footer-bottom-inner {
+    max-width: 1280px; margin: 0 auto; display: flex; align-items: center;
+    justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--neutral-500);
+  }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a { color: var(--neutral-400); transition: color 0.2s; }
+  .footer-bottom-links a:hover { color: var(--primary-300); }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 1100px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; padding-top: 56px; }
+    .hero-visual { max-width: 520px; }
+    .hero-float.float-1 { left: 8px; }
+    .hero-float.float-2 { right: 8px; }
+    .cat-grid, .course-grid { grid-template-columns: repeat(3, 1fr); }
+    .feature-grid { grid-template-columns: 1fr; gap: 40px; }
+    .testi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .nav-links, .search-box { display: none; }
+    .hamburger { display: grid; }
+    .user-btn .user-name { display: none; }
+    .cat-grid, .course-grid { grid-template-columns: repeat(2, 1fr); }
+    .logo-strip-inner { justify-content: center; }
+  }
+  @media (max-width: 640px) {
+    .hero-inner { padding-top: 40px; padding-bottom: 56px; }
+    .hero h1 { font-size: 34px; }
+    .hero-desc { font-size: 15.5px; }
+    .hero-card-media { height: 220px; }
+    .hero-float { padding: 10px 12px; }
+    .float-1 { top: 14px; }
+    .cat-grid, .course-grid, .testi-grid { grid-template-columns: 1fr; }
+    .section { padding: 60px 16px; }
+    .section-head h2 { font-size: 28px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .cta { padding: 40px 28px; text-align: center; justify-content: center; }
+    .cta .btn-white { width: 100%; justify-content: center; }
+    .cta h2 { font-size: 26px; }
+    .footer-main { grid-template-columns: 1fr; gap: 32px; }
+    .hero-meta { gap: 18px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../shared/logo/logo-removebg-preview.png" alt="EDUMY logo">
+        <span class="brand-name">EDUMY</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#" class="nav-link active">Trang chủ</a>
+        <a href="../Course/course-list/course-list.html" class="nav-link">Khóa học</a>
+        <a href="#" class="nav-link">Bài thi</a>
+        <a href="#" class="nav-link">Giảng viên</a>
+        <a href="#" class="nav-link">Blog</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" placeholder="Tìm kiếm khóa học...">
+        </div>
+        <a href="../Cart/Cart/cart.html" class="icon-btn" aria-label="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="badge">2</span>
+        </a>
+        <button class="icon-btn" aria-label="Thông báo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="badge secondary">3</span>
+        </button>
+        <div class="user-menu">
+          <a href="../Auth/Login/login.html" class="user-btn">
+            <span class="avatar">HN</span>
+            <span class="user-name">Nhật Hưng</span>
+            <span class="chevron">▾</span>
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hero-eyebrow">
+            <span class="dot"></span>
+            Nền tảng học trực tuyến tích hợp AI
+          </span>
+          <h1>Học chủ động cùng <span class="hl">EDUMY</span> — trợ lý <span class="hl-ai">AI</span> đồng hành mọi lúc</h1>
+          <p class="hero-desc">
+            Khóa học chất lượng từ giảng viên giàu kinh nghiệm, bài thi trực tuyến thông minh
+            và trợ lý AI giải đáp 24/7 — giúp bạn chinh phục kiến thức hiệu quả hơn mỗi ngày.
+          </p>
+          <div class="hero-actions">
+            <a href="../Course/course-list/course-list.html" class="btn-primary">
+              Khám phá khóa học
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#features" class="btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Tìm hiểu thêm
+            </a>
+          </div>
+          <div class="hero-meta">
+            <div class="hero-stat"><div class="num">120<em>k+</em></div><div class="lbl">Học viên</div></div>
+            <div class="hero-stat"><div class="num">48</div><div class="lbl">Khóa học</div></div>
+            <div class="hero-stat"><div class="num">32</div><div class="lbl">Giảng viên</div></div>
+            <div class="hero-stat"><div class="num">4.8<em>★</em></div><div class="lbl">Đánh giá trung bình</div></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-media">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=60&w=900&h=600&fit=crop&auto=format&fm=jpg" alt="Học trực tuyến cùng EDUMY">
+              <span class="hero-card-play">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            </div>
+            <div class="hero-card-body">
+              <h3>Lập trình Web với HTML, CSS &amp; JavaScript</h3>
+              <p>Nguyễn Minh Thư · 48 bài giảng · 32 giờ học</p>
+              <div class="hero-card-progress">
+                <div class="track"><div class="fill"></div></div>
+                <span class="pct">68%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-float float-1">
+            <span class="fi fi-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </span>
+            <div>
+              <div class="ft">Hoàn thành khóa học</div>
+              <div class="fs">+28% học viên trong tháng</div>
+            </div>
+          </div>
+
+          <div class="hero-float float-2">
+            <span class="fi fi-orange">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </span>
+            <div>
+              <div class="ft">Trợ lý AI sẵn sàng</div>
+              <div class="fs">Giải đáp 24/7 trong 3 giây</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LOGO STRIP ============ -->
+    <section class="logo-strip" aria-label="Đối tác tin cậy">
+      <div class="logo-strip-inner">
+        <span class="ls-label">Được tin dùng bởi các tổ chức giáo dục &amp; doanh nghiệp</span>
+        <div class="ls-list">
+          <span class="ls-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>
+            HUIT CNTT
+          </span>
+          <span class="ls-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            TechAcademy
+          </span>
+          <span class="ls-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            FutureDev
+          </span>
+          <span class="ls-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            CodeSchool
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CATEGORIES ============ -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Danh mục</span>
+          <h2>Khám phá theo lĩnh vực bạn yêu thích</h2>
+          <p>Hơn 12 danh mục khóa học đa dạng từ lập trình, thiết kế đến kỹ năng mềm — tìm đúng lộ trình cho riêng bạn.</p>
+        </div>
+        <div class="cat-grid">
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon fi fi-blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+            </span>
+            <h3>Lập trình Web</h3>
+            <span class="cat-count">8 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon fi fi-orange">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
+            <h3>AI &amp; Machine Learning</h3>
+            <span class="cat-count">6 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon fi fi-green">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+            </span>
+            <h3>Mobile &amp; App</h3>
+            <span class="cat-count">5 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon" style="background:var(--info-500);color:#fff;background:linear-gradient(135deg,#38bdf8,#0369a1);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <h3>Ngoại ngữ</h3>
+            <span class="cat-count">7 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon fi fi-orange">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </span>
+            <h3>Thiết kế &amp; Sáng tạo</h3>
+            <span class="cat-count">4 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon" style="background:var(--neutral-100);color:var(--neutral-700);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v1h8V6a4 4 0 0 0-4-4z"/><path d="M20 12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6"/></svg>
+            </span>
+            <h3>Công nghệ thông tin</h3>
+            <span class="cat-count">9 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon" style="background:linear-gradient(135deg,#34d399,var(--success-600));color:#fff;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </span>
+            <h3>Kỹ năng mềm</h3>
+            <span class="cat-count">3 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <a href="../Course/course-list/course-list.html" class="cat-card">
+            <span class="cat-icon" style="background:linear-gradient(135deg,var(--primary-400),var(--primary-600));color:#fff;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+            </span>
+            <h3>Marketing &amp; Kinh doanh</h3>
+            <span class="cat-count">6 khóa học</span>
+            <span class="cat-link">Khám phá
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED COURSES ============ -->
+    <section class="section" id="courses" style="padding-top:0;background:var(--neutral-0);border-top:1px solid var(--border-default);">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Khóa học nổi bật</span>
+          <h2>Được yêu thích nhất trên EDUMY</h2>
+          <p>Những khóa học có điểm đánh giá cao nhất và lượng học viên đông đảo — chọn ngay khóa học phù hợp với bạn.</p>
+        </div>
+
+        <div class="course-grid">
+
+          <!-- 1. Lập trình Web -->
+          <article class="course-card">
+            <div class="card-media grad-web">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=60&w=640&h=360&fit=crop&auto=format&fm=jpg" alt="Lập trình Web với HTML, CSS và JavaScript" loading="lazy">
+              <span class="badge-sale">-30%</span>
+              <span class="media-veil"></span>
+              <a href="#" class="play-btn" aria-label="Xem chi tiết khóa học">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </a>
+              <button class="cart-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+
+</div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag">Lập trình Web</span>
+                <span class="level level-basic">Cơ bản</span>
+              </div>
+              <h3 class="card-title"><a href="#">Lập trình Web với HTML, CSS &amp; JavaScript</a></h3>
+              <p class="card-desc">Xây dựng website hoàn chỉnh từ giao diện đến tương tác, nền tảng vững chắc cho người mới bắt đầu.</p>
+              <div class="card-rating">
+                <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span class="score">4.8</span>
+                <span class="count">(1.2k đánh giá)</span>
+              </div>
+              <div class="card-meta">
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  32 giờ
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  48 bài giảng
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  4.5k học viên
+                </span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price">
+                <span class="price-old">499.000đ</span>
+                <span class="price-new">349.000đ</span>
+              </div>
+              <div class="card-actions">
+                <a href="#" class="btn-card btn-card-primary">Mua ngay</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. AI & Machine Learning -->
+          <article class="course-card">
+            <div class="card-media grad-ai">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=60&w=640&h=360&fit=crop&auto=format&fm=jpg" alt="AI và Machine Learning" loading="lazy">
+              <span class="badge-sale">-25%</span>
+              <span class="media-veil"></span>
+              <a href="#" class="play-btn" aria-label="Xem chi tiết khóa học">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </a>
+              <button class="cart-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+
+</div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag">AI &amp; ML</span>
+                <span class="level level-basic">Trung cấp</span>
+              </div>
+              <h3 class="card-title"><a href="#">AI &amp; Machine Learning từ Zero đến Thực chiến</a></h3>
+              <p class="card-desc">Hiểu bản chất học máy, xây dựng mô hình dự đoán và chatbot ứng dụng thực tế.</p>
+              <div class="card-rating">
+                <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span class="score">4.9</span>
+                <span class="count">(980 đánh giá)</span>
+              </div>
+              <div class="card-meta">
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  40 giờ
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  56 bài giảng
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  3.2k học viên
+                </span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price">
+                <span class="price-old">899.000đ</span>
+                <span class="price-new">674.000đ</span>
+              </div>
+              <div class="card-actions">
+                <a href="#" class="btn-card btn-card-primary">Mua ngay</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Flutter Mobile -->
+          <article class="course-card">
+            <div class="card-media grad-mobile">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=60&w=640&h=360&fit=crop&auto=format&fm=jpg" alt="Flutter Mobile" loading="lazy">
+              <span class="badge-sale">-20%</span>
+              <span class="media-veil"></span>
+              <a href="#" class="play-btn" aria-label="Xem chi tiết khóa học">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </a>
+              <button class="cart-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+
+</div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag">Mobile</span>
+                <span class="level level-basic">Cơ bản</span>
+              </div>
+              <h3 class="card-title"><a href="#">Flutter: Xây dựng app đa nền tảng chuyên nghiệp</a></h3>
+              <p class="card-desc">Một codebase, chạy trên iOS &amp; Android. Từ UI đến state management và phát hành app.</p>
+              <div class="card-rating">
+                <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span class="score">4.7</span>
+                <span class="count">(760 đánh giá)</span>
+              </div>
+              <div class="card-meta">
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  28 giờ
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  42 bài giảng
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  2.8k học viên
+                </span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price">
+                <span class="price-old">699.000đ</span>
+                <span class="price-new">559.000đ</span>
+              </div>
+              <div class="card-actions">
+                <a href="#" class="btn-card btn-card-primary">Mua ngay</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. English -->
+          <article class="course-card">
+            <div class="card-media grad-lang">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=60&w=640&h=360&fit=crop&auto=format&fm=jpg" alt="Tiếng Anh giao tiếp" loading="lazy">
+              <span class="badge-sale">-15%</span>
+              <span class="media-veil"></span>
+              <a href="#" class="play-btn" aria-label="Xem chi tiết khóa học">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </a>
+              <button class="cart-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+
+</div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag">Ngoại ngữ</span>
+                <span class="level level-basic">Cơ bản</span>
+              </div>
+              <h3 class="card-title"><a href="#">Tiếng Anh giao tiếp cho người đi làm</a></h3>
+              <p class="card-desc">Luyện phản xạ giao tiếp với 1.200+ câu hội thoại thực tế và luyện phát âm cùng AI.</p>
+              <div class="card-rating">
+                <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span class="score">4.8</span>
+                <span class="count">(1.5k đánh giá)</span>
+              </div>
+              <div class="card-meta">
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  36 giờ
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  60 bài giảng
+                </span>
+                <span class="meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  5.6k học viên
+                </span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price">
+                <span class="price-old">399.000đ</span>
+                <span class="price-new">339.000đ</span>
+              </div>
+              <div class="card-actions">
+                <a href="#" class="btn-card btn-card-primary">Mua ngay</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="section-foot">
+          <a href="../Course/course-list/course-list.html" class="btn-ghost">
+            Xem tất cả 48 khóa học
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AI FEATURE ============ -->
+    <section class="section feature" id="features">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Điểm khác biệt EDUMY</span>
+          <h2>Trợ lý AI — người bạn học đồng hành</h2>
+          <p>Không chỉ là nền tảng khóa học, EDUMY trang bị trợ lý AI thông minh giúp bạn học nhanh, nhớ lâu và tiến bộ rõ rệt.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-list">
+            <div class="feature-item">
+              <span class="ficon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>
+              </span>
+              <div>
+                <h4>Giải đáp mọi thắc mắc 24/7</h4>
+                <p>Hỏi bất cứ điều gì về bài giảng, bài tập hay lộ trình học — trợ lý AI trả lời ngay lập tức, mọi lúc mọi nơi.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="ficon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </span>
+              <div>
+                <h4>Lộ trình học cá nhân hóa</h4>
+                <p>AI phân tích trình độ và mục tiêu của bạn để gợi ý khóa học, sắp xếp lịch học và nhắc nhở tiến độ phù hợp.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="ficon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <div>
+                <h4>Chấm điểm &amp; gợi ý cải thiện</h4>
+                <p>Bài thi và bài tập được AI chấm điểm chi tiết, chỉ rõ phần kiến thức cần ôn tập để cải thiện điểm số.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="ficon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <div>
+                <h4>Cộng đồng hỗ trợ lẫn nhau</h4>
+                <p>Kết nối cùng hàng nghìn học viên và giảng viên, trao đổi kiến thức qua diễn đàn tích hợp ngay trong khóa học.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-visual">
+            <div class="ai-card">
+              <div class="ai-card-head">
+                <span class="ai-avatar">AI</span>
+                <div>
+                  <div class="ainame">Edu — Trợ lý học tập</div>
+                  <div class="aisub">Powered by EDUMY AI</div>
+                </div>
+                <span class="live"><span class="pulse"></span>Đang trực tuyến</span>
+              </div>
+              <div class="ai-chat">
+                <div class="ai-msg bot">Chào bạn! 👋 Mình là <span class="tag-inline">Edu</span> — trợ lý học tập của EDUMY. Bạn cần giúp đỡ gì về khóa học hôm nay?</div>
+                <div class="ai-msg user">Mình mới học lập trình, nên bắt đầu từ đâu?</div>
+                <div class="ai-msg bot">Gợi ý cho bạn: bắt đầu với khóa <span class="tag-inline">Lập trình Web cơ bản</span> 🎯 — 48 bài giảng, 32 giờ học, phù hợp người mới. Mình có thể tạo lộ trình học 30 ngày cho bạn, bắt đầu nhé?</div>
+              </div>
+              <div class="ai-chips">
+                <span class="ai-chip">Gợi ý lộ trình</span>
+                <span class="ai-chip">Giải bài tập</span>
+                <span class="ai-chip">Hỏi về bài giảng</span>
+              </div>
+              <div class="ai-input">
+                <span>Đặt câu hỏi cho Edu…</span>
+                <button>Gửi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Học viên nói gì</span>
+          <h2>Hơn 120.000 học viên tin chọn EDUMY</h2>
+          <p>Những trải nghiệm thật từ cộng đồng học viên đã tiến bộ vượt bậc cùng EDUMY.</p>
+        </div>
+        <div class="testi-grid">
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote>"Trợ lý AI của EDUMY giải đáp bài tập cho mình lúc 1h sáng — mình đã hoàn thành khóa Lập trình Web và apply được công việc đầu tiên."</blockquote>
+            <div class="testi-person">
+              <span class="testi-ava"><img src="https://i.pravatar.cc/64?img=15" alt="Minh Quân"></span>
+              <div>
+                <div class="name">Trần Minh Quân</div>
+                <div class="role">Học viên Lập trình Web · HUIT</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote>"Khóa AI &amp; Machine Learning của EDUMY rất thực chiến. Bài tập được AI chấm chi tiết nên mình biết chính xác cần ôn phần nào để đạt điểm cao."</blockquote>
+            <div class="testi-person">
+              <span class="testi-ava"><img src="https://i.pravatar.cc/64?img=25" alt="Thu Hà"></span>
+              <div>
+                <div class="name">Lê Thu Hà</div>
+                <div class="role">Học viên AI &amp; ML · Data Analyst</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote>"Trang web dùng mượt, video bài giảng chất lượng cao, lộ trình cá nhân hóa giúp mình vừa học vừa làm hiệu quả. Rất đáng để trải nghiệm."</blockquote>
+            <div class="testi-person">
+              <span class="testi-ava"><img src="https://i.pravatar.cc/64?img=35" alt="Đức Anh"></span>
+              <div>
+                <div class="name">Phạm Đức Anh</div>
+                <div class="role">Học viên Flutter · Mobile Developer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta-wrap">
+      <div class="cta">
+        <div>
+          <h2>Bắt đầu hành trình học tập cùng EDUMY ngay hôm nay</h2>
+          <p>Đăng ký miễn phí, khám phá kho khóa học và trải nghiệm trợ lý AI thông minh — không cần thẻ tín dụng.</p>
+        </div>
+        <a href="../Auth/Register/register.html" class="btn-white">
+          Tạo tài khoản miễn phí
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="logo-row">
+          <img src="../../shared/logo/logo-removebg-preview.png" alt="EDUMY logo">
+          <span class="brand-name">EDUMY</span>
+        </div>
+        <p>Nền tảng E-learning tích hợp quản lý khóa học và đánh giá trực tuyến — kết hợp sức mạnh AI, hướng tới nền giáo dục số toàn diện.</p>
+        <div class="socials">
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="YouTube">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Zalo">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.03 2 11.04c0 2.73 1.4 5.15 3.6 6.75-.06.43-.25 1.56-.27 1.8 0 0-.03.3.25.33.25.03.47-.13 1.2-.6.52-.34.96-.66 1.32-.94 1.17.36 2.42.55 3.7.55 5.5 0 10-4.03 10-9.05C22 6.03 17.5 2 12 2zm3.55 11.02H8.45c-.3 0-.54-.24-.54-.54v-1.3c0-.3.24-.54.54-.54h7.1c.3 0 .54.24.54.54v1.3c0 .3-.24.54-.54.54zm0-4.35H8.45c-.3 0-.54-.24-.54-.54v-1.3c0-.3.24-.54.54-.54h7.1c.3 0 .54.24.54.54v1.3c0 .3-.24.54-.54.54z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="TikTok">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Email">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Về EDUMY</h4>
+        <ul>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Tin tức & Blog</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+          <li><a href="#">Hợp tác đào tạo</a></li>
+          <li><a href="#">Hướng dẫn sử dụng</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Khóa học</h4>
+        <ul>
+          <li><a href="../Course/course-list/course-list.html">Lập trình Web</a></li>
+          <li><a href="../Course/course-list/course-list.html">Công nghệ thông tin</a></li>
+          <li><a href="../Course/course-list/course-list.html">AI & Machine Learning</a></li>
+          <li><a href="../Course/course-list/course-list.html">Ngoại ngữ</a></li>
+          <li><a href="../Course/course-list/course-list.html">Kỹ năng mềm</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Hỗ trợ</h4>
+        <ul>
+          <li><a href="#">Trung tâm trợ giúp</a></li>
+          <li><a href="#">Câu hỏi thường gặp</a></li>
+          <li><a href="#">Điều khoản dịch vụ</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Khiếu nại & bồi hoàn</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên hệ</h4>
+        <ul class="contact-list">
+          <li><span class="contact-icon">📍</span> 77 Bùi Xuân Phái, Phường Phú Mỹ Hưng, Quận 7, TP.HCM</li>
+          <li><span class="contact-icon">📞</span> 0838 557 433</li>
+          <li><span class="contact-icon">✉️</span> quangnhathung2005@gmail.com</li>
+          <li><span class="contact-icon">🌐</span> edumy.nhathungdev.site</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <div>© 2026 EDUMY. Đề tài khóa luận tốt nghiệp — Khoa CNTT, Đại học Công Thương TP.HCM.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Điều khoản</a>
+          <a href="#">Bảo mật</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

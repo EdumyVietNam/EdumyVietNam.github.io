@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUMY — Primary Button</title>
+<style>
+  :root {
+    --primary-50:#EFF4FF; --primary-100:#DBE8FF; --primary-200:#BFD3FF;
+    --primary-300:#93B4FF; --primary-400:#608CFF; --primary-500:#2558E5;
+    --primary-600:#1D44CD; --primary-700:#1634A1;
+    --neutral-50:#F8FAFC; --neutral-100:#F1F5F9; --neutral-200:#E2E8F0;
+    --neutral-300:#CBD5E1; --neutral-400:#94A3B8; --neutral-700:#334155;
+    --neutral-900:#0F172A;
+    --radius:12px;
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font);background:var(--neutral-50);color:var(--neutral-900);padding:40px;min-height:100vh;}
+  .wrap{max-width:960px;margin:0 auto;}
+  h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+  .sub{font-size:13px;color:var(--neutral-400);margin-bottom:32px;}
+  h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--neutral-700);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--neutral-200);}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  .stat{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .stat-name{font-size:11px;font-weight:600;color:var(--neutral-400);text-transform:uppercase;letter-spacing:1px;}
+
+  /* ================= PRIMARY BUTTON ================= */
+  .btn-primary{
+    font-family:var(--font);
+    font-size:15px;font-weight:700;
+    padding:13px 28px;
+    color:#fff;background:var(--primary-500);
+    border:1px solid var(--primary-500);border-radius:var(--radius);
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(37,88,229,0.30);
+    transition:background .2s,border-color .2s,box-shadow .2s,transform .05s;
+  }
+  /* Default (mặc định) */
+  /* Hover */
+  .btn-primary:hover{background:var(--primary-400);border-color:var(--primary-400);box-shadow:0 8px 20px rgba(37,88,229,0.38);}
+  /* Active (đang nhấn) */
+  .btn-primary:active{background:var(--primary-600);border-color:var(--primary-600);box-shadow:0 2px 8px rgba(37,88,229,0.30);}
+  /* Disable */
+  .btn-primary:disabled{background:var(--neutral-100);border-color:var(--neutral-100);color:var(--neutral-400);box-shadow:none;cursor:not-allowed;}
+
+  /* Preview (hiển thị tĩnh cả 4 trạng thái) */
+  .btn-primary.is-hover{background:var(--primary-400);border-color:var(--primary-400);box-shadow:0 8px 20px rgba(37,88,229,0.38);}
+  .btn-primary.is-active{background:var(--primary-600);border-color:var(--primary-600);box-shadow:0 2px 8px rgba(37,88,229,0.30);}
+  .btn-primary.is-disable{background:var(--neutral-100);border-color:var(--neutral-100);color:var(--neutral-400);box-shadow:none;cursor:not-allowed;}
+
+  .note{font-size:12px;color:var(--neutral-400);margin-top:14px;line-height:1.7;}
+  .box{background:#fff;border:1px solid var(--neutral-200);border-radius:12px;padding:20px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Primary Button</h1>
+    <p class="sub">Màu thương hiệu EDUMY — Primary 500 <code>#2558E5</code>. Dùng cho CTA chính.</p>
+
+    <h2>Demo live — di chuột để xem Hover, nhấn giữ để xem Active</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-primary">Đăng nhập</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-primary">Đăng nhập</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-primary">Đăng nhập</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-primary" disabled>Đăng nhập</button><span class="stat-name">Disable</span></div>
+      </div>
+    </div>
+
+    <h2>Preview — hiển thị tĩnh 4 trạng thái</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-primary">Đăng nhập</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-primary is-hover">Đăng nhập</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-primary is-active">Đăng nhập</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-primary is-disable" disabled>Đăng nhập</button><span class="stat-name">Disable</span></div>
+      </div>
+      <p class="note">Hover: Primary 400 · Active: Primary 600 · Disable: Neutral 100 nền + Neutral 400 chữ.</p>
+    </div>
+  </div>
+</body>
+</html>

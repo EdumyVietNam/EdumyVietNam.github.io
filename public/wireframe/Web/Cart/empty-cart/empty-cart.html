@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ hàng trống — EDUMY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============ DESIGN TOKENS (color_desc.xlsx) ============ */
+      :root {
+        --primary-50: #eff4ff;
+        --primary-100: #dbe8ff;
+        --primary-200: #bfd3ff;
+        --primary-300: #93b4ff;
+        --primary-400: #608cff;
+        --primary-500: #2558e5;
+        --primary-600: #1d44cd;
+        --primary-700: #1634a1;
+        --primary-800: #122a7f;
+        --primary-900: #0e1f5a;
+        --secondary-50: #fff0ed;
+        --secondary-100: #ffdfd6;
+        --secondary-200: #ffc4b5;
+        --secondary-400: #ff8265;
+        --secondary-500: #ff6b4a;
+        --secondary-600: #e65132;
+        --secondary-700: #b33a21;
+        --neutral-0: #ffffff;
+        --neutral-50: #f8fafc;
+        --neutral-100: #f1f5f9;
+        --neutral-200: #e2e8f0;
+        --neutral-300: #cbd5e1;
+        --neutral-400: #94a3b8;
+        --neutral-500: #64748b;
+        --neutral-600: #475569;
+        --neutral-700: #334155;
+        --neutral-800: #1e293b;
+        --neutral-900: #0f172a;
+        --success-50: #ecfdf5;
+        --success-500: #10b981;
+        --success-600: #059669;
+        --success-700: #047857;
+        --warning-500: #f59e0b;
+        --error-50: #fff1f2;
+        --error-500: #f43f5e;
+        --info-500: #0ea5e9;
+
+        --text-primary: var(--neutral-900);
+        --text-secondary: var(--neutral-600);
+        --text-tertiary: var(--neutral-500);
+        --border-default: var(--neutral-200);
+        --surface-hover: var(--neutral-50);
+        --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+        --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.08);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+        --font:
+          "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial,
+          sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--neutral-50);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        font-family: var(--font);
+        cursor: pointer;
+      }
+      input {
+        font-family: var(--font);
+      }
+
+      /* ============ NAVBAR (shared/layout/navbar.html) ============ */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+        background: var(--neutral-0);
+        border-bottom: 1px solid var(--border-default);
+        box-shadow:
+          0 1px 0 var(--border-default),
+          0 4px 24px rgba(15, 23, 42, 0.06);
+      }
+      .nav-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+      .nav-logo img {
+        height: 34px;
+        width: auto;
+      }
+      .nav-logo .brand-name {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex: 1;
+      }
+      .nav-link {
+        padding: 9px 14px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        border-radius: 10px;
+        border: none;
+        background: transparent;
+        transition:
+          color 0.2s,
+          background 0.2s;
+      }
+      .nav-link:hover {
+        color: var(--primary-600);
+        background: var(--surface-hover);
+      }
+      .nav-link.active {
+        color: var(--primary-600);
+        background: var(--primary-50);
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .search-box {
+        position: relative;
+        width: 240px;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 10px 14px 10px 40px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: var(--neutral-50);
+        border: 1.5px solid var(--border-default);
+        border-radius: 10px;
+        outline: none;
+        transition: all 0.2s;
+      }
+      .search-box input::placeholder {
+        color: var(--neutral-400);
+      }
+      .search-box input:focus {
+        background: var(--neutral-0);
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 4px var(--primary-50);
+      }
+      .search-box svg {
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--neutral-400);
+      }
+      .icon-btn {
+        position: relative;
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        border: none;
+        background: var(--neutral-50);
+        color: var(--neutral-600);
+        display: grid;
+        place-items: center;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      a.icon-btn:hover {
+        background: var(--primary-50);
+        color: var(--primary-600);
+      }
+      .icon-btn .badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: var(--error-500);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        border: 2px solid var(--neutral-0);
+      }
+      .icon-btn .badge.secondary {
+        background: var(--secondary-500);
+      }
+      .user-menu {
+        position: relative;
+      }
+      .user-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 10px 6px 6px;
+        border-radius: 999px;
+        border: 1.5px solid var(--border-default);
+        background: var(--neutral-0);
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .user-btn:hover {
+        background: var(--surface-hover);
+        border-color: var(--neutral-300);
+      }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .user-btn .user-name {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .user-btn .chevron {
+        color: var(--neutral-400);
+        font-size: 12px;
+      }
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        color: var(--neutral-700);
+        place-items: center;
+      }
+      .hamburger:hover {
+        background: var(--neutral-100);
+      }
+
+      /* ============ PAGE ============ */
+      .page {
+        flex: 1;
+        width: 100%;
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 32px 24px 64px;
+      }
+
+      /* ===== Breadcrumb ===== */
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--text-tertiary);
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .breadcrumb a {
+        color: var(--text-secondary);
+        transition: color 0.2s;
+      }
+      .breadcrumb a:hover {
+        color: var(--primary-600);
+      }
+      .breadcrumb .sep {
+        color: var(--neutral-300);
+        display: grid;
+        place-items: center;
+      }
+      .breadcrumb .current {
+        color: var(--primary-600);
+        font-weight: 600;
+      }
+
+      /* ===== Page head ===== */
+      .page-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 32px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+      }
+      .page-head h1 {
+        font-size: 34px;
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+      }
+
+      /* ============ EMPTY STATE ============ */
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 64px 24px;
+        background: var(--neutral-0);
+        border: 1.5px dashed var(--neutral-300);
+        border-radius: 20px;
+        box-shadow: var(--shadow-sm);
+      }
+      .empty-icon {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        border-radius: 26px;
+        background: var(--primary-50);
+        color: var(--primary-500);
+        display: grid;
+        place-items: center;
+        margin-bottom: 24px;
+        box-shadow: inset 0 0 0 1px var(--primary-100);
+      }
+      .empty-icon .dot {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--neutral-0);
+        border: 2px solid var(--primary-200);
+        display: grid;
+        place-items: center;
+        color: var(--primary-600);
+      }
+      .empty-state h2 {
+        font-size: 22px;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+      }
+      .empty-state .empty-desc {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        max-width: 420px;
+      }
+      .empty-actions {
+        margin-top: 26px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 26px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        background: var(--primary-500);
+        border: 1.5px solid var(--primary-500);
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(37, 88, 229, 0.3);
+        transition: all 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--primary-400);
+        border-color: var(--primary-400);
+      }
+      .btn-primary:active {
+        background: var(--primary-600);
+        border-color: var(--primary-600);
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 26px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary-600);
+        background: var(--neutral-0);
+        border: 1.5px solid var(--primary-200);
+        border-radius: 12px;
+        transition: all 0.2s;
+      }
+      .btn-outline:hover {
+        border-color: var(--primary-500);
+        background: var(--primary-50);
+      }
+
+      /* ============ SUGGESTED COURSES ============ */
+      .suggest {
+        margin-top: 40px;
+      }
+      .suggest-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .suggest-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        background: var(--secondary-50);
+        color: var(--secondary-600);
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+      }
+      .suggest-title {
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .suggest-sub {
+        font-size: 13px;
+        color: var(--text-tertiary);
+        margin-top: 2px;
+      }
+      .course-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .course-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--neutral-0);
+        border: 1px solid var(--border-default);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s,
+          border-color 0.25s;
+      }
+      .course-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-200);
+      }
+      .card-media {
+        position: relative;
+        height: 130px;
+        overflow: hidden;
+      }
+      .card-media img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 55%, rgba(15, 23, 42, 0.35));
+        pointer-events: none;
+      }
+      .badge-sale {
+        position: absolute;
+        left: 14px;
+        top: 14px;
+        z-index: 2;
+        background: var(--secondary-500);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 999px;
+        box-shadow: 0 4px 12px rgba(255, 107, 74, 0.35);
+      }
+      .add-btn {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        z-index: 2;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        border: none;
+        color: var(--neutral-500);
+        display: grid;
+        place-items: center;
+        transition: all 0.2s;
+      }
+      .add-btn:hover {
+        color: var(--primary-600);
+        background: var(--neutral-0);
+        transform: scale(1.08);
+      }
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 14px 16px 0;
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .cat-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--secondary-600);
+        background: var(--secondary-50);
+        border: 1px solid var(--secondary-100);
+        padding: 4px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .cat-tag.primary {
+        color: var(--primary-700);
+        background: var(--primary-50);
+        border-color: var(--primary-100);
+      }
+      .card-title {
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.35;
+        color: var(--neutral-900);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 40px;
+        transition: color 0.2s;
+      }
+      .course-card:hover .card-title {
+        color: var(--primary-600);
+      }
+      .card-instructor {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: auto;
+        padding: 12px 0;
+      }
+      .instructor-avatar {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+      .instructor-avatar img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .av-1 {
+        background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+      }
+      .av-2 {
+        background: linear-gradient(135deg, var(--secondary-400), var(--secondary-600));
+      }
+      .av-3 {
+        background: linear-gradient(135deg, var(--success-500), var(--success-600));
+      }
+      .instructor-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--neutral-800);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 12px 16px 14px;
+        border-top: 1px solid var(--neutral-100);
+        background: var(--neutral-50);
+      }
+      .price-old {
+        font-size: 12px;
+        color: var(--neutral-400);
+        text-decoration: line-through;
+      }
+      .price-new {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--secondary-600);
+      }
+
+      /* ============ FOOTER (shared/layout/footer.html) ============ */
+      .footer {
+        background: var(--neutral-800);
+        color: var(--neutral-300);
+        margin-top: auto;
+        width: 100%;
+      }
+      .footer-main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 56px 24px 40px;
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1fr 1.4fr;
+        gap: 40px;
+      }
+      .footer-brand .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+      .footer-brand img {
+        height: 34px;
+        width: auto;
+      }
+      .footer-brand .brand-name {
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .footer-brand p {
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--neutral-400);
+        margin-bottom: 20px;
+        max-width: 320px;
+      }
+      .socials {
+        display: flex;
+        gap: 10px;
+      }
+      .social-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--neutral-300);
+        display: grid;
+        place-items: center;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.2s;
+      }
+      .social-btn:hover {
+        background: var(--primary-500);
+        color: #fff;
+        transform: translateY(-2px);
+        border-color: var(--primary-500);
+      }
+      .footer-col h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 18px;
+      }
+      .footer-col ul {
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+      .footer-col li a {
+        font-size: 14px;
+        color: var(--neutral-400);
+        transition:
+          color 0.2s,
+          padding-left 0.2s;
+      }
+      .footer-col li a:hover {
+        color: var(--primary-300);
+        padding-left: 4px;
+      }
+      .contact-list {
+        list-style: none;
+        display: grid;
+        gap: 14px;
+      }
+      .contact-list li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        font-size: 14px;
+        color: var(--neutral-400);
+        line-height: 1.6;
+      }
+      .contact-list .contact-icon {
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 20px 24px;
+      }
+      .footer-bottom-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--neutral-500);
+      }
+      .footer-bottom-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-bottom-links a {
+        color: var(--neutral-400);
+        transition: color 0.2s;
+      }
+      .footer-bottom-links a:hover {
+        color: var(--primary-300);
+      }
+
+      /* ============ MOBILE ============ */
+      @media (max-width: 1200px) {
+        .course-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 900px) {
+        .nav-links,
+        .search-box {
+          display: none;
+        }
+        .hamburger {
+          display: grid;
+        }
+        .user-btn .user-name {
+          display: none;
+        }
+        .page-head {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .course-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 640px) {
+        .page-head h1 {
+          font-size: 27px;
+        }
+        .empty-state {
+          padding: 44px 20px;
+        }
+        .course-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-main {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar">
+      <div class="nav-inner">
+        <a href="../../../index.html" class="nav-logo">
+          <img src="../../../shared/logo/logo-removebg-preview.png" alt="EDUMY logo" />
+          <span class="brand-name">EDUMY</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#" class="nav-link">Trang chủ</a>
+          <a href="#" class="nav-link">Khóa học</a>
+          <a href="#" class="nav-link">Bài thi</a>
+          <a href="#" class="nav-link">Giảng viên</a>
+          <a href="#" class="nav-link">Blog</a>
+        </nav>
+        <div class="nav-actions">
+          <div class="search-box">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input type="text" placeholder="Tìm kiếm khóa học..." />
+          </div>
+          <a href="../Cart/cart.html" class="icon-btn" aria-label="Giỏ hàng">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+          </a>
+          <button class="icon-btn" aria-label="Thông báo">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="badge secondary">3</span>
+          </button>
+          <div class="user-menu">
+            <button class="user-btn">
+              <span class="avatar">HN<img src="https://i.pravatar.cc/64?img=70" alt="Nhật Hưng" /></span>
+              <span class="user-name">Nhật Hưng</span>
+              <span class="chevron">▾</span>
+            </button>
+          </div>
+          <button class="hamburger" aria-label="Menu">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+            >
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <!-- ============ BREADCRUMB ============ -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../../../index.html">Trang chủ</a>
+        <span class="sep">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </span>
+        <span class="current">Giỏ hàng</span>
+      </nav>
+
+      <!-- ============ PAGE HEAD ============ -->
+      <section class="page-head">
+        <div>
+          <h1>Giỏ hàng</h1>
+        </div>
+      </section>
+
+      <!-- ============ EMPTY STATE ============ -->
+      <section class="empty-state" aria-label="Giỏ hàng trống">
+        <div class="empty-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="dot">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </span>
+        </div>
+        <h2>Giỏ hàng của bạn đang trống</h2>
+        <p class="empty-desc">
+          Chưa có khóa học hoặc đề thi nào được thêm vào giỏ. Khám phá ngay
+          những nội dung chất lượng và đưa chúng vào giỏ để bắt đầu học tập.
+        </p>
+        <div class="empty-actions">
+          <a href="../../Course/course-list/course-list.html" class="btn-primary">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Khám phá khóa học
+          </a>
+          <a href="../../Exam/exam-list/exam-list.html" class="btn-outline">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Xem đề thi
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ SUGGESTED COURSES ============ -->
+      <section class="suggest" aria-label="Gợi ý cho bạn">
+        <div class="suggest-head">
+          <span class="suggest-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </span>
+          <div>
+            <div class="suggest-title">Có thể bạn quan tâm</div>
+            <div class="suggest-sub">Những khóa học được nhiều học viên yêu thích</div>
+          </div>
+        </div>
+
+        <div class="course-grid">
+
+          <!-- 1 -->
+          <article class="course-card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/suggest-web/320/180" alt="Lập trình Web với HTML, CSS &amp; JavaScript" loading="lazy" />
+              <span class="badge-sale">-30%</span>
+              <button class="add-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag primary">Lập trình Web</span>
+              </div>
+              <h3 class="card-title">Lập trình Web với HTML, CSS &amp; JavaScript</h3>
+              <div class="card-instructor">
+                <span class="instructor-avatar av-1">MT<img src="https://i.pravatar.cc/64?img=12" alt="Nguyễn Minh Thư" /></span>
+                <span class="instructor-name">Nguyễn Minh Thư</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price-old">499.000đ</div>
+              <div class="price-new">349.000đ</div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="course-card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/suggest-ai/120/180" alt="AI &amp; Machine Learning nhập môn" loading="lazy" />
+              <span class="badge-sale">-20%</span>
+              <button class="add-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag primary">AI &amp; ML</span>
+              </div>
+              <h3 class="card-title">AI &amp; Machine Learning nhập môn</h3>
+              <div class="card-instructor">
+                <span class="instructor-avatar av-2">PL<img src="https://i.pravatar.cc/64?img=33" alt="Phạm Trung Lương" /></span>
+                <span class="instructor-name">Phạm Trung Lương</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price-old">499.000đ</div>
+              <div class="price-new">399.000đ</div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="course-card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/suggest-react/120/180" alt="React &amp; Next.js từ cơ bản đến nâng cao" loading="lazy" />
+              <span class="badge-sale">-31%</span>
+              <button class="add-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag primary">Phát triển Web</span>
+              </div>
+              <h3 class="card-title">React &amp; Next.js từ cơ bản đến nâng cao</h3>
+              <div class="card-instructor">
+                <span class="instructor-avatar av-3">GB<img src="https://i.pravatar.cc/64?img=60" alt="Trần Gia Bảo" /></span>
+                <span class="instructor-name">Trần Gia Bảo</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price-old">649.000đ</div>
+              <div class="price-new">449.000đ</div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="course-card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/suggest-api/120/180" alt="Xây dựng Web API với .NET 9" loading="lazy" />
+              <span class="badge-sale">-25%</span>
+              <button class="add-btn" aria-label="Thêm vào giỏ hàng">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="cat-tag primary">Backend</span>
+              </div>
+              <h3 class="card-title">Xây dựng Web API với .NET &amp; SQL Server</h3>
+              <div class="card-instructor">
+                <span class="instructor-avatar av-1">VK<img src="https://i.pravatar.cc/64?img=11" alt="Võ Việt Khoa" /></span>
+                <span class="instructor-name">Võ Việt Khoa</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="price-old">399.000đ</div>
+              <div class="price-new">299.000đ</div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="logo-row">
+            <img src="../../../shared/logo/logo-removebg-preview.png" alt="EDUMY logo" />
+            <span class="brand-name">EDUMY</span>
+          </div>
+          <p>Nền tảng E-learning tích hợp quản lý khóa học và đánh giá trực tuyến — kết hợp sức mạnh AI, hướng tới nền giáo dục số toàn diện.</p>
+          <div class="socials">
+            <a href="#" class="social-btn" aria-label="Facebook">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="YouTube">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27z"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Zalo">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.03 2 11.04c0 2.73 1.4 5.15 3.6 6.75-.06.43-.25 1.56-.27 1.8 0 0-.03.3.25.33.25.03.47-.13 1.2-.6.52-.34.96-.66 1.32-.94 1.17.36 2.42.55 3.7.55 5.5 0 10-4.03 10-9.05C22 6.03 17.5 2 12 2zm3.55 11.02H8.45c-.3 0-.54-.24-.54-.54v-1.3c0-.3.24-.54.54-.54h7.1c.3 0 .54.24.54.54v1.3c0 .3-.24.54-.54.54zm0-4.35H8.45c-.3 0-.54-.24-.54-.54v-1.3c0-.3.24-.54.54-.54h7.1c.3 0 .54.24.54.54v1.3c0 .3-.24.54-.54.54z"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="TikTok">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z" transform="translate(0 1)"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Email">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Về EDUMY</h4>
+          <ul>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Tin tức &amp; Blog</a></li>
+            <li><a href="#">Tuyển dụng</a></li>
+            <li><a href="#">Hợp tác đào tạo</a></li>
+            <li><a href="#">Hướng dẫn sử dụng</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Khóa học</h4>
+          <ul>
+            <li><a href="#">Lập trình Web</a></li>
+            <li><a href="#">Công nghệ thông tin</a></li>
+            <li><a href="#">AI &amp; Machine Learning</a></li>
+            <li><a href="#">Ngoại ngữ</a></li>
+            <li><a href="#">Kỹ năng mềm</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hỗ trợ</h4>
+          <ul>
+            <li><a href="#">Trung tâm trợ giúp</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+            <li><a href="#">Điều khoản dịch vụ</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+            <li><a href="#">Khiếu nại &amp; bồi hoàn</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Liên hệ</h4>
+          <ul class="contact-list">
+            <li><span class="contact-icon">📍</span> 77 Bùi Xuân Phái, Phường Phú Mỹ Hưng, Quận 7, TP.HCM</li>
+            <li><span class="contact-icon">📞</span> 0838 557 433</li>
+            <li><span class="contact-icon">✉️</span> quangnhathung2005@gmail.com</li>
+            <li><span class="contact-icon">🌐</span> edumy.nhathungdev.site</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <div>© 2026 EDUMY. Đề tài khóa luận tốt nghiệp — Khoa CNTT, Đại học Công Thương TP.HCM.</div>
+          <div class="footer-bottom-links">
+            <a href="#">Điều khoản</a>
+            <a href="#">Bảo mật</a>
+            <a href="#">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

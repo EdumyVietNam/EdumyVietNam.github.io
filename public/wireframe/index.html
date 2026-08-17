@@ -1,0 +1,2297 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDUMY — UI Prototype Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============ DESIGN TOKENS ============ */
+      :root {
+        --primary-50: #eff4ff;
+        --primary-100: #dbe8ff;
+        --primary-200: #bfd3ff;
+        --primary-300: #93b4ff;
+        --primary-400: #608cff;
+        --primary-500: #2558e5;
+        --primary-600: #1d44cd;
+        --primary-700: #1634a1;
+        --primary-800: #122a7f;
+        --primary-900: #0e1f5a;
+        --secondary-50: #fff0ed;
+        --secondary-100: #ffdfd6;
+        --secondary-500: #ff6b4a;
+        --secondary-600: #e65132;
+        --neutral-0: #ffffff;
+        --neutral-50: #f8fafc;
+        --neutral-100: #f1f5f9;
+        --neutral-200: #e2e8f0;
+        --neutral-300: #cbd5e1;
+        --neutral-400: #94a3b8;
+        --neutral-500: #64748b;
+        --neutral-600: #475569;
+        --neutral-700: #334155;
+        --neutral-800: #1e293b;
+        --neutral-900: #0f172a;
+        --success-50: #ecfdf5;
+        --success-500: #10b981;
+        --success-600: #059669;
+
+        --text-primary: var(--neutral-900);
+        --text-secondary: var(--neutral-600);
+        --text-tertiary: var(--neutral-500);
+        --border-default: var(--neutral-200);
+        --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+        --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.08);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+        --font:
+          "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial,
+          sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--neutral-50);
+        color: var(--text-primary);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ============ TOPBAR ============ */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--neutral-0);
+        border-bottom: 1px solid var(--border-default);
+        box-shadow:
+          0 1px 0 var(--border-default),
+          0 4px 24px rgba(15, 23, 42, 0.05);
+      }
+      .topbar-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .topbar-inner img {
+        height: 34px;
+        width: auto;
+      }
+      .topbar-inner .brand {
+        font-size: 19px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+      }
+      .topbar-nav {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 18px;
+      }
+      .topbar-nav a {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--neutral-600);
+        padding: 7px 13px;
+        border-radius: 999px;
+        transition:
+          color 0.15s,
+          background 0.15s;
+      }
+      .topbar-nav a:hover {
+        color: var(--primary-600);
+        background: var(--primary-50);
+      }
+      .topbar-inner .badge {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--primary-600);
+        background: var(--primary-50);
+        border: 1px solid var(--primary-100);
+        padding: 4px 12px;
+        border-radius: 999px;
+        letter-spacing: 0.5px;
+      }
+
+      /* ============ HERO ============ */
+      .hero {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 52px 24px 8px;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--secondary-600);
+        background: var(--secondary-50);
+        border: 1px solid var(--secondary-100);
+        padding: 6px 14px;
+        border-radius: 999px;
+        margin-bottom: 18px;
+      }
+      .hero h1 {
+        font-size: 34px;
+        line-height: 1.1;
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+      .hero p {
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        max-width: 620px;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 32px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .hero-stat .n {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--primary-600);
+      }
+      .hero-stat .l {
+        font-size: 13px;
+        color: var(--text-tertiary);
+      }
+
+      /* ============ SECTIONS ============ */
+      .hub {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px 24px 64px;
+      }
+      .section {
+        margin-top: 36px;
+      }
+      .section[id] {
+        scroll-margin-top: 88px;
+      }
+      .section-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .section-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+      }
+      .sec-blue {
+        background: var(--primary-50);
+        color: var(--primary-600);
+      }
+      .sec-orange {
+        background: var(--secondary-50);
+        color: var(--secondary-600);
+      }
+      .sec-green {
+        background: var(--success-50);
+        color: var(--success-600);
+      }
+      .section-title {
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .section-sub {
+        font-size: 13px;
+        color: var(--text-tertiary);
+        margin-top: 2px;
+      }
+      .section-count {
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--neutral-500);
+        background: var(--neutral-0);
+        border: 1px solid var(--border-default);
+        padding: 5px 12px;
+        border-radius: 999px;
+      }
+
+      /* Jump tag nav: bấm để nhảy tới cụm màn hình */
+      .tag-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: -6px 0 4px;
+      }
+      .tag-nav a {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--neutral-600);
+        background: var(--neutral-0);
+        border: 1px solid var(--neutral-200);
+        padding: 7px 14px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        transition:
+          color 0.15s,
+          background 0.15s,
+          border-color 0.15s,
+          transform 0.15s;
+      }
+      .tag-nav a:hover {
+        color: var(--primary-600);
+        border-color: var(--primary-200);
+        background: var(--primary-50);
+        transform: translateY(-1px);
+      }
+      .tag-nav a .cnt {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--primary-600);
+        background: var(--primary-50);
+        padding: 2px 7px;
+        border-radius: 999px;
+      }
+      .tag-nav a .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--secondary-500);
+        flex-shrink: 0;
+      }
+      .group-line {
+        scroll-margin-top: 88px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+      }
+
+      /* Nhóm screen theo feature: line + tag */
+      .group-line {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 14px 0 2px;
+      }
+      .group-line::before,
+      .group-line::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--neutral-200);
+      }
+      .group-line .group-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--primary-700);
+        background: var(--primary-50);
+        border: 1px solid var(--primary-100);
+        padding: 5px 14px;
+        border-radius: 999px;
+      }
+      .group-line .group-tag .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--secondary-500);
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        background: var(--neutral-0);
+        border: 1px solid var(--border-default);
+        border-radius: 14px;
+        padding: 20px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      a.card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-200);
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .card-thumb {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+      }
+      .th-blue {
+        background: linear-gradient(
+          135deg,
+          var(--primary-500),
+          var(--primary-700)
+        );
+        color: #fff;
+      }
+      .th-blue-soft {
+        background: var(--primary-50);
+        color: var(--primary-600);
+      }
+      .th-orange-soft {
+        background: var(--secondary-50);
+        color: var(--secondary-600);
+      }
+      .th-dark {
+        background: linear-gradient(
+          135deg,
+          var(--primary-900),
+          var(--primary-800)
+        );
+        color: var(--primary-200);
+      }
+      .th-neutral {
+        background: var(--neutral-100);
+        color: var(--neutral-600);
+      }
+      .th-green-soft {
+        background: var(--success-50);
+        color: var(--success-600);
+      }
+      .tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--primary-600);
+        background: var(--primary-50);
+        padding: 4px 10px;
+        border-radius: 999px;
+      }
+      .card h3 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .card p {
+        font-size: 13px;
+        color: var(--text-tertiary);
+        line-height: 1.6;
+        flex: 1;
+      }
+      .card .go {
+        margin-top: 14px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--primary-600);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      a.card:hover .go {
+        color: var(--primary-500);
+      }
+      .card .go svg {
+        transition: transform 0.2s;
+      }
+      a.card:hover .go svg {
+        transform: translateX(3px);
+      }
+
+      /* Empty state (mobile) */
+      .empty {
+        border: 1.5px dashed var(--neutral-300);
+        border-radius: 14px;
+        background: var(--neutral-0);
+        padding: 48px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+        color: var(--neutral-400);
+      }
+      .empty .empty-ico {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: var(--neutral-100);
+        color: var(--neutral-400);
+        display: grid;
+        place-items: center;
+        margin-bottom: 4px;
+      }
+      .empty strong {
+        font-size: 15px;
+        color: var(--neutral-600);
+      }
+      .empty span {
+        font-size: 13px;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 13px;
+        color: var(--neutral-400);
+        padding: 24px;
+        border-top: 1px solid var(--neutral-200);
+      }
+
+      /* ============ MOBILE ============ */
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 27px;
+        }
+        .hero-stats {
+          gap: 20px;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .topbar-inner {
+          flex-wrap: wrap;
+          height: auto;
+          padding: 12px 24px;
+          gap: 8px;
+        }
+        .topbar-nav {
+          margin-left: 0;
+          flex-wrap: wrap;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ TOPBAR ============ -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <img src="shared/logo/logo-removebg-preview.png" alt="EDUMY logo" />
+        <span class="brand">EDUMY</span>
+        <span class="badge">UI Prototype Hub</span>
+        <nav class="topbar-nav">
+          <a href="#shared">Shared Components</a>
+          <a href="#web-design">Web Design</a>
+          <a href="#mobile-design">Mobile Design</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <span class="hero-eyebrow">EDUMY · Online Learning Platform</span>
+      <h1>Trung tâm điều hướng thiết kế giao diện</h1>
+      <p>
+        Mỗi màn hình là một file HTML độc lập, tái sử dụng chung bộ design token
+        từ thư mục <strong>shared/</strong>. Chọn phân vùng bên dưới để xem
+        thành phần dùng chung hoặc các màn hình đã thiết kế.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="n">8</div>
+          <div class="l">Thành phần dùng chung</div>
+        </div>
+        <div class="hero-stat">
+          <div class="n">29</div>
+          <div class="l">Màn hình Web</div>
+        </div>
+        <div class="hero-stat">
+          <div class="n">0</div>
+          <div class="l">Màn hình Mobile</div>
+        </div>
+      </div>
+    </section>
+
+    <main class="hub">
+      <!-- ============ SHARED COMPONENTS ============ -->
+      <section class="section" id="shared">
+        <div class="section-head">
+          <span class="section-icon sec-blue">
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="3" width="7" height="9" rx="1" />
+              <rect x="14" y="3" width="7" height="5" rx="1" />
+              <rect x="14" y="12" width="7" height="9" rx="1" />
+              <rect x="3" y="16" width="7" height="5" rx="1" />
+            </svg>
+          </span>
+          <div>
+            <div class="section-title">Shared Components</div>
+            <div class="section-sub">
+              Thành phần dùng chung cho mọi màn hình
+            </div>
+          </div>
+          <span class="section-count">8 mục</span>
+        </div>
+
+        <div class="cards">
+          <a class="card" href="shared/layout/navbar.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 4h20v16H2z" />
+                  <path d="M2 9h20M9 4v5" />
+                </svg>
+              </span>
+              <span class="tag">Layout</span>
+            </div>
+            <h3>Navbar</h3>
+            <p>
+              Thanh điều hướng sticky: logo, menu, tìm kiếm, icon actions, user
+              menu, hamburger.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/layout/footer.html">
+            <div class="card-top">
+              <span class="card-thumb th-dark">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="4" y1="9" x2="20" y2="9" />
+                  <line x1="4" y1="15" x2="20" y2="15" />
+                  <line x1="4" y1="5" x2="20" y2="5" />
+                  <line x1="4" y1="19" x2="12" y2="19" />
+                </svg>
+              </span>
+              <span class="tag">Layout</span>
+            </div>
+            <h3>Footer</h3>
+            <p>
+              Chân trang nền tối Neutral 800: cột thương hiệu, liên kết, liên hệ
+              và bottom bar.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/layout/admin-layout.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </span>
+              <span class="tag">Layout</span>
+            </div>
+            <h3>Admin Layout</h3>
+            <p>
+              Khung quản trị hệ thống: sidebar tối + topbar, vùng nội dung trống
+              để render trang admin.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/layout/instructor-layout.html">
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </span>
+              <span class="tag">Layout</span>
+            </div>
+            <h3>Instructor Layout</h3>
+            <p>
+              Khung giảng viên: sidebar tối + menu khóa học/đề thi
+              (All/Draft/Published), Analytics, Cài đặt, kèm footer.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/buttons/primary-button.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <path d="M7 9h10M7 13h6" />
+                </svg>
+              </span>
+              <span class="tag">Buttons</span>
+            </div>
+            <h3>Primary Button</h3>
+            <p>
+              Nút thương hiệu (Primary 500) — CTA chính, 4 trạng thái
+              Default/Hover/Active/Disable.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/buttons/secondary-button.html">
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <path d="M7 9h10M7 13h6" />
+                </svg>
+              </span>
+              <span class="tag">Buttons</span>
+            </div>
+            <h3>Secondary Button</h3>
+            <p>
+              Nút phụ trợ (Secondary 500) — hành động phụ, course tags, badges,
+              mua ngay.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/buttons/outline-button.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <path d="M7 9h10M7 13h6" />
+                </svg>
+              </span>
+              <span class="tag">Buttons</span>
+            </div>
+            <h3>Outline Button</h3>
+            <p>
+              Nút viền Primary — hành động phụ, không nổi bật bằng Primary
+              Button.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="shared/buttons/icon-button.html">
+            <div class="card-top">
+              <span class="card-thumb th-neutral">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 5V3M12 21v-2M5 12H3M21 12h-2" />
+                </svg>
+              </span>
+              <span class="tag">Buttons</span>
+            </div>
+            <h3>Icon Button</h3>
+            <p>
+              Nút biểu tượng 44×44 — thông báo, giỏ hàng, hành động compact kèm
+              badge.
+            </p>
+            <span class="go"
+              >Xem
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ WEB DESIGN ============ -->
+      <section class="section" id="web-design">
+        <div class="section-head">
+          <span class="section-icon sec-orange">
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+          </span>
+          <div>
+            <div class="section-title">Web Design</div>
+            <div class="section-sub">Màn hình web của nền tảng đã thiết kế</div>
+          </div>
+          <span class="section-count">29 màn hình</span>
+        </div>
+
+        <div class="tag-nav">
+          <a href="#group-home"
+            ><i class="dot"></i>Home <span class="cnt">1</span></a
+          >
+          <a href="#group-auth"
+            ><i class="dot"></i>Auth <span class="cnt">6</span></a
+          >
+          <a href="#group-user"
+            ><i class="dot"></i>User <span class="cnt">4</span></a
+          >
+          <a href="#group-course"
+            ><i class="dot"></i>Course <span class="cnt">5</span></a
+          >
+          <a href="#group-cart"
+            ><i class="dot"></i>Cart <span class="cnt">2</span></a
+          >
+          <a href="#group-exam"
+            ><i class="dot"></i>Exam <span class="cnt">6</span></a
+          >
+          <a href="#group-instructor"
+            ><i class="dot"></i>Instructor <span class="cnt">5</span></a
+          >
+        </div>
+
+        <div class="cards">
+          <div class="group-line" id="group-home">
+            <span class="group-tag"><i class="dot"></i>Home</span>
+          </div>
+          <a class="card" href="Web/Home/home.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </span>
+              <span class="tag">Home</span>
+            </div>
+            <h3>Trang chủ</h3>
+            <p>
+              Trang chủ web chính: hero + danh mục khóa học, khóa học nổi bật,
+              trợ lý AI Edu, đánh giá học viên và CTA đăng ký.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <div class="group-line" id="group-auth">
+            <span class="group-tag"><i class="dot"></i>Auth</span>
+          </div>
+          <a class="card" href="Web/Auth/Login/login.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </span>
+              <span class="tag">Auth</span>
+            </div>
+            <h3>Đăng nhập</h3>
+            <p>
+              Split layout: brand panel + form đăng nhập (local + Google), ghi
+              nhớ đăng nhập, quên mật khẩu.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Auth/Register/register.html">
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <line x1="20" y1="8" x2="20" y2="14" />
+                  <line x1="23" y1="11" x2="17" y2="11" />
+                </svg>
+              </span>
+              <span class="tag">Auth</span>
+            </div>
+            <h3>Đăng ký</h3>
+            <p>
+              Form đăng ký nhóm theo khối: cá nhân, mật khẩu, giới tính/ngày
+              sinh, địa chỉ — nền overlay mockup.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Auth/forgot-password/forgot-password/forgot-password.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"
+                  />
+                </svg>
+              </span>
+              <span class="tag">Auth</span>
+            </div>
+            <h3>Quên mật khẩu</h3>
+            <p>
+              Form yêu cầu đặt lại mật khẩu: nhập email đã đăng ký, kèm brand
+              panel bên trái.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Auth/forgot-password/check-email/check-email.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-neutral">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </span>
+              <span class="tag">Auth</span>
+            </div>
+            <h3>Kiểm tra email</h3>
+            <p>
+              Xác nhận link đặt lại mật khẩu đã gửi về email, kèm nút gửi lại và
+              tip kiểm tra Spam.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Auth/forgot-password/reset-password/reset-password.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  <polyline points="12 14 12 17" />
+                </svg>
+              </span>
+              <span class="tag">Auth</span>
+            </div>
+            <h3>Đặt lại mật khẩu</h3>
+            <p>
+              Form tạo mật khẩu mới: nhập mật khẩu + xác nhận, có yêu cầu độ
+              mạnh mật khẩu.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Auth/forgot-password/reset-success/reset-success.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </span>
+              <span class="tag">Auth</span>
+            </div>
+            <h3>Đặt lại thành công</h3>
+            <p>
+              Trạng thái hoàn tất: mật khẩu đã được đổi, nút đăng nhập ngay và
+              link về trang chủ.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <div class="group-line" id="group-user">
+            <span class="group-tag"><i class="dot"></i>User</span>
+          </div>
+          <a class="card" href="Web/User/Profile/Overview/overview.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </span>
+              <span class="tag">User</span>
+            </div>
+            <h3>Tổng quan</h3>
+            <p>
+              Trang tổng quan người học: navbar, sidebar tài khoản, khóa học
+              trong học, thông tin cá nhân và ảnh đại diện.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/User/Profile/Courses/courses.html">
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </span>
+              <span class="tag">User</span>
+            </div>
+            <h3>Khóa học của tôi</h3>
+            <p>
+              Tab khóa học trong hồ sơ: danh sách khóa học đã mua, tiến độ học,
+              trạng thái Đang học/Hoàn thành.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/User/Profile/Exams/exams.html">
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="8" y1="6" x2="21" y2="6" />
+                  <line x1="8" y1="12" x2="21" y2="12" />
+                  <line x1="8" y1="18" x2="21" y2="18" />
+                  <line x1="3" y1="6" x2="3.01" y2="6" />
+                  <line x1="3" y1="12" x2="3.01" y2="12" />
+                  <line x1="3" y1="18" x2="3.01" y2="18" />
+                </svg>
+              </span>
+              <span class="tag">User</span>
+            </div>
+            <h3>Đề thi của tôi</h3>
+            <p>
+              Tab đề thi trong hồ sơ: các đề thi đã sở hữu, điểm số, thời gian
+              và nút làm lại.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/User/Profile/Information/information.html">
+            <div class="card-top">
+              <span class="card-thumb th-neutral">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </span>
+              <span class="tag">User</span>
+            </div>
+            <h3>Thông tin cá nhân</h3>
+            <p>
+              Tab cập nhật hồ sơ: sửa avatar, thông tin liên hệ, mật khẩu và lưu
+              thay đổi.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <div class="group-line" id="group-course">
+            <span class="group-tag"><i class="dot"></i>Course</span>
+          </div>
+          <a class="card" href="Web/Course/course-list/course-list.html">
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </span>
+              <span class="tag">Course</span>
+            </div>
+            <h3>Danh sách khóa học</h3>
+            <p>
+              Trang hiển thị danh sách khóa học: tìm kiếm, lọc danh mục/trình
+              độ/giá, sắp xếp, phân trang đầy đủ.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Course/course-detail/course-detail.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </span>
+              <span class="tag">Course</span>
+            </div>
+            <h3>Chi tiết khóa học</h3>
+            <p>
+              Màn hình học viên đã tham gia: overview khóa học, tiến độ học tập,
+              chương trình học (chương + bài video/PDF/Markdown) và thông tin
+              giảng viên.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Course/lesson-detail/lesson-video.html">
+            <div class="card-top">
+              <span class="card-thumb th-primary">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m10 9 5 3-5 3z" />
+                </svg>
+              </span>
+              <span class="tag">Course</span>
+            </div>
+            <h3>Bài học Video</h3>
+            <p>
+              Màn hình học bài giảng video: player, danh sách bài trong chương,
+              đánh dấu hoàn thành và ghi chú.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Course/lesson-detail/lesson-md.html">
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <path d="M9 13h6" />
+                  <path d="M9 17h6" />
+                </svg>
+              </span>
+              <span class="tag">Course</span>
+            </div>
+            <h3>Bài học Markdown</h3>
+            <p>
+              Màn hình học bài giảng dạng Markdown: nội dung có cấu trúc, trích
+              dẫn mã nguồn và mục lục bài học.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Course/lesson-detail/lesson-doc.html">
+            <div class="card-top">
+              <span class="card-thumb th-neutral">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <path d="M9 12h6" />
+                  <path d="M9 16h6" />
+                </svg>
+              </span>
+              <span class="tag">Course</span>
+            </div>
+            <h3>Bài học tài liệu PDF</h3>
+            <p>
+              Màn hình học bài giảng dạng tài liệu PDF: xem trực tuyến, tải về
+              và theo dõi tiến độ bài học.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <div class="group-line" id="group-cart">
+            <span class="group-tag"><i class="dot"></i>Cart</span>
+          </div>
+          <a class="card" href="Web/Cart/Cart/cart.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="9" cy="21" r="1" />
+                  <circle cx="20" cy="21" r="1" />
+                  <path
+                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                  />
+                </svg>
+              </span>
+              <span class="tag">Cart</span>
+            </div>
+            <h3>Giỏ hàng</h3>
+            <p>
+              Giỏ hàng gồm khóa học và đề thi: checkbox chọn, giá khuyến mãi,
+              tóm tắt đơn hàng và mã giảm giá.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Cart/empty-cart/empty-cart.html">
+            <div class="card-top">
+              <span class="card-thumb th-neutral">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="9" cy="21" r="1" />
+                  <circle cx="20" cy="21" r="1" />
+                  <path
+                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                  />
+                </svg>
+              </span>
+              <span class="tag">Cart</span>
+            </div>
+            <h3>Giỏ hàng trống</h3>
+            <p>
+              Trạng thái giỏ hàng rỗng: icon minh họa, nút khám phá khóa học/đề
+              thi và danh sách gợi ý gồm 4 khóa học.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <div class="group-line" id="group-exam">
+            <span class="group-tag"><i class="dot"></i>Exam</span>
+          </div>
+
+          <a class="card" href="Web/Exam/exam-list/exam-list.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="8" y1="6" x2="21" y2="6" />
+                  <line x1="8" y1="12" x2="21" y2="12" />
+                  <line x1="8" y1="18" x2="21" y2="18" />
+                  <line x1="3" y1="6" x2="3.01" y2="6" />
+                  <line x1="3" y1="12" x2="3.01" y2="12" />
+                  <line x1="3" y1="18" x2="3.01" y2="18" />
+                </svg>
+              </span>
+              <span class="tag">Exam</span>
+            </div>
+            <h3>Danh sách đề thi</h3>
+            <p>
+              Trang khám phá đề thi: tìm kiếm, lọc danh mục/trình độ/giá, sắp
+              xếp và phân trang đầy đủ.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Exam/exam-intro/not-purchased-exam/exam-intro.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </span>
+              <span class="tag">Exam</span>
+            </div>
+            <h3>Giới thiệu đề thi — Chưa mua</h3>
+            <p>
+              Chi tiết đề thi khi chưa sở hữu: cover + thông số, cấu trúc, quy
+              định, đánh giá và panel giá + nút Mua ngay.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Exam/exam-intro/purchased-exam/exam-intro.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </span>
+              <span class="tag">Exam</span>
+            </div>
+            <h3>Giới thiệu đề thi — Đã mua</h3>
+            <p>
+              Chi tiết đề thi khi đã sở hữu: không hiển thị giá, panel trạng
+              thái đã mua + nút Bắt đầu làm bài.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Exam/exam-taking/exam-taking.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </span>
+              <span class="tag">Exam</span>
+            </div>
+            <h3>Làm bài thi</h3>
+            <p>
+              Chế độ làm bài toàn màn hình: đồng hồ đếm ngược, chọn đáp án, đánh
+              dấu câu hỏi và bảng tiến độ câu hỏi.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a class="card" href="Web/Exam/exam-result/exam-result.html">
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="20" x2="18" y2="10" />
+                  <line x1="12" y1="20" x2="12" y2="4" />
+                  <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+              </span>
+              <span class="tag">Exam</span>
+            </div>
+            <h3>Kết quả bài thi</h3>
+            <p>
+              Kết quả sau nộp bài: điểm + xếp loại, thống kê đúng/sai và bảng
+              tổng quan đáp án 40 câu.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Exam/exam-result-detail/exam-result-detail.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"
+                  />
+                  <rect x="9" y="3" width="6" height="4" rx="1" />
+                  <polyline points="9 14 11 16 15 12" />
+                </svg>
+              </span>
+              <span class="tag">Exam</span>
+            </div>
+            <h3>Xem chi tiết bài làm</h3>
+            <p>
+              Ôn tập sau khi nộp bài: xem đáp án bạn đã chọn, đáp án đúng và
+              giải thích chi tiết cho từng câu hỏi.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <div class="group-line" id="group-instructor">
+            <span class="group-tag"><i class="dot"></i>Instructor</span>
+          </div>
+          <a class="card" href="Web/Instructor/course-builder/course-list.html">
+            <div class="card-top">
+              <span class="card-thumb th-blue-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </span>
+              <span class="tag">Instructor</span>
+            </div>
+            <h3>Course Management</h3>
+            <p>
+              Instructor quản lý khóa học: tìm kiếm, lọc trạng thái/danh mục và
+              các Course Card (Draft/Published).
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Instructor/course-builder/create-course.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-orange-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+              <span class="tag">Instructor</span>
+            </div>
+            <h3>Create Course</h3>
+            <p>
+              Form tạo khóa học mới: tên, mô tả, thumbnail upload, danh mục,
+              trình độ và nút Cancel/Create.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Instructor/course-builder/course-detail.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-blue">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </span>
+              <span class="tag">Instructor</span>
+            </div>
+            <h3>Course Detail — Sections</h3>
+            <p>
+              Breadcrumb + thông tin khóa học, inline form Add Section và danh
+              sách Section Card (drag handle).
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Instructor/course-builder/section-detail.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-neutral">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="3" width="7" height="9" rx="1" />
+                  <rect x="14" y="3" width="7" height="5" rx="1" />
+                  <rect x="14" y="12" width="7" height="9" rx="1" />
+                  <rect x="3" y="16" width="7" height="5" rx="1" />
+                </svg>
+              </span>
+              <span class="tag">Instructor</span>
+            </div>
+            <h3>Section Detail — Lessons</h3>
+            <p>
+              Breadcrumb 3 cấp, inline form Add Lesson kèm chọn loại bài
+              (Video/Text/Quiz) và danh sách Lesson Card.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+
+          <a
+            class="card"
+            href="Web/Instructor/course-builder/lesson-detail.html"
+          >
+            <div class="card-top">
+              <span class="card-thumb th-green-soft">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m10 9 5 3-5 3z" />
+                </svg>
+              </span>
+              <span class="tag">Instructor</span>
+            </div>
+            <h3>Lesson Detail — Editor</h3>
+            <p>
+              Breadcrumb 4 cấp, editor bài học: thông tin bài, upload video,
+              toolbar rich text — sẵn sàng mở rộng Text/Quiz.
+            </p>
+            <span class="go"
+              >Mở màn hình
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" /></svg
+            ></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ MOBILE DESIGN ============ -->
+      <section class="section" id="mobile-design">
+        <div class="section-head">
+          <span class="section-icon sec-green">
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="7" y="2" width="10" height="20" rx="2" />
+              <line x1="11" y1="18" x2="13" y2="18" />
+            </svg>
+          </span>
+          <div>
+            <div class="section-title">Mobile Design</div>
+            <div class="section-sub">Màn hình mobile của nền tảng</div>
+          </div>
+          <span class="section-count">0 màn hình</span>
+        </div>
+
+        <div class="empty">
+          <span class="empty-ico">
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="7" y="2" width="10" height="20" rx="2" />
+              <line x1="11" y1="18" x2="13" y2="18" />
+            </svg>
+          </span>
+          <strong>Chưa có màn hình mobile nào</strong>
+          <span
+            >Khi thiết kế màn hình mobile, thêm vào đây và cập nhật lại trang
+            hub này.</span
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2026 EDUMY. Đề tài khóa luận tốt nghiệp — Khoa CNTT, Đại học Công Thương
+      TP.HCM.
+    </footer>
+  </body>
+</html>

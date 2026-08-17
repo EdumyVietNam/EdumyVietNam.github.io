@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUMY — Icon Button</title>
+<style>
+  :root {
+    --primary-50:#EFF4FF; --primary-100:#DBE8FF; --primary-400:#608CFF;
+    --primary-500:#2558E5; --primary-600:#1D44CD;
+    --secondary-500:#FF6B4A;
+    --neutral-0:#FFFFFF; --neutral-50:#F8FAFC; --neutral-100:#F1F5F9;
+    --neutral-200:#E2E8F0; --neutral-300:#CBD5E1; --neutral-400:#94A3B8;
+    --neutral-500:#64748B; --neutral-600:#475569; --neutral-700:#334155;
+    --neutral-900:#0F172A;
+    --error-500:#F43F5E;
+    --radius:12px;
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font);background:var(--neutral-50);color:var(--neutral-900);padding:40px;min-height:100vh;}
+  .wrap{max-width:960px;margin:0 auto;}
+  h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+  .sub{font-size:13px;color:var(--neutral-400);margin-bottom:32px;}
+  h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--neutral-700);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--neutral-200);}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  .stat{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .stat-name{font-size:11px;font-weight:600;color:var(--neutral-400);text-transform:uppercase;letter-spacing:1px;}
+
+  /* ================= ICON BUTTON ================= */
+  .btn-icon{
+    width:44px;height:44px;
+    display:grid;place-items:center;
+    font-size:19px;
+    color:var(--neutral-600);
+    background:var(--neutral-0);
+    border:1px solid var(--neutral-200);border-radius:var(--radius);
+    cursor:pointer;
+    position:relative;
+    transition:all .2s;
+  }
+  .btn-icon:hover{background:var(--primary-50);border-color:var(--primary-100);color:var(--primary-600);}
+  .btn-icon:active{background:var(--primary-100);border-color:var(--primary-200);color:var(--primary-600);}
+  .btn-icon:disabled{background:var(--neutral-100);border-color:var(--neutral-100);color:var(--neutral-300);cursor:not-allowed;}
+
+  /* Preview */
+  .btn-icon.is-hover{background:var(--primary-50);border-color:var(--primary-100);color:var(--primary-600);}
+  .btn-icon.is-active{background:var(--primary-100);border-color:var(--primary-200);color:var(--primary-600);}
+  .btn-icon.is-disable{background:var(--neutral-100);border-color:var(--neutral-100);color:var(--neutral-300);cursor:not-allowed;}
+
+  /* Badge đếm trên icon */
+  .btn-icon .badge{
+    position:absolute;top:5px;right:5px;
+    min-width:15px;height:15px;padding:0 3px;
+    border-radius:999px;
+    background:var(--error-500);color:#fff;
+    font-size:9px;font-weight:700;
+    display:grid;place-items:center;
+    border:1.5px solid var(--neutral-0);
+  }
+  .btn-icon .badge.accent{background:var(--secondary-500);}
+  .btn-icon:disabled .badge{background:var(--neutral-300);}
+
+  .note{font-size:12px;color:var(--neutral-400);margin-top:14px;line-height:1.7;}
+  .box{background:#fff;border:1px solid var(--neutral-200);border-radius:12px;padding:20px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Icon Button</h1>
+    <p class="sub">Nút biểu tượng 44×44 — dùng cho thông báo, giỏ hàng, hành động compact.</p>
+
+    <h2>Demo live — di chuột để xem Hover, nhấn giữ để xem Active</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-icon">🔔</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-icon">🔔</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-icon">🔔</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-icon" disabled>🔔</button><span class="stat-name">Disable</span></div>
+      </div>
+    </div>
+
+    <h2>Preview — hiển thị tĩnh 4 trạng thái</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-icon">🔔</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-icon is-hover">🔔</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-icon is-active">🔔</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-icon is-disable" disabled>🔔</button><span class="stat-name">Disable</span></div>
+      </div>
+      <p class="note">Hover: Primary 50 nền + icon Primary 600 · Active: Primary 100 · Disable: Neutral 100 nền + Neutral 300 icon.</p>
+    </div>
+
+    <h2>Biến thể — có badge đếm (giỏ hàng / thông báo)</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-icon">🛒<span class="badge">2</span></button><span class="stat-name">Badge đỏ</span></div>
+        <div class="stat"><button class="btn-icon">🔔<span class="badge accent">3</span></button><span class="stat-name">Badge cam</span></div>
+        <div class="stat"><button class="btn-icon" disabled>🛒<span class="badge">2</span></button><span class="stat-name">Disable + badge</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

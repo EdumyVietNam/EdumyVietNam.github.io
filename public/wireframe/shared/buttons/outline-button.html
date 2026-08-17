@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUMY — Outline Button</title>
+<style>
+  :root {
+    --primary-50:#EFF4FF; --primary-100:#DBE8FF; --primary-200:#BFD3FF;
+    --primary-400:#608CFF; --primary-500:#2558E5; --primary-600:#1D44CD;
+    --neutral-0:#FFFFFF; --neutral-50:#F8FAFC; --neutral-100:#F1F5F9;
+    --neutral-200:#E2E8F0; --neutral-300:#CBD5E1; --neutral-400:#94A3B8;
+    --neutral-700:#334155; --neutral-900:#0F172A;
+    --radius:12px;
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font);background:var(--neutral-50);color:var(--neutral-900);padding:40px;min-height:100vh;}
+  .wrap{max-width:960px;margin:0 auto;}
+  h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+  .sub{font-size:13px;color:var(--neutral-400);margin-bottom:32px;}
+  h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--neutral-700);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--neutral-200);}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  .stat{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .stat-name{font-size:11px;font-weight:600;color:var(--neutral-400);text-transform:uppercase;letter-spacing:1px;}
+
+  /* ================= OUTLINE BUTTON ================= */
+  .btn-outline{
+    font-family:var(--font);
+    font-size:15px;font-weight:700;
+    padding:13px 28px;
+    color:var(--primary-600);
+    background:transparent;
+    border:1.5px solid var(--primary-200);border-radius:var(--radius);
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .btn-outline:hover{background:var(--primary-50);border-color:var(--primary-400);color:var(--primary-600);}
+  .btn-outline:active{background:var(--primary-100);border-color:var(--primary-500);color:var(--primary-600);}
+  .btn-outline:disabled{background:transparent;border-color:var(--neutral-200);color:var(--neutral-300);cursor:not-allowed;}
+
+  /* Preview */
+  .btn-outline.is-hover{background:var(--primary-50);border-color:var(--primary-400);color:var(--primary-600);}
+  .btn-outline.is-active{background:var(--primary-100);border-color:var(--primary-500);color:var(--primary-600);}
+  .btn-outline.is-disable{background:transparent;border-color:var(--neutral-200);color:var(--neutral-300);cursor:not-allowed;}
+
+  .note{font-size:12px;color:var(--neutral-400);margin-top:14px;line-height:1.7;}
+  .box{background:#fff;border:1px solid var(--neutral-200);border-radius:12px;padding:20px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Outline Button</h1>
+    <p class="sub">Nút viền Primary — dùng cho hành động phụ, không nổi bật bằng Primary Button.</p>
+
+    <h2>Demo live — di chuột để xem Hover, nhấn giữ để xem Active</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-outline">Xem chi tiết</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-outline">Xem chi tiết</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-outline">Xem chi tiết</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-outline" disabled>Xem chi tiết</button><span class="stat-name">Disable</span></div>
+      </div>
+    </div>
+
+    <h2>Preview — hiển thị tĩnh 4 trạng thái</h2>
+    <div class="box">
+      <div class="row">
+        <div class="stat"><button class="btn-outline">Xem chi tiết</button><span class="stat-name">Default</span></div>
+        <div class="stat"><button class="btn-outline is-hover">Xem chi tiết</button><span class="stat-name">Hover</span></div>
+        <div class="stat"><button class="btn-outline is-active">Xem chi tiết</button><span class="stat-name">Active</span></div>
+        <div class="stat"><button class="btn-outline is-disable" disabled>Xem chi tiết</button><span class="stat-name">Disable</span></div>
+      </div>
+      <p class="note">Default: viền Primary 200 + chữ Primary 600 · Hover: nền Primary 50 + viền Primary 400 · Active: nền Primary 100 + viền Primary 500 · Disable: viền/chữ Neutral nhạt.</p>
+    </div>
+  </div>
+</body>
+</html>
