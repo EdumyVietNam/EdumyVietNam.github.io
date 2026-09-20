@@ -36,82 +36,9 @@
   ul { list-style: none; }
   button { font-family: var(--font); cursor: pointer; }
 
-  .admin { display: flex; min-height: 100vh; }
+/* Nội dung từng trang */
 
-  /* ============ SIDEBAR (xám tối Neutral) ============ */
-  .sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 264px;
-    background: linear-gradient(180deg, var(--neutral-900), var(--neutral-800));
-    color: rgba(255,255,255,0.82);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    z-index: 90;
-  }
-  .sidebar-brand { display: flex; align-items: center; gap: 11px; padding: 20px 22px; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
-  .sidebar-brand img { height: 32px; width: auto; }
-  .sidebar-brand .name { font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px; }
-  .sidebar-brand .role { font-size: 10px; font-weight: 600; color: var(--neutral-400); text-transform: uppercase; letter-spacing: 1px; }
-
-  .sidebar-nav { flex: 1; padding: 14px 12px; }
-  .nav-label { padding: 18px 14px 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.38); }
-  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; margin: 2px 0; border-radius: 10px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.78); transition: background .2s, color .2s; }
-  .nav-item svg { flex-shrink: 0; color: rgba(255,255,255,0.6); transition: color .2s; }
-  .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
-  .nav-item:hover svg { color: #fff; }
-  .nav-item.active { background: var(--primary-500); color: #fff; box-shadow: 0 6px 16px rgba(37,88,229,0.35); }
-  .nav-item.active svg { color: #fff; }
-
-  .nav-group > summary { list-style: none; cursor: pointer; user-select: none; }
-  .nav-group > summary::-webkit-details-marker { display: none; }
-  .nav-group > summary .caret { margin-left: auto; color: rgba(255,255,255,0.45); transition: transform .2s; }
-  .nav-group[open] > summary .caret { transform: rotate(180deg); }
-  .nav-group[open] > summary { color: #fff; }
-  .nav-sub { margin: 2px 0 6px; }
-  .nav-sub-item { display: flex; align-items: center; gap: 10px; padding: 8px 14px; margin: 2px 0; border-radius: 8px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.62); border-left: 2px solid transparent; transition: background .2s, color .2s; }
-  .nav-sub-item::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); flex-shrink: 0; transition: background .2s; }
-  .nav-sub-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
-  .nav-sub-item:hover::before { background: var(--primary-300); }
-  .nav-sub-item.active { color: #fff; background: rgba(37,88,229,0.28); border-left-color: var(--primary-400); }
-  .nav-sub-item.active::before { background: var(--primary-400); }
-
-  .sidebar-foot { padding: 14px 12px; border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
-  .sidebar-user { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
-  .sidebar-user .avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600)); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; flex-shrink: 0; }
-  .sidebar-user .meta { font-size: 13px; font-weight: 600; color: #fff; }
-  .sidebar-user .meta small { display: block; font-weight: 400; font-size: 12px; color: rgba(255,255,255,0.5); }
-
-  /* ============ MAIN ============ */
-  .admin-main { margin-left: 264px; flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-  .topbar {
-    position: sticky; top: 0; z-index: 50;
-    height: 68px; background: var(--neutral-0);
-    border-bottom: 1px solid var(--border-default);
-    display: flex; align-items: center; gap: 16px; padding: 0 24px;
-    box-shadow: 0 1px 0 var(--border-default);
-    flex-shrink: 0;
-  }
-  .topbar .hamburger { background: none; border: none; width: 40px; height: 40px; border-radius: 10px; color: var(--neutral-700); place-items: center; display: grid; }
-  .topbar .hamburger:hover { background: var(--neutral-100); }
-  .tb-title { font-size: 16px; font-weight: 700; }
-  .tb-search { position: relative; margin-left: auto; width: 220px; }
-  .tb-search input { width: 100%; padding: 9px 14px 9px 38px; font-size: 14px; background: var(--neutral-50); border: 1.5px solid var(--border-default); border-radius: 10px; outline: none; transition: all .2s; }
-  .tb-search input::placeholder { color: var(--neutral-400); }
-  .tb-search input:focus { background: var(--neutral-0); border-color: var(--primary-500); box-shadow: 0 0 0 4px var(--primary-50); }
-  .tb-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--neutral-400); }
-  .tb-icon { position: relative; width: 42px; height: 42px; border-radius: 11px; background: var(--neutral-50); border: none; color: var(--neutral-600); display: grid; place-items: center; transition: background .2s,color .2s; }
-  .tb-icon:hover { background: var(--primary-50); color: var(--primary-600); }
-  .tb-avatar { display: flex; align-items: center; gap: 10px; padding: 5px 10px 5px 5px; border-radius: 999px; border: 1.5px solid var(--border-default); background: var(--neutral-0); }
-  .tb-avatar .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-500), var(--primary-700)); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; }
-  .tb-avatar .meta { font-size: 13px; font-weight: 600; }
-  .tb-avatar .meta small { display: block; font-weight: 400; color: var(--neutral-400); font-size: 12px; }
-
-  /* ============ CONTENT ============ */
-  .content { padding: 28px; flex: 1; }
-  .page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .page-title { font-size: 22px; font-weight: 800; letter-spacing: -0.2px; }
   .page-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; }
 
@@ -160,10 +87,10 @@
   .more:hover { background: var(--neutral-100); color: var(--neutral-700); }
 
   /* ============ BREADCRUMB ============ */
-  .crumb { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--text-tertiary); margin-bottom: 18px; }
-  .crumb a { color: var(--primary-600); font-weight: 600; transition: color .2s; }
-  .crumb a:hover { text-decoration: underline; }
-  .crumb .sep { color: var(--neutral-300); }
+
+.crumb a { color: var(--primary-600); font-weight: 600; transition: color .2s; }
+
+.crumb .sep { color: var(--neutral-300); }
 
   /* ============ DETAIL HEAD ============ */
   .detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -233,130 +160,101 @@
     .type-select { grid-template-columns: 1fr; }
   }
 
-  /* ============ FOOTER ============ */
-  .layout-footer { background: var(--neutral-800); color: var(--neutral-300); flex-shrink: 0; }
-  .lf-inner { max-width: 1280px; margin: 0 auto; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .lf-brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #fff; }
-  .lf-brand img { height: 28px; width: auto; }
-  .lf-links { display: flex; gap: 18px; }
-  .lf-links a { font-size: 13px; color: var(--neutral-400); transition: color .2s; }
-  .lf-links a:hover { color: var(--primary-300); }
-  .lf-bottom { border-top: 1px solid rgba(255,255,255,0.08); text-align: center; padding: 14px 24px; font-size: 12px; color: var(--neutral-500); }
+  /* Điều chỉnh nội dung trên màn hình nhỏ */
 
-  /* ============ MOBILE ============ */
-  @media (max-width: 900px) {
-    .sidebar { display: none; }
-    .admin-main { margin-left: 0; }
-    .tb-search { display: none; }
-  }
   @media (max-width: 640px) {
-    .content { padding: 20px; }
-    .cards { grid-template-columns: 1fr; }
+
+.cards { grid-template-columns: 1fr; }
     .toolbar .search { min-width: 100%; }
   }
+
+/* Khung giảng viên theo shared/layout/instructor-layout.html */
+:root{--sidebar-width:264px}
+.nav-toggle{position:fixed;width:1px;height:1px;opacity:0}
+.layout{min-height:100vh}
+.sidebar{position:fixed;inset:0 auto 0 0;z-index:60;width:var(--sidebar-width);display:flex;flex-direction:column;background:var(--neutral-900);color:var(--neutral-300);border-right:1px solid var(--neutral-800);overflow-y:auto}
+.brand{display:flex;align-items:center;gap:11px;min-height:76px;padding:17px 20px;border-bottom:1px solid var(--neutral-800)}
+.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--neutral-0)}
+.brand-mark img{width:30px;height:30px;object-fit:contain}
+.brand strong{display:block;font-size:18px;line-height:1.1;letter-spacing:.02em;color:var(--neutral-0)}
+.brand small{display:block;margin-top:4px;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--neutral-400)}
+.sidebar-close{display:none;margin-left:auto;color:var(--neutral-300)}
+.side-nav{flex:1;padding:16px 12px 24px}
+.nav-caption{margin:19px 14px 8px;color:var(--neutral-400);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.nav-caption:first-child{margin-top:4px}
+.nav-link{display:flex;align-items:center;gap:12px;min-height:43px;padding:10px 12px;margin:2px 0;border-radius:10px;color:var(--neutral-300);font-size:13px;font-weight:600;transition:background .2s,color .2s}
+.nav-link svg{color:var(--neutral-400)}
+.nav-link:hover{background:var(--neutral-800);color:var(--neutral-0)}
+.nav-link:hover svg{color:var(--neutral-0)}
+.nav-link.active{background:var(--primary-500);color:var(--neutral-0);box-shadow:0 6px 16px rgba(37,88,229,.2)}
+.nav-link.active svg{color:var(--neutral-0)}
+.side-bottom{padding:16px 12px;border-top:1px solid var(--neutral-800)}
+.side-user{display:flex;gap:11px;align-items:center;padding:9px 10px}
+.avatar{display:grid;place-items:center;flex-shrink:0;width:38px;height:38px;border-radius:50%;background:var(--primary-500);color:var(--neutral-0);font-size:12px;font-weight:800}
+.side-user strong{display:block;color:var(--neutral-0);font-size:13px}
+.side-user span{color:var(--neutral-400);font-size:11px}
+.side-exit{margin-top:5px}
+.mobile-backdrop{display:none}
+.main-shell{min-width:0;min-height:100vh;margin-left:var(--sidebar-width);display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:16px;height:72px;padding:0 28px;border-bottom:1px solid var(--border-default);background:var(--neutral-0)}
+.menu-toggle{display:none;width:40px;height:40px;align-items:center;justify-content:center;color:var(--neutral-700);border-radius:10px}
+.crumb{display:flex;align-items:center;gap:9px;min-width:0;color:var(--neutral-500);font-size:13px;white-space:nowrap}
+.crumb strong{overflow:hidden;text-overflow:ellipsis;color:var(--neutral-800);font-weight:700}
+.crumb{overflow:hidden}
+.crumb a{color:var(--neutral-500)}
+.content{width:min(100%,1320px);flex:1;margin:0 auto;padding:34px 28px 56px}
+.layout-footer{margin-top:auto;padding:20px 28px;border-top:1px solid var(--border-default);background:var(--neutral-0);color:var(--neutral-500);font-size:11px;text-align:center}
+a:focus-visible,button:focus-visible,input:focus-visible,.menu-toggle:focus-visible{outline:3px solid var(--primary-300);outline-offset:2px}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s}
+  .main-shell{margin-left:0}
+  .menu-toggle,.sidebar-close{display:flex}
+  .nav-toggle:checked~.layout .sidebar{transform:translateX(0)}
+  .nav-toggle:checked~.layout .mobile-backdrop{display:block;position:fixed;inset:0;z-index:50;background:rgba(15,23,42,.48)}
+  .nav-toggle:focus-visible~.layout .menu-toggle{outline:3px solid var(--primary-300)}
+}
+@media(max-width:640px){
+  .topbar{height:62px;padding:0 16px}
+  .crumb .root-label,.crumb a,.crumb span[aria-hidden]{display:none}
+  .content{padding:24px 16px 44px}
+}
 </style>
 </head>
 <body>
-
-<div class="admin">
-
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <img src="../../../shared/logo/logo-removebg-preview.png" alt="EDUMY logo">
-      <div class="text">
-        <div class="name">EDUMY</div>
-        <div class="role">Instructor Panel</div>
-      </div>
+<input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Mở hoặc đóng menu giảng viên">
+<div class="layout">
+  <aside class="sidebar" aria-label="Điều hướng giảng viên">
+    <div class="brand">
+      <a class="brand-mark" href="../../../index.html" aria-label="EDUMY — trang điều hướng"><img src="../../../shared/logo/logo-removebg-preview.png" alt=""></a>
+      <div><strong>EDUMY</strong><small>Khu vực giảng viên</small></div>
+      <label class="sidebar-close" for="nav-toggle" aria-label="Đóng menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></label>
     </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-label">Chính</div>
-      <a href="course-list.html" class="nav-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-        <span>Dashboard</span>
-      </a>
-
-      <div class="nav-label">Giảng dạy</div>
-
-      <details class="nav-group" open>
-        <summary class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>My Courses</span>
-          <svg class="caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <ul class="nav-sub">
-          <li><a href="course-list.html" class="nav-sub-item active">All Courses</a></li>
-          <li><a href="course-list.html" class="nav-sub-item">Draft</a></li>
-          <li><a href="course-list.html" class="nav-sub-item">Published</a></li>
-        </ul>
-      </details>
-
-      <details class="nav-group">
-        <summary class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><polyline points="9 14 11 16 15 12"/></svg>
-          <span>My Exams</span>
-          <svg class="caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <ul class="nav-sub">
-          <li><a href="course-list.html" class="nav-sub-item">All Exams</a></li>
-          <li><a href="course-list.html" class="nav-sub-item">Draft</a></li>
-          <li><a href="course-list.html" class="nav-sub-item">Published</a></li>
-        </ul>
-      </details>
-
-      <div class="nav-label">Phân tích</div>
-      <a href="#" class="nav-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        <span>Analytics</span>
-      </a>
-
-      <div class="nav-label">Hệ thống</div>
-      <a href="#" class="nav-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        <span>Settings</span>
-      </a>
+    <nav class="side-nav" aria-label="Menu chính">
+      <p class="nav-caption">Không gian làm việc</p>
+      <a class="nav-link" href="../../../shared/layout/instructor-layout.html#overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Tổng quan</a>
+      <p class="nav-caption">Quản lý nội dung</p>
+      <a class="nav-link" href="course-list.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Khóa học của tôi</a>
+      <a class="nav-link" href="create-course.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Tạo khóa học</a>
+      <a class="nav-link active" href="course-detail.html" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>Nội dung khóa học</a>
+      <p class="nav-caption">Đánh giá &amp; báo cáo</p>
+      <a class="nav-link" href="../../Exam/create-exam/create-exam.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>Đề thi</a>
+      <a class="nav-link" href="../../../shared/layout/instructor-layout.html#analytics"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V12M12 20V4M19 20v-9"/></svg>Thống kê</a>
+      <p class="nav-caption">Tài khoản</p>
+      <a class="nav-link" href="../../User/Profile/Information/information.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Hồ sơ cá nhân</a>
     </nav>
-
-    <div class="sidebar-foot">
-      <div class="sidebar-user">
-        <span class="avatar">NH</span>
-        <div class="meta">Nhật Hưng <small>Giảng viên</small></div>
-      </div>
+    <div class="side-bottom">
+      <div class="side-user"><span class="avatar">NH</span><div><strong>Nhật Hưng</strong><span>Giảng viên</span></div></div>
+      <a class="nav-link side-exit" href="../../Home/home.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/></svg>Về trang học viên</a>
     </div>
   </aside>
-
-  <!-- ============ MAIN ============ -->
-  <div class="admin-main">
+  <label class="mobile-backdrop" for="nav-toggle" aria-hidden="true"></label>
+  <div class="main-shell">
     <header class="topbar">
-      <button class="hamburger" aria-label="Thu gọn menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-      <div class="tb-title">Section Detail</div>
-      <div class="tb-search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" placeholder="Tìm kiếm nhanh...">
-      </div>
-      <button class="tb-icon" aria-label="Thông báo">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </button>
-      <div class="tb-avatar">
-        <span class="avatar">NH</span>
-        <div class="meta">Nhật H <small>Giảng viên</small></div>
-      </div>
+      <label class="menu-toggle" for="nav-toggle" aria-label="Mở menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></label>
+      <nav class="crumb" aria-label="Đường dẫn trang"><span class="root-label">Không gian giảng dạy</span><span aria-hidden="true">/</span><a href="course-list.html">Khóa học của tôi</a><span aria-hidden="true">/</span><a href="course-detail.html">React Basic</a><span aria-hidden="true">/</span><strong>Introduction</strong></nav>
     </header>
-
-    <!-- ============ CONTENT ============ -->
     <main class="content">
       <div class="page">
-
-        <nav class="crumb">
-          <a href="course-list.html">Courses</a>
-          <span class="sep">/</span>
-          <a href="course-detail.html">React Basic</a>
-          <span class="sep">/</span>
-          <span>Introduction</span>
-        </nav>
 
         <div class="detail-head">
           <div>
@@ -520,14 +418,8 @@
 
       </div>
 </main>
-
-    <!-- ============ FOOTER ============ -->
-    <footer class="layout-footer">
-      <div class="lf-bottom">© 2026 EDUMY. Đề tài khóa luận tốt nghiệp — Khoa CNTT, Đại học Công Thương TP.HCM.</div>
-    </footer>
+    <footer class="layout-footer">© 2026 EDUMY · Không gian giảng viên</footer>
   </div>
-
 </div>
-
 </body>
 </html>
