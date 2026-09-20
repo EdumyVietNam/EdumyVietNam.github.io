@@ -174,17 +174,22 @@
 
   /* ===== Info: avatar upload ===== */
   .avatar-block { display: flex; align-items: center; gap: 20px; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--neutral-100); flex-wrap: wrap; }
-  .avatar-preview { position: relative; width: 88px; height: 88px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: linear-gradient(135deg, var(--primary-500), var(--primary-700)); border: 3px solid var(--primary-100); }
+  .avatar-file-input { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .avatar-preview { position: relative; display: block; width: 92px; height: 92px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: linear-gradient(135deg, var(--primary-500), var(--primary-700)); border: 3px solid var(--primary-100); cursor: pointer; }
   .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .avatar-info p { font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px; }
-  .avatar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-  .btn-sm { padding: 9px 16px; font-size: 13px; }
+  .avatar-preview::after { content: ""; position: absolute; inset: 0; background: rgba(15,23,42,.45); opacity: 0; transition: opacity .2s; }
+  .avatar-preview:hover::after, .avatar-file-input:focus-visible + .avatar-preview::after { opacity: 1; }
+  .avatar-preview .avatar-edit { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; color: #fff; opacity: 0; transition: opacity .2s; }
+  .avatar-preview:hover .avatar-edit, .avatar-file-input:focus-visible + .avatar-preview .avatar-edit { opacity: 1; }
+  .avatar-file-input:focus-visible + .avatar-preview { outline: 3px solid var(--primary-300); outline-offset: 3px; }
+  .avatar-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+  .avatar-info p { max-width: 360px; font-size: 13px; color: var(--text-tertiary); line-height: 1.55; }
 
   /* ===== Info: profile form ===== */
   .form-card { padding: 24px; }
   .form-card .card-title { margin-bottom: 20px; }
-  .form-card .card-title h3 { font-size: 16px; font-weight: 700; }
+  .form-card .card-title h3 { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+  .form-card .card-title p { font-size: 13px; color: var(--text-tertiary); line-height: 1.5; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
   .field label { display: block; font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 7px; }
   .field label .required { color: var(--error-500); }
@@ -215,9 +220,12 @@
   .btn-outline { background: var(--neutral-0); color: var(--neutral-700); border: 1.5px solid var(--neutral-200); }
   .btn-outline:hover { background: var(--surface-hover); border-color: var(--neutral-300); }
 
-  .profile-help { margin-top: 16px; color: var(--text-tertiary); font-size: 12px; line-height: 1.5; }
-  .field input[readonly] { background: var(--neutral-100); color: var(--text-secondary); }
-  .btn-row a { text-decoration: none; }
+  .account-card { margin-top: 18px; padding: 22px 24px; }
+  .account-card h3 { font-size: 16px; margin-bottom: 5px; }
+  .account-card > p { font-size: 13px; color: var(--text-tertiary); line-height: 1.5; }
+  .account-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+  .account-grid span { display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 5px; }
+  .account-grid strong { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
 
   /* ============ FOOTER (shared/layout/footer.html) ============ */
   .footer { background: var(--neutral-800); color: var(--neutral-300); }
@@ -250,6 +258,7 @@
     .profile-layout { grid-template-columns: 1fr; }
     .sidebar { position: static; }
     .form-grid { grid-template-columns: 1fr; }
+    .account-grid { grid-template-columns: 1fr; }
     .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
   @media (max-width: 600px) {
@@ -342,39 +351,40 @@
         <div class="panel">
           <div class="panel-head">
             <h2>Thông tin cá nhân</h2>
+            <p>Cập nhật hồ sơ để thông tin của bạn luôn đầy đủ và chính xác.</p>
           </div>
 
           <div class="card form-card">
             <div class="avatar-block">
-              <div class="avatar-preview" id="avatarPreview">
-                <img src="https://picsum.photos/seed/avatar-hung/176/176" alt="Ảnh đại diện">
-              </div>
+              <input class="avatar-file-input" type="file" id="avatarInput" accept="image/jpeg,image/png,image/webp,image/bmp">
+              <label class="avatar-preview" for="avatarInput" id="avatarPreview" aria-label="Chọn ảnh đại diện mới">
+                <img src="https://picsum.photos/seed/avatar-hung/176/176" alt="Ảnh đại diện hiện tại">
+                <span class="avatar-edit" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h4l2-2h4l2 2h4v12H4z"/><circle cx="12" cy="13" r="3"/></svg></span>
+              </label>
               <div class="avatar-info">
                 <h4>Ảnh đại diện</h4>
-                <p>Hỗ trợ JPG, PNG, WEBP hoặc BMP.</p>
-                <div class="avatar-actions">
-                  <label class="btn btn-primary btn-sm" for="avatarInput" style="cursor:pointer;">Chọn ảnh mới</label>
-                  <button type="button" class="btn btn-outline btn-sm" id="removeAvatar">Xóa ảnh</button>
-                </div>
-                <input type="file" id="avatarInput" accept=".jpg,.jpeg,.png,.webp,.bmp" hidden>
+                <p>Nhấn trực tiếp vào ảnh để thay đổi. Hỗ trợ JPG, PNG, WEBP và BMP.</p>
               </div>
             </div>
 
+            <div class="card-title"><h3>Hồ sơ cơ bản</h3><p>Những thông tin này được lưu trong hồ sơ cá nhân của bạn.</p></div>
             <form>
               <div class="form-grid">
                 <div class="field full"><label for="fullName">Họ và tên <span class="required">*</span></label><div class="input-wrap"><input type="text" id="fullName" name="fullName" value="Quang Nhật Hưng" required></div></div>
-                <div class="field"><label for="email">Email tài khoản</label><div class="input-wrap"><input type="email" id="email" value="quangnhathung2005@gmail.com" readonly></div></div>
-                <div class="field"><label for="phone">Số điện thoại tài khoản</label><div class="input-wrap"><input type="tel" id="phone" value="0838 557 433" readonly></div></div>
                 <div class="field"><label for="dob">Ngày sinh</label><div class="input-wrap"><input type="date" id="dob" name="dateOfBirth" value="2005-05-20"></div></div>
-                <div class="field"><label for="gender">Giới tính</label><div class="input-wrap"><select id="gender" name="gender"><option>Nam</option><option>Nữ</option><option>Khác</option></select></div></div>
-                <div class="field"><label for="province">Tỉnh / Thành phố</label><div class="input-wrap"><select id="province" name="provinceId"><option>TP. Hồ Chí Minh</option><option>Hà Nội</option><option>Đà Nẵng</option></select></div></div>
-                <div class="field"><label for="occupation">Nghề nghiệp</label><div class="input-wrap"><select id="occupation" name="occupationId"><option>Sinh viên</option><option>Giảng viên</option><option>Chuyên viên</option></select></div></div>
-                <div class="field"><label for="level">Trình độ</label><div class="input-wrap"><select id="level" name="levelId"><option>Đại học</option><option>Cao đẳng</option><option>Sau đại học</option></select></div></div>
+                <div class="field"><label for="gender">Giới tính</label><div class="input-wrap"><select id="gender" name="gender"><option value="">Chọn giới tính</option><option value="1" selected>Nam</option><option value="2">Nữ</option><option value="0">Khác</option></select></div></div>
                 <div class="field full"><label for="address">Địa chỉ</label><div class="input-wrap"><input type="text" id="address" name="address" value="77 Bùi Xuân Phái, Phú Mỹ Hưng"></div></div>
+                <div class="field"><label for="province">Tỉnh / Thành phố</label><div class="input-wrap"><select id="province" name="provinceId"><option value="">Chọn tỉnh / thành phố</option><option value="1" selected>TP. Hồ Chí Minh</option><option value="2">Hà Nội</option><option value="3">Đà Nẵng</option></select></div></div>
+                <div class="field"><label for="occupation">Nghề nghiệp</label><div class="input-wrap"><select id="occupation" name="occupationId"><option value="">Chọn nghề nghiệp</option><option value="1" selected>Sinh viên</option><option value="2">Giảng viên</option><option value="3">Chuyên viên</option></select></div></div>
+                <div class="field"><label for="level">Trình độ</label><div class="input-wrap"><select id="level" name="levelId"><option value="">Chọn trình độ</option><option value="1" selected>Đại học</option><option value="2">Cao đẳng</option><option value="3">Sau đại học</option></select></div></div>
               </div>
-              <p class="profile-help">Email và số điện thoại hiển thị từ tài khoản. Các trường còn lại thuộc thông tin cá nhân.</p>
-              <div class="btn-row"><button type="button" class="btn btn-primary">Lưu thay đổi</button><a href="../instructor-documents/instructor-documents.html" class="btn btn-outline">Tiếp tục tới hồ sơ minh chứng</a></div>
+              <div class="btn-row"><button type="button" class="btn btn-primary">Lưu thay đổi</button></div>
             </form>
+          </div>
+          <div class="card account-card">
+            <h3>Thông tin tài khoản</h3>
+            <p>Thông tin liên hệ đang gắn với tài khoản của bạn.</p>
+            <div class="account-grid"><div><span>Email</span><strong>quangnhathung2005@gmail.com</strong></div><div><span>Số điện thoại</span><strong>0838 557 433</strong></div></div>
           </div>
         </div>
 
@@ -465,14 +475,14 @@
     (function () {
       var avatarInput = document.getElementById('avatarInput');
       var preview = document.getElementById('avatarPreview');
-      var removeBtn = document.getElementById('removeAvatar');
       var sidebarAvatar = document.querySelector('.side-profile .avatar-lg');
       var navAvatar = document.querySelector('.user-btn .avatar');
 
       function setAvatar(src) {
-        if (preview) preview.innerHTML = '<img src="' + src + '" alt="Ảnh đại diện">';
-        if (sidebarAvatar) sidebarAvatar.innerHTML = '<img src="' + src + '" alt="Nhật Hưng">';
-        if (navAvatar) navAvatar.innerHTML = '<img src="' + src + '" alt="Nhật Hưng">';
+        [preview, sidebarAvatar, navAvatar].forEach(function (container) {
+          var image = container && container.querySelector('img');
+          if (image) image.src = src;
+        });
       }
 
       if (avatarInput) {
@@ -485,12 +495,6 @@
         });
       }
 
-      if (removeBtn) {
-        removeBtn.addEventListener('click', function () {
-          if (avatarInput) avatarInput.value = '';
-          setAvatar('https://picsum.photos/seed/avatar-hung/176/176');
-        });
-      }
     })();
   </script>
 
