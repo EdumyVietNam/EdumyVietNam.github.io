@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thông tin cá nhân — EDUMY</title>
+<title>Trạng thái xét duyệt giảng viên — EDUMY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -172,52 +172,43 @@
     box-shadow: 0 2px 10px rgba(15,23,42,0.04);
   }
 
-  /* ===== Info: avatar upload ===== */
-  .avatar-block { display: flex; align-items: center; gap: 20px; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--neutral-100); flex-wrap: wrap; }
-  .avatar-preview { position: relative; width: 88px; height: 88px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: linear-gradient(135deg, var(--primary-500), var(--primary-700)); border: 3px solid var(--primary-100); }
-  .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .avatar-info p { font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px; }
-  .avatar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-  .btn-sm { padding: 9px 16px; font-size: 13px; }
+  /* ===== Overview: stats ===== */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .stat-card { padding: 20px; display: flex; align-items: center; gap: 14px; }
+  .stat-icon { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; display: grid; place-items: center; }
+  .stat-icon.primary { background: var(--primary-50); color: var(--primary-600); }
+  .stat-icon.success { background: var(--success-50); color: var(--success-500); }
+  .stat-icon.secondary { background: var(--secondary-50); color: var(--secondary-500); }
+  .stat-icon.info { background: rgba(14,165,233,0.1); color: var(--info-500); }
+  .stat-meta { display: flex; flex-direction: column; justify-content: center; }
+  .stat-meta b { font-size: 22px; font-weight: 800; line-height: 1.1; display: block; }
+  .stat-meta span { font-size: 13px; color: var(--text-tertiary); line-height: 1.45; height: 2.9em; display: block; }
+  a.stat-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+  a.stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(15,23,42,0.1); border-color: var(--primary-200); }
 
-  /* ===== Info: profile form ===== */
-  .form-card { padding: 24px; }
-  .form-card .card-title { margin-bottom: 20px; }
-  .form-card .card-title h3 { font-size: 16px; font-weight: 700; }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
-  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 7px; }
-  .field label .required { color: var(--error-500); }
-  .input-wrap { position: relative; }
-  .input-wrap .input-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--neutral-400); display: grid; place-items: center; pointer-events: none; }
-  .input-wrap input, .input-wrap select {
-    width: 100%;
-    padding: 11px 14px;
-    font-size: 14px;
-    color: var(--text-primary);
-    background: var(--neutral-0);
-    border: 1.5px solid var(--border-default);
-    border-radius: 11px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .input-wrap input::placeholder { color: var(--neutral-400); }
-  .input-wrap input:hover { border-color: var(--neutral-300); }
-  .input-wrap input:focus, .input-wrap select:focus { border-color: var(--primary-500); box-shadow: 0 0 0 4px var(--primary-50); }
-  .input-wrap select { appearance: none; -webkit-appearance: none; padding-right: 38px; cursor: pointer; }
-  .input-wrap .chevron { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: var(--neutral-400); pointer-events: none; display: grid; place-items: center; }
-  .field.full { grid-column: 1 / -1; }
+  .recent-card { padding: 20px; }
+  .recent-card .card-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .recent-card .card-title h3 { font-size: 16px; font-weight: 700; }
+  .recent-card .card-title .view-all { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: var(--primary-600); cursor: pointer; padding: 6px 10px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .recent-card .card-title .view-all svg { transition: transform 0.2s; }
+  .recent-card .card-title .view-all:hover { background: var(--primary-50); color: var(--primary-700); text-decoration: none; }
+  .recent-card .card-title .view-all:hover svg { transform: translateX(3px); }
+  .course-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--neutral-100); }
+  .course-row:last-child { border-bottom: none; }
+  .course-thumb { position: relative; width: 64px; height: 44px; border-radius: 9px; flex-shrink: 0; overflow: hidden; background: var(--primary-50); }
+  .course-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .course-row .course-meta { flex: 1; min-width: 0; }
+  .course-row .course-meta h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  .btn-row { display: flex; gap: 12px; margin-top: 24px; }
-  .btn { font-size: 14px; font-weight: 700; padding: 12px 26px; border-radius: 11px; transition: all 0.2s; }
-  .btn-primary { background: var(--primary-500); color: #fff; border: 1px solid var(--primary-500); box-shadow: 0 4px 14px rgba(37,88,229,0.28); }
-  .btn-primary:hover { background: var(--primary-400); border-color: var(--primary-400); }
-  .btn-outline { background: var(--neutral-0); color: var(--neutral-700); border: 1.5px solid var(--neutral-200); }
-  .btn-outline:hover { background: var(--surface-hover); border-color: var(--neutral-300); }
-
-  .profile-help { margin-top: 16px; color: var(--text-tertiary); font-size: 12px; line-height: 1.5; }
-  .field input[readonly] { background: var(--neutral-100); color: var(--text-secondary); }
-  .btn-row a { text-decoration: none; }
+  /* ===== Overview: 2-col grid + exam summary ===== */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; align-items: start; }
+  .exam-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--neutral-100); }
+  .exam-row:last-child { border-bottom: none; }
+  .exam-thumb { position: relative; width: 64px; height: 44px; border-radius: 9px; overflow: hidden; flex-shrink: 0; background: var(--primary-50); }
+  .exam-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .exam-meta { flex: 1; min-width: 0; }
+  .exam-meta h4 { font-size: 14px; font-weight: 600; margin-bottom: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .exam-meta .exam-date { font-size: 12px; color: var(--text-tertiary); }
 
   /* ============ FOOTER (shared/layout/footer.html) ============ */
   .footer { background: var(--neutral-800); color: var(--neutral-300); }
@@ -238,23 +229,88 @@
   .contact-list .contact-icon { width: 30px; height: 30px; flex-shrink: 0; border-radius: 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); display: grid; place-items: center; font-size: 13px; }
   .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 20px 24px; }
   .footer-bottom-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--neutral-500); }
+  .footer-bottom-inner .make { color: var(--neutral-400); }
   .footer-bottom-links { display: flex; gap: 20px; }
   .footer-bottom-links a { color: var(--neutral-400); transition: color 0.2s; }
   .footer-bottom-links a:hover { color: var(--primary-300); }
 
   /* ============ MOBILE ============ */
+  @media (max-width: 1024px) {
+    .overview-grid { grid-template-columns: 1fr; }
+  }
   @media (max-width: 900px) {
     .nav-links, .search-box { display: none; }
     .hamburger { display: grid; }
     .user-btn .user-name { display: none; }
     .profile-layout { grid-template-columns: 1fr; }
     .sidebar { position: static; }
-    .form-grid { grid-template-columns: 1fr; }
     .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
   @media (max-width: 600px) {
     .footer-main { grid-template-columns: 1fr; }
   }
+
+  .content { min-width: 0; }
+  .eyebrow { color: var(--primary-600); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+  .panel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .panel-head h1 { font-size: 28px; line-height: 1.1; margin-bottom: 8px; }
+  .panel-head p { max-width: 650px; line-height: 1.5; }
+  .card { padding: 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 18px; line-height: 1.1; margin-bottom: 6px; }
+  .card-lead { color: var(--text-secondary); font-size: 14px; line-height: 1.5; margin-bottom: 22px; }
+  .step-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+  .step { display: flex; gap: 10px; align-items: center; padding: 13px; background: var(--neutral-0); border: 1px solid var(--border-default); border-radius: 12px; font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+  .step b { width: 28px; height: 28px; flex-shrink: 0; display: grid; place-items: center; border-radius: 50%; background: var(--primary-50); color: var(--primary-600); }
+  .step.current { border-color: var(--primary-200); color: var(--primary-700); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .field { display: grid; gap: 7px; min-width: 0; }
+  .field.full { grid-column: 1 / -1; }
+  .field label, .file-label { font-size: 13px; font-weight: 700; color: var(--neutral-700); }
+  .required { color: var(--error-500); }
+  .field input, .field select, .field textarea, .file-row input { width: 100%; min-height: 44px; border: 1px solid var(--neutral-300); background: var(--neutral-0); border-radius: 10px; padding: 10px 12px; font-size: 14px; color: var(--text-primary); outline: none; }
+  .field textarea { min-height: 112px; resize: vertical; line-height: 1.5; }
+  .field input:focus, .field select:focus, .field textarea:focus, .file-row input:focus { border-color: var(--primary-500); box-shadow: 0 0 0 3px var(--primary-50); }
+  .hint { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; }
+  .document-list { display: grid; gap: 12px; }
+  .file-row { display: grid; grid-template-columns: 1fr 1.15fr; align-items: center; gap: 18px; padding: 15px; border: 1px solid var(--border-default); border-radius: 12px; }
+  .file-row strong { display: block; font-size: 14px; margin-bottom: 4px; }
+  .file-row small { color: var(--text-tertiary); font-size: 12px; line-height: 1.4; }
+  .file-row input { min-width: 0; padding: 8px; font-size: 12px; }
+  .notice { border-radius: 12px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--primary-50); color: var(--primary-700); border: 1px solid var(--primary-100); }
+  .notice.warn { background: var(--neutral-50); color: var(--neutral-700); border-color: var(--border-default); }
+  .form-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+  .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; padding: 11px 20px; font-size: 14px; font-weight: 700; border: 1px solid transparent; text-decoration: none; cursor: pointer; }
+  .button.primary { background: var(--primary-500); color: var(--neutral-0); border-color: var(--primary-500); }
+  .button.primary:hover { background: var(--primary-600); }
+  .button.outline { background: var(--neutral-0); color: var(--primary-600); border-color: var(--primary-500); }
+  .button.outline:hover { background: var(--primary-50); }
+  .button:focus-visible, a:focus-visible { outline: 3px solid var(--primary-300); outline-offset: 2px; }
+  .status-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 20px; }
+  .status-tabs a { border: 1px solid var(--border-default); border-radius: 999px; padding: 9px 14px; font-size: 13px; font-weight: 700; color: var(--text-secondary); background: var(--neutral-0); }
+  .status-tabs a:hover { color: var(--primary-600); border-color: var(--primary-300); }
+  .content:has(#processing:target) .status-tabs a[href="#processing"],
+  .content:has(#approved:target) .status-tabs a[href="#approved"],
+  .content:has(#rejected:target) .status-tabs a[href="#rejected"],
+  .content:not(:has(.status-panel:target)) .status-tabs a[href="#approved"] { color: var(--primary-700); background: var(--primary-50); border-color: var(--primary-200); }
+  .status-panel { scroll-margin-top: 90px; }
+  .status-panel:not(:target) { display: none; }
+  .status-panels:not(:has(.status-panel:target)) #approved { display: block; }
+  .badge-status { display: inline-flex; padding: 7px 11px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+  .badge-status.approved { background: var(--success-50); color: var(--success-700); }
+  .badge-status.rejected { background: var(--secondary-50); color: var(--secondary-700); }
+  .status-hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .status-hero h2 { margin-bottom: 8px; }
+  .status-hero p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; max-width: 620px; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 22px; }
+  .info-cell { padding: 15px; background: var(--neutral-50); border-radius: 10px; }
+  .info-cell span { display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 6px; }
+  .info-cell strong { font-size: 14px; }
+  .request-list { display: grid; gap: 12px; }
+  .request-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto; align-items: center; gap: 18px; border: 1px solid var(--border-default); border-radius: 12px; padding: 16px; }
+  .request-row strong { display: block; font-size: 14px; margin-bottom: 5px; }
+  .request-row p { color: var(--text-tertiary); font-size: 12px; line-height: 1.5; }
+  .request-row a { color: var(--primary-600); font-size: 13px; font-weight: 700; }
+  @media (max-width: 700px) { .info-grid, .request-row { grid-template-columns: 1fr; } .card { padding: 18px; } .panel-head h1 { font-size: 24px; } }
 </style>
 </head>
 <body>
@@ -267,10 +323,10 @@
         <span class="brand-name">EDUMY</span>
       </a>
       <nav class="nav-links">
-        <a href="#" class="nav-link">Trang chủ</a>
-        <a href="#" class="nav-link">Khóa học</a>
-        <a href="#" class="nav-link">Bài thi</a>
-        <a href="#" class="nav-link">Giảng viên</a>
+        <a href="../../../Home/home.html" class="nav-link">Trang chủ</a>
+        <a href="../../../Course/course-list/course-list.html" class="nav-link">Khóa học</a>
+        <a href="../../../Exam/exam-list/exam-list.html" class="nav-link">Bài thi</a>
+        <a href="../instructor-application/instructor-application.html" class="nav-link">Giảng viên</a>
         <a href="#" class="nav-link">Blog</a>
       </nav>
       <div class="nav-actions">
@@ -300,13 +356,8 @@
     </div>
   </header>
 
-  <!-- ============ PROFILE ============ -->
-  <main class="profile-shell">
 
-    <div class="profile-layout">
-
-      <!-- ============ SIDEBAR ============ -->
-      <aside class="sidebar">
+<main class="profile-shell"><div class="profile-layout">      <aside class="sidebar">
         <div class="side-profile">
           <div class="avatar-lg"><img src="https://picsum.photos/seed/avatar-hung/144/144" alt="Nhật Hưng"></div>
           <h3>Nhật Hưng</h3>
@@ -317,7 +368,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
             Tổng quan
           </a>
-          <a href="information.html" class="active">
+          <a href="../Information/information.html">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             Thông tin cá nhân
           </a>
@@ -329,58 +380,48 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg>
             Đề thi của tôi
           </a>
+        
           <a href="../instructor-documents/instructor-documents.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8"/></svg>Hồ sơ minh chứng</a>
-          <a href="../instructor-application/instructor-application.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10v6c3 3 9 3 12 0v-6"/><path d="M22 8v7"/></svg>Trở thành giảng viên</a>
+          <a href="../instructor-application/instructor-application.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10v6c3 3 9 3 12 0v-6"/><path d="M22 8v7"/></svg>
+            Trở thành giảng viên
+          </a>
+          <a href="instructor-status.html" class="active" aria-current="page">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Trạng thái xét duyệt
+          </a>
         </nav>
       </aside>
-
-      <!-- ============ CONTENT ============ -->
-      <section class="content">
-
-        <!-- ===== THÔNG TIN CÁ NHÂN ===== -->
-        <div class="panel">
-          <div class="panel-head">
-            <h2>Thông tin cá nhân</h2>
-          </div>
-
-          <div class="card form-card">
-            <div class="avatar-block">
-              <div class="avatar-preview" id="avatarPreview">
-                <img src="https://picsum.photos/seed/avatar-hung/176/176" alt="Ảnh đại diện">
-              </div>
-              <div class="avatar-info">
-                <h4>Ảnh đại diện</h4>
-                <p>Hỗ trợ JPG, PNG, WEBP hoặc BMP.</p>
-                <div class="avatar-actions">
-                  <label class="btn btn-primary btn-sm" for="avatarInput" style="cursor:pointer;">Chọn ảnh mới</label>
-                  <button type="button" class="btn btn-outline btn-sm" id="removeAvatar">Xóa ảnh</button>
-                </div>
-                <input type="file" id="avatarInput" accept=".jpg,.jpeg,.png,.webp,.bmp" hidden>
-              </div>
-            </div>
-
-            <form>
-              <div class="form-grid">
-                <div class="field full"><label for="fullName">Họ và tên <span class="required">*</span></label><div class="input-wrap"><input type="text" id="fullName" name="fullName" value="Quang Nhật Hưng" required></div></div>
-                <div class="field"><label for="email">Email tài khoản</label><div class="input-wrap"><input type="email" id="email" value="quangnhathung2005@gmail.com" readonly></div></div>
-                <div class="field"><label for="phone">Số điện thoại tài khoản</label><div class="input-wrap"><input type="tel" id="phone" value="0838 557 433" readonly></div></div>
-                <div class="field"><label for="dob">Ngày sinh</label><div class="input-wrap"><input type="date" id="dob" name="dateOfBirth" value="2005-05-20"></div></div>
-                <div class="field"><label for="gender">Giới tính</label><div class="input-wrap"><select id="gender" name="gender"><option>Nam</option><option>Nữ</option><option>Khác</option></select></div></div>
-                <div class="field"><label for="province">Tỉnh / Thành phố</label><div class="input-wrap"><select id="province" name="provinceId"><option>TP. Hồ Chí Minh</option><option>Hà Nội</option><option>Đà Nẵng</option></select></div></div>
-                <div class="field"><label for="occupation">Nghề nghiệp</label><div class="input-wrap"><select id="occupation" name="occupationId"><option>Sinh viên</option><option>Giảng viên</option><option>Chuyên viên</option></select></div></div>
-                <div class="field"><label for="level">Trình độ</label><div class="input-wrap"><select id="level" name="levelId"><option>Đại học</option><option>Cao đẳng</option><option>Sau đại học</option></select></div></div>
-                <div class="field full"><label for="address">Địa chỉ</label><div class="input-wrap"><input type="text" id="address" name="address" value="77 Bùi Xuân Phái, Phú Mỹ Hưng"></div></div>
-              </div>
-              <p class="profile-help">Email và số điện thoại hiển thị từ tài khoản. Các trường còn lại thuộc thông tin cá nhân.</p>
-              <div class="btn-row"><button type="button" class="btn btn-primary">Lưu thay đổi</button><a href="../instructor-documents/instructor-documents.html" class="btn btn-outline">Tiếp tục tới hồ sơ minh chứng</a></div>
-            </form>
-          </div>
-        </div>
-
-      </section>
+<section class="content">
+  <div class="panel-head">
+    <div>
+      <div class="eyebrow">Hồ sơ cá nhân / Giảng viên</div>
+      <h1>Kết quả xét duyệt giảng viên</h1>
+      <p>Xem các yêu cầu đã xử lý, kết quả phê duyệt hoặc lý do từ chối.</p>
     </div>
-  </main>
-
+    <a class="button outline" href="../instructor-application/instructor-application.html">Xem hồ sơ đăng ký</a>
+  </div>
+  <nav class="status-tabs" aria-label="Xem các kết quả mẫu">
+    <a href="#processing">Xem xử lý</a>
+    <a href="#approved">Đã duyệt</a>
+    <a href="#rejected">Đã từ chối</a>
+  </nav>
+  <div class="notice" style="margin-bottom:20px">Danh sách yêu cầu và kết quả dưới đây là dữ liệu mẫu của wireframe.</div>
+  <div class="status-panels">
+    <section class="status-panel" id="processing" aria-labelledby="processing-title">
+      <div class="card">
+        <h2 id="processing-title">Các yêu cầu đã xử lý</h2>
+        <p class="card-lead">Danh sách kết quả hồ sơ đã gửi từ tài khoản của bạn.</p>
+        <div class="request-list">
+          <div class="request-row"><div><strong>Yêu cầu #128</strong><p>Gửi 20/09/2026 · Cập nhật 22/09/2026</p></div><span class="badge-status approved">Đã duyệt</span><a href="#approved">Xem kết quả</a></div>
+          <div class="request-row"><div><strong>Yêu cầu #37</strong><p>Gửi 12/08/2026 · Cập nhật 15/08/2026</p></div><span class="badge-status rejected">Đã từ chối</span><a href="#rejected">Xem lý do</a></div>
+        </div>
+      </div>
+    </section>
+    <section class="status-panel" id="approved" aria-labelledby="approved-title"><div class="card"><div class="status-hero"><div><h2 id="approved-title">Yêu cầu đã được duyệt</h2><p>Hồ sơ đăng ký giảng viên của bạn đã được chấp nhận.</p></div><span class="badge-status approved">Đã duyệt</span></div><div class="info-grid"><div class="info-cell"><span>ID yêu cầu</span><strong>#128</strong></div><div class="info-cell"><span>Ngày gửi</span><strong>20/09/2026 · 09:30</strong></div><div class="info-cell"><span>Ứng viên</span><strong>Quang Nhật Hưng</strong></div><div class="info-cell"><span>Cập nhật lần cuối</span><strong>22/09/2026 · 10:00</strong></div></div></div><div class="card"><h2>Thông tin từ ban xét duyệt</h2><p class="card-lead">Kết quả xét duyệt đã được ghi nhận. Bạn có thể vào khu vực giảng viên sau khi tài khoản có quyền truy cập.</p><a class="button primary" href="../../../Instructor/course-builder/course-list.html">Vào khu vực giảng viên</a></div></section>
+    <section class="status-panel" id="rejected" aria-labelledby="rejected-title"><div class="card"><div class="status-hero"><div><h2 id="rejected-title">Hồ sơ chưa được phê duyệt</h2><p>Ban xét duyệt đã đánh giá hồ sơ của bạn và đưa ra quyết định.</p></div><span class="badge-status rejected">Đã từ chối</span></div><div class="info-grid"><div class="info-cell"><span>ID yêu cầu</span><strong>#37</strong></div><div class="info-cell"><span>Ngày gửi</span><strong>12/08/2026 · 08:45</strong></div><div class="info-cell"><span>Ứng viên</span><strong>Quang Nhật Hưng</strong></div><div class="info-cell"><span>Cập nhật lần cuối</span><strong>15/08/2026 · 16:20</strong></div></div></div><div class="card"><h2>Thông tin từ ban xét duyệt</h2><p class="card-lead">Lý do: Kinh nghiệm giảng dạy và tài liệu minh chứng hiện chưa đáp ứng yêu cầu. Bạn có thể hoàn thiện hồ sơ và đăng ký lại trong đợt tiếp theo.</p><a class="button outline" href="../instructor-application/instructor-application.html">Chuẩn bị hồ sơ mới</a></div></section>
+  </div>
+</section></div></main>
   <!-- ============ FOOTER (shared/layout/footer.html) ============ -->
   <footer class="footer">
     <div class="footer-main">
@@ -460,38 +501,4 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      var avatarInput = document.getElementById('avatarInput');
-      var preview = document.getElementById('avatarPreview');
-      var removeBtn = document.getElementById('removeAvatar');
-      var sidebarAvatar = document.querySelector('.side-profile .avatar-lg');
-      var navAvatar = document.querySelector('.user-btn .avatar');
-
-      function setAvatar(src) {
-        if (preview) preview.innerHTML = '<img src="' + src + '" alt="Ảnh đại diện">';
-        if (sidebarAvatar) sidebarAvatar.innerHTML = '<img src="' + src + '" alt="Nhật Hưng">';
-        if (navAvatar) navAvatar.innerHTML = '<img src="' + src + '" alt="Nhật Hưng">';
-      }
-
-      if (avatarInput) {
-        avatarInput.addEventListener('change', function (e) {
-          var file = e.target.files && e.target.files[0];
-          if (!file) return;
-          var reader = new FileReader();
-          reader.onload = function (ev) { setAvatar(ev.target.result); };
-          reader.readAsDataURL(file);
-        });
-      }
-
-      if (removeBtn) {
-        removeBtn.addEventListener('click', function () {
-          if (avatarInput) avatarInput.value = '';
-          setAvatar('https://picsum.photos/seed/avatar-hung/176/176');
-        });
-      }
-    })();
-  </script>
-
-</body>
-</html>
+</body></html>
