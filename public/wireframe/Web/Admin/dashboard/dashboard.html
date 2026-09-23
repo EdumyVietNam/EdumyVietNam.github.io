@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard quản trị hệ thống EDUMY">
+  <title>Tổng quan hệ thống — EDUMY Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-50: #eff4ff;
+      --primary-100: #dbe8ff;
+      --primary-200: #bfd3ff;
+      --primary-300: #93b4ff;
+      --primary-400: #608cff;
+      --primary-500: #2558e5;
+      --primary-600: #1d44cd;
+      --primary-700: #1634a1;
+      --primary-800: #122a7f;
+      --primary-900: #0e1f5a;
+
+      --secondary-50: #fff0ed;
+      --secondary-100: #ffded6;
+      --secondary-500: #ff6b4a;
+      --secondary-600: #e65132;
+
+      --neutral-0: #ffffff;
+      --neutral-50: #f8fafc;
+      --neutral-100: #f1f5f9;
+      --neutral-200: #e2e8f0;
+      --neutral-300: #cbd5e1;
+      --neutral-400: #94a3b8;
+      --neutral-500: #64748b;
+      --neutral-600: #475569;
+      --neutral-700: #334155;
+      --neutral-800: #1e293b;
+      --neutral-900: #0f172a;
+
+      --success-50: #ecfdf5;
+      --success-100: #d1fae5;
+      --success-500: #10b981;
+      --success-600: #059669;
+      --warning-50: #fffbeb;
+      --warning-100: #fef3c7;
+      --warning-500: #f59e0b;
+      --warning-600: #d97706;
+      --error-50: #fff1f2;
+      --error-100: #ffe4e6;
+      --error-500: #f43f5e;
+      --error-600: #e11d48;
+      --info-50: #f0f9ff;
+      --info-500: #0ea5e9;
+      --info-600: #0284c7;
+
+      --text-primary: var(--neutral-900);
+      --text-secondary: var(--neutral-600);
+      --text-tertiary: var(--neutral-500);
+      --border-default: var(--neutral-200);
+      --surface-page: var(--neutral-50);
+      --surface-card: var(--neutral-0);
+      --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.03), 0 8px 24px rgba(15, 23, 42, 0.045);
+      --shadow-float: 0 12px 34px rgba(15, 23, 42, 0.12);
+      --sidebar-width: 252px;
+      --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--surface-page);
+      color: var(--text-primary);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    svg { flex: 0 0 auto; }
+    .nav-toggle { position: fixed; width: 1px; height: 1px; opacity: 0; }
+    .layout { min-height: 100vh; }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 60;
+      width: var(--sidebar-width);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      color: var(--neutral-300);
+      background: var(--neutral-900);
+      border-right: 1px solid var(--neutral-800);
+    }
+    .brand {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--neutral-800);
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: var(--neutral-0);
+    }
+    .brand-mark img { width: 31px; height: 31px; object-fit: contain; }
+    .brand strong { display: block; color: var(--neutral-0); font-size: 18px; line-height: 1.1; letter-spacing: .02em; }
+    .brand small { display: block; margin-top: 4px; color: var(--neutral-400); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .sidebar-close { display: none; margin-left: auto; color: var(--neutral-300); }
+    .side-nav { flex: 1; padding: 15px 12px 24px; }
+    .nav-caption { margin: 21px 12px 8px; color: var(--neutral-500); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .nav-caption:first-child { margin-top: 4px; }
+    .nav-link {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 2px 0;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: var(--neutral-300);
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .2s, color .2s;
+    }
+    .nav-link svg { color: var(--neutral-400); }
+    .nav-link:hover { color: var(--neutral-0); background: var(--neutral-800); }
+    .nav-link:hover svg { color: var(--neutral-0); }
+    .nav-link.active { color: var(--neutral-0); background: var(--primary-500); box-shadow: 0 7px 18px rgba(37, 88, 229, 0.22); }
+    .nav-link.active svg { color: var(--neutral-0); }
+    .nav-badge { margin-left: auto; min-width: 21px; padding: 3px 6px; border-radius: 999px; color: var(--warning-100); background: var(--warning-600); font-size: 10px; line-height: 1.4; text-align: center; }
+    .side-bottom { padding: 14px 12px; border-top: 1px solid var(--neutral-800); }
+    .side-user { display: flex; align-items: center; gap: 11px; padding: 8px 10px; }
+    .avatar { width: 38px; height: 38px; display: grid; place-items: center; flex-shrink: 0; border-radius: 50%; color: var(--neutral-0); background: var(--primary-500); font-size: 12px; font-weight: 800; }
+    .side-user strong { display: block; color: var(--neutral-0); font-size: 13px; }
+    .side-user span { display: block; margin-top: 3px; color: var(--neutral-400); font-size: 11px; }
+    .side-exit { margin-top: 4px; }
+    .mobile-backdrop { display: none; }
+
+    .main-shell { min-width: 0; min-height: 100vh; margin-left: var(--sidebar-width); display: flex; flex-direction: column; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 28px;
+      background: var(--neutral-0);
+      border-bottom: 1px solid var(--border-default);
+    }
+    .menu-toggle { display: none; width: 40px; height: 40px; align-items: center; justify-content: center; border-radius: 10px; color: var(--neutral-700); }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; color: var(--neutral-500); font-size: 13px; white-space: nowrap; }
+    .breadcrumb strong { color: var(--neutral-800); font-weight: 700; }
+    .top-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .search { position: relative; width: 238px; }
+    .search svg { position: absolute; left: 12px; top: 50%; color: var(--neutral-400); transform: translateY(-50%); }
+    .search input {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px 0 38px;
+      color: var(--neutral-800);
+      background: var(--neutral-50);
+      border: 1px solid var(--border-default);
+      border-radius: 10px;
+      outline: none;
+      font-size: 12px;
+    }
+    .search input::placeholder { color: var(--neutral-400); }
+    .search input:focus { background: var(--neutral-0); border-color: var(--primary-500); box-shadow: 0 0 0 3px var(--primary-50); }
+    .icon-button {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--neutral-600);
+      background: var(--neutral-0);
+      border: 1px solid var(--border-default);
+      border-radius: 10px;
+    }
+    .icon-button:hover { color: var(--primary-600); background: var(--primary-50); border-color: var(--primary-200); }
+    .notify-dot { position: absolute; top: 8px; right: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--error-500); box-shadow: 0 0 0 2px var(--neutral-0); }
+    .profile-chip { display: flex; align-items: center; gap: 9px; padding: 4px 9px 4px 4px; border: 1px solid var(--border-default); border-radius: 999px; background: var(--neutral-0); }
+    .profile-chip .avatar { width: 32px; height: 32px; font-size: 10px; }
+    .profile-chip strong { display: block; font-size: 11px; }
+    .profile-chip small { display: block; margin-top: 2px; color: var(--neutral-500); font-size: 10px; }
+
+    .content { width: min(100%, 1480px); flex: 1; margin: 0 auto; padding: 30px 28px 48px; }
+    .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .eyebrow { margin: 0 0 8px; color: var(--primary-600); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.1; letter-spacing: -.035em; }
+    .page-sub { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
+    .head-tools { display: flex; align-items: center; gap: 10px; }
+    .select-control, .outline-button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      color: var(--neutral-700);
+      background: var(--neutral-0);
+      border: 1px solid var(--border-default);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .select-control { padding-right: 34px; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--neutral-500) 50%), linear-gradient(135deg, var(--neutral-500) 50%, transparent 50%); background-position: calc(100% - 15px) 17px, calc(100% - 11px) 17px; background-size: 4px 4px, 4px 4px; background-repeat: no-repeat; }
+    .outline-button:hover { color: var(--primary-600); border-color: var(--primary-200); background: var(--primary-50); }
+
+    .data-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 11px 14px;
+      color: var(--neutral-600);
+      background: var(--info-50);
+      border: 1px solid var(--primary-100);
+      border-radius: 11px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .data-note svg { color: var(--info-600); }
+    .data-note strong { color: var(--neutral-800); }
+    .data-note time { margin-left: auto; color: var(--neutral-500); white-space: nowrap; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-bottom: 18px; }
+    .kpi-card { position: relative; min-width: 0; padding: 19px; overflow: hidden; background: var(--surface-card); border: 1px solid var(--border-default); border-radius: 15px; box-shadow: var(--shadow-card); }
+    .kpi-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .kpi-label { color: var(--neutral-600); font-size: 12px; font-weight: 600; }
+    .kpi-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; color: var(--primary-600); background: var(--primary-50); }
+    .kpi-icon.success { color: var(--success-600); background: var(--success-50); }
+    .kpi-icon.orange { color: var(--secondary-600); background: var(--secondary-50); }
+    .kpi-icon.warning { color: var(--warning-600); background: var(--warning-50); }
+    .kpi-value { margin-top: 15px; font-size: 25px; line-height: 1.1; font-weight: 800; letter-spacing: -.035em; }
+    .kpi-meta { display: flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--neutral-500); font-size: 10px; }
+    .trend { display: inline-flex; align-items: center; gap: 3px; color: var(--success-600); font-weight: 700; }
+    .trend.alert { color: var(--warning-600); }
+
+    .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.62fr) minmax(310px, .88fr); gap: 18px; align-items: start; }
+    .stack { display: grid; gap: 18px; min-width: 0; }
+    .panel { min-width: 0; padding: 21px; background: var(--surface-card); border: 1px solid var(--border-default); border-radius: 16px; box-shadow: var(--shadow-card); }
+    .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 19px; }
+    .panel-head h2 { margin: 0 0 5px; font-size: 16px; line-height: 1.2; letter-spacing: -.015em; }
+    .panel-head p { margin: 0; color: var(--neutral-500); font-size: 11px; line-height: 1.5; }
+    .text-link { display: inline-flex; align-items: center; gap: 5px; color: var(--primary-600); font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .text-link:hover { color: var(--primary-700); }
+    .legend { display: flex; align-items: center; gap: 15px; color: var(--neutral-500); font-size: 10px; }
+    .legend span { display: flex; align-items: center; gap: 6px; }
+    .legend i { width: 8px; height: 8px; display: block; border-radius: 3px; background: var(--primary-500); }
+    .legend i.previous { background: var(--primary-100); }
+
+    .revenue-summary { display: flex; align-items: flex-end; gap: 11px; margin-bottom: 20px; }
+    .revenue-summary strong { font-size: 27px; line-height: 1; letter-spacing: -.04em; }
+    .revenue-summary span { color: var(--success-600); font-size: 10px; font-weight: 700; }
+    .chart-wrap { position: relative; height: 222px; padding: 0 0 27px 45px; }
+    .y-axis { position: absolute; inset: 0 auto 27px 0; width: 36px; display: flex; flex-direction: column; justify-content: space-between; color: var(--neutral-400); font-size: 9px; text-align: right; }
+    .plot { position: relative; height: 100%; display: flex; align-items: stretch; justify-content: space-around; gap: 12px; border-bottom: 1px solid var(--neutral-200); background: repeating-linear-gradient(to bottom, var(--neutral-0) 0, var(--neutral-0) calc(25% - 1px), var(--neutral-100) 25%); }
+    .bar-group { position: relative; flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 4px; }
+    .bar { width: min(19px, 36%); min-height: 5px; border-radius: 5px 5px 2px 2px; background: var(--primary-500); }
+    .bar.previous { background: var(--primary-100); }
+    .bar-group span { position: absolute; top: calc(100% + 9px); left: 50%; color: var(--neutral-500); font-size: 9px; transform: translateX(-50%); white-space: nowrap; }
+    .chart-foot { margin: 10px 0 0; color: var(--neutral-400); font-size: 9px; text-align: right; }
+
+    .queue-list { display: grid; gap: 2px; }
+    .queue-item { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-top: 1px solid var(--border-default); }
+    .queue-item:first-child { padding-top: 0; border-top: 0; }
+    .queue-item:last-child { padding-bottom: 0; }
+    .queue-icon { width: 38px; height: 38px; display: grid; place-items: center; flex-shrink: 0; border-radius: 10px; color: var(--warning-600); background: var(--warning-50); }
+    .queue-icon.error { color: var(--error-600); background: var(--error-50); }
+    .queue-icon.info { color: var(--info-600); background: var(--info-50); }
+    .queue-copy { min-width: 0; flex: 1; }
+    .queue-copy strong { display: block; overflow: hidden; color: var(--neutral-800); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .queue-copy small { display: block; margin-top: 4px; color: var(--neutral-500); font-size: 10px; }
+    .queue-count { min-width: 28px; padding: 5px 7px; color: var(--neutral-700); background: var(--neutral-100); border-radius: 8px; font-size: 11px; font-weight: 800; text-align: center; }
+
+    .role-content { display: flex; align-items: center; gap: 24px; }
+    .donut { position: relative; width: 126px; height: 126px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(var(--primary-500) 0 68%, var(--secondary-500) 68% 82%, var(--success-500) 82% 94%, var(--neutral-300) 94% 100%); }
+    .donut::before { position: absolute; width: 82px; height: 82px; content: ""; border-radius: 50%; background: var(--neutral-0); }
+    .donut-label { position: relative; z-index: 1; text-align: center; }
+    .donut-label strong { display: block; font-size: 18px; line-height: 1.1; }
+    .donut-label small { display: block; margin-top: 4px; color: var(--neutral-500); font-size: 9px; }
+    .role-legend { min-width: 0; flex: 1; display: grid; gap: 11px; }
+    .role-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; color: var(--neutral-600); font-size: 10px; }
+    .role-row i { width: 8px; height: 8px; border-radius: 3px; background: var(--primary-500); }
+    .role-row i.instructor { background: var(--secondary-500); }
+    .role-row i.maintainer { background: var(--success-500); }
+    .role-row i.admin { background: var(--neutral-300); }
+    .role-row strong { color: var(--neutral-800); font-size: 11px; }
+
+    .table-panel { padding-bottom: 10px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    th { padding: 10px 12px; color: var(--neutral-500); background: var(--neutral-50); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-align: left; text-transform: uppercase; white-space: nowrap; }
+    th:first-child { border-radius: 8px 0 0 8px; }
+    th:last-child { border-radius: 0 8px 8px 0; text-align: right; }
+    td { padding: 14px 12px; color: var(--neutral-600); border-bottom: 1px solid var(--border-default); white-space: nowrap; }
+    tr:last-child td { border-bottom: 0; }
+    td:last-child { text-align: right; }
+    .transaction { display: flex; align-items: center; gap: 10px; }
+    .transaction-mark { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 9px; color: var(--success-600); background: var(--success-50); }
+    .transaction strong { display: block; color: var(--neutral-800); font-size: 11px; }
+    .transaction small { display: block; margin-top: 3px; color: var(--neutral-400); font-size: 9px; }
+    .amount { color: var(--neutral-800); font-weight: 700; }
+    .status { display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 999px; color: var(--success-600); background: var(--success-50); font-size: 9px; font-weight: 700; }
+    .status::before { width: 5px; height: 5px; content: ""; border-radius: 50%; background: currentColor; }
+    .status.pending { color: var(--warning-600); background: var(--warning-50); }
+
+    .quick-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+    .quick-action { display: flex; align-items: center; gap: 10px; min-height: 62px; padding: 11px; border: 1px solid var(--border-default); border-radius: 11px; }
+    .quick-action:hover { border-color: var(--primary-200); background: var(--primary-50); }
+    .quick-action > span { width: 34px; height: 34px; display: grid; place-items: center; flex-shrink: 0; color: var(--primary-600); background: var(--primary-50); border-radius: 9px; }
+    .quick-action strong { display: block; color: var(--neutral-800); font-size: 10px; }
+    .quick-action small { display: block; margin-top: 3px; color: var(--neutral-500); font-size: 9px; }
+    .layout-footer { margin-top: auto; padding: 19px 28px; color: var(--neutral-500); background: var(--neutral-0); border-top: 1px solid var(--border-default); font-size: 10px; text-align: center; }
+
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, .menu-toggle:focus-visible, .sidebar-close:focus-visible { outline: 3px solid var(--primary-300); outline-offset: 2px; }
+    @media (max-width: 1180px) {
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .right-stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .right-stack .quick-panel { grid-column: 1 / -1; }
+    }
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); transition: transform .25s; }
+      .main-shell { margin-left: 0; }
+      .menu-toggle, .sidebar-close { display: flex; }
+      .nav-toggle:checked ~ .layout .sidebar { transform: translateX(0); }
+      .nav-toggle:checked ~ .layout .mobile-backdrop { position: fixed; inset: 0; z-index: 50; display: block; background: rgba(15, 23, 42, .5); }
+      .nav-toggle:focus-visible ~ .layout .menu-toggle { outline: 3px solid var(--primary-300); }
+    }
+    @media (max-width: 720px) {
+      .topbar { height: 64px; padding: 0 16px; }
+      .search { display: none; }
+      .profile-chip div { display: none; }
+      .profile-chip { padding-right: 4px; }
+      .content { padding: 24px 16px 40px; }
+      .page-head { align-items: flex-start; flex-direction: column; }
+      .head-tools { width: 100%; }
+      .head-tools > * { flex: 1; justify-content: center; }
+      .data-note { align-items: flex-start; }
+      .data-note time { display: none; }
+      .kpi-grid, .right-stack { grid-template-columns: 1fr; }
+      .right-stack .quick-panel { grid-column: auto; }
+      .panel { padding: 17px; }
+      .legend { display: none; }
+      .chart-wrap { height: 195px; padding-left: 36px; }
+      .role-content { justify-content: center; flex-wrap: wrap; }
+      .role-legend { min-width: 150px; }
+      h1 { font-size: 27px; }
+    }
+    @media (max-width: 420px) {
+      .breadcrumb span { display: none; }
+      .outline-button span { display: none; }
+      .quick-actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Mở hoặc đóng menu quản trị">
+  <div class="layout">
+    <aside class="sidebar" aria-label="Điều hướng quản trị">
+      <div class="brand">
+        <a class="brand-mark" href="../../../index.html" aria-label="EDUMY — trang điều hướng">
+          <img src="../../../shared/logo/logo-removebg-preview.png" alt="">
+        </a>
+        <div><strong>EDUMY</strong><small>Quản trị hệ thống</small></div>
+        <label class="sidebar-close" for="nav-toggle" aria-label="Đóng menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </label>
+      </div>
+
+      <nav class="side-nav" aria-label="Menu quản trị chính">
+        <p class="nav-caption">Điều hành</p>
+        <a class="nav-link active" href="#overview" aria-current="page">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Tổng quan
+        </a>
+        <a class="nav-link" href="../revenue-management/revenue-management.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>
+          Báo cáo
+        </a>
+
+        <p class="nav-caption">Quản lý</p>
+        <a class="nav-link" href="../user-management/user-management.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Người dùng
+        </a>
+        <a class="nav-link" href="../course-management/course-management.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Khóa học
+        </a>
+        <a class="nav-link" href="../exam-management/exam-management.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Bài thi
+        </a>
+        <a class="nav-link" href="../revenue-management/revenue-management.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h3"/></svg>
+          Giao dịch
+        </a>
+        <a class="nav-link" href="../instructor-approval/instructor-approval.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg>
+          Duyệt giảng viên
+          <span class="nav-badge">17</span>
+        </a>
+
+        <p class="nav-caption">Cấu hình</p>
+        <a class="nav-link" href="../category-management/category-management.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="10" cy="18" r="2" fill="currentColor" stroke="none"/></svg>
+          Danh mục
+        </a>
+        <a class="nav-link" href="#quick-actions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06-2.83 2.83-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21h-4v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06-2.83-2.83.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3v-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06 2.83-2.83.06.06A1.65 1.65 0 0 0 9 4.6h.08A1.65 1.65 0 0 0 10 3.09V3h4v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06 2.83 2.83-.06.06A1.65 1.65 0 0 0 19.4 9v.08A1.65 1.65 0 0 0 20.91 10H21v4h-.09A1.65 1.65 0 0 0 19.4 15Z"/></svg>
+          Cài đặt hệ thống
+        </a>
+      </nav>
+
+      <div class="side-bottom">
+        <div class="side-user"><span class="avatar">SA</span><div><strong>System Admin</strong><span>Quản trị viên</span></div></div>
+        <a class="nav-link side-exit" href="../../../Web/Home/home.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/></svg>
+          Về trang học viên
+        </a>
+      </div>
+    </aside>
+
+    <label class="mobile-backdrop" for="nav-toggle" aria-hidden="true"></label>
+
+    <div class="main-shell">
+      <header class="topbar">
+        <label class="menu-toggle" for="nav-toggle" aria-label="Mở menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </label>
+        <div class="breadcrumb"><span>Quản trị hệ thống</span><span aria-hidden="true">/</span><strong>Tổng quan</strong></div>
+        <div class="top-actions">
+          <label class="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" placeholder="Tìm người dùng, nội dung..." aria-label="Tìm kiếm nhanh">
+          </label>
+          <button class="icon-button" type="button" aria-label="Thông báo mới">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notify-dot" aria-hidden="true"></span>
+          </button>
+          <div class="profile-chip"><span class="avatar">SA</span><div><strong>System Admin</strong><small>Admin</small></div></div>
+        </div>
+      </header>
+
+      <main class="content" id="overview">
+        <header class="page-head">
+          <div>
+            <p class="eyebrow">Trung tâm điều hành</p>
+            <h1>Chào buổi sáng, Admin</h1>
+            <p class="page-sub">Theo dõi sức khỏe nội dung, người dùng và doanh thu của EDUMY tại một nơi.</p>
+          </div>
+          <div class="head-tools">
+            <select class="select-control" aria-label="Khoảng thời gian">
+              <option>30 ngày gần nhất</option>
+              <option>7 ngày gần nhất</option>
+              <option>Năm 2026</option>
+            </select>
+            <button class="outline-button" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span>Xuất báo cáo</span>
+            </button>
+          </div>
+        </header>
+
+        <aside class="data-note" aria-label="Ghi chú dữ liệu prototype">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+          <span><strong>Dữ liệu minh họa.</strong> Các chỉ số mô phỏng cấu trúc dữ liệu hiện có; backend cần endpoint tổng hợp dành riêng cho Admin Dashboard.</span>
+          <time datetime="2026-09-23T09:30:00+07:00">Cập nhật 09:30 · 23/09/2026</time>
+        </aside>
+
+        <section class="kpi-grid" aria-label="Chỉ số chính">
+          <article class="kpi-card" id="users">
+            <div class="kpi-top"><span class="kpi-label">Tổng người dùng</span><span class="kpi-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></div>
+            <div class="kpi-value">12.840</div>
+            <div class="kpi-meta"><span class="trend"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 15 5-5 4 4 5-6"/></svg>8,4%</span><span>so với tháng trước</span></div>
+          </article>
+          <article class="kpi-card" id="content">
+            <div class="kpi-top"><span class="kpi-label">Nội dung đang hoạt động</span><span class="kpi-icon success"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span></div>
+            <div class="kpi-value">342</div>
+            <div class="kpi-meta"><span class="trend">+18</span><span>khóa học và bài thi mới</span></div>
+          </article>
+          <article class="kpi-card">
+            <div class="kpi-top"><span class="kpi-label">Doanh thu tháng 9</span><span class="kpi-icon orange"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h3"/></svg></span></div>
+            <div class="kpi-value">684,2 tr ₫</div>
+            <div class="kpi-meta"><span class="trend">12,6%</span><span>so với tháng trước</span></div>
+          </article>
+          <article class="kpi-card">
+            <div class="kpi-top"><span class="kpi-label">Yêu cầu chờ xử lý</span><span class="kpi-icon warning"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div>
+            <div class="kpi-value">17</div>
+            <div class="kpi-meta"><span class="trend alert">5 mới</span><span>trong 24 giờ qua</span></div>
+          </article>
+        </section>
+
+        <div class="dashboard-grid">
+          <div class="stack">
+            <section class="panel" id="revenue" aria-labelledby="revenue-title">
+              <div class="panel-head">
+                <div><h2 id="revenue-title">Xu hướng doanh thu</h2><p>Đơn thanh toán thành công theo 6 tháng gần nhất</p></div>
+                <div class="legend" aria-label="Chú thích biểu đồ"><span><i></i>Năm 2026</span><span><i class="previous"></i>Năm 2025</span></div>
+              </div>
+              <div class="revenue-summary"><strong>3,12 tỷ ₫</strong><span>↑ 14,8% cùng kỳ</span></div>
+              <div class="chart-wrap" role="img" aria-label="Biểu đồ cột doanh thu từ tháng 4 đến tháng 9, năm 2026 cao hơn năm 2025">
+                <div class="y-axis"><span>800tr</span><span>600tr</span><span>400tr</span><span>200tr</span><span>0</span></div>
+                <div class="plot">
+                  <div class="bar-group"><i class="bar previous" style="height: 47%"></i><i class="bar" style="height: 58%"></i><span>Thg 4</span></div>
+                  <div class="bar-group"><i class="bar previous" style="height: 54%"></i><i class="bar" style="height: 63%"></i><span>Thg 5</span></div>
+                  <div class="bar-group"><i class="bar previous" style="height: 58%"></i><i class="bar" style="height: 72%"></i><span>Thg 6</span></div>
+                  <div class="bar-group"><i class="bar previous" style="height: 52%"></i><i class="bar" style="height: 67%"></i><span>Thg 7</span></div>
+                  <div class="bar-group"><i class="bar previous" style="height: 69%"></i><i class="bar" style="height: 81%"></i><span>Thg 8</span></div>
+                  <div class="bar-group"><i class="bar previous" style="height: 73%"></i><i class="bar" style="height: 89%"></i><span>Thg 9</span></div>
+                </div>
+              </div>
+              <p class="chart-foot">Đơn vị: triệu đồng · Chỉ tính giao dịch đã đối soát</p>
+            </section>
+
+            <section class="panel table-panel" id="transactions" aria-labelledby="transaction-title">
+              <div class="panel-head"><div><h2 id="transaction-title">Giao dịch gần đây</h2><p>Đơn hàng và giao dịch SePay mới nhất</p></div><a class="text-link" href="#transactions">Xem tất cả <span aria-hidden="true">→</span></a></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Giao dịch</th><th>Người dùng</th><th>Thời gian</th><th>Số tiền</th><th>Trạng thái</th><th></th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="transaction"><span class="transaction-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span><strong>#PAY-98241</strong><small>Vietcombank</small></span></div></td><td>Nguyễn Minh Anh</td><td>09:18</td><td class="amount">1.249.000 ₫</td><td><span class="status">Thành công</span></td><td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></td></tr>
+                    <tr><td><div class="transaction"><span class="transaction-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span><strong>#PAY-98240</strong><small>MB Bank</small></span></div></td><td>Trần Gia Bảo</td><td>08:52</td><td class="amount">799.000 ₫</td><td><span class="status">Thành công</span></td><td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></td></tr>
+                    <tr><td><div class="transaction"><span class="transaction-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span><strong>#PAY-98239</strong><small>Chưa khớp đơn</small></span></div></td><td>—</td><td>08:31</td><td class="amount">599.000 ₫</td><td><span class="status pending">Chờ đối soát</span></td><td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></td></tr>
+                    <tr><td><div class="transaction"><span class="transaction-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span><strong>#PAY-98238</strong><small>Techcombank</small></span></div></td><td>Lê Thu Phương</td><td>Hôm qua</td><td class="amount">1.590.000 ₫</td><td><span class="status">Thành công</span></td><td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <div class="stack right-stack">
+            <section class="panel" id="queue" aria-labelledby="queue-title">
+              <div class="panel-head"><div><h2 id="queue-title">Hàng đợi xử lý</h2><p>Ưu tiên các tác vụ cần can thiệp</p></div><a class="text-link" href="#queue">Chi tiết →</a></div>
+              <div class="queue-list">
+                <a class="queue-item" href="#queue"><span class="queue-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="queue-copy"><strong>Hồ sơ giảng viên</strong><small>Yêu cầu chờ phê duyệt</small></span><span class="queue-count">12</span></a>
+                <a class="queue-item" href="#transactions"><span class="queue-icon error"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.7 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z"/></svg></span><span class="queue-copy"><strong>Giao dịch chưa khớp</strong><small>Cần đối soát thủ công</small></span><span class="queue-count">3</span></a>
+                <a class="queue-item" href="#content"><span class="queue-icon info"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="queue-copy"><strong>Nội dung cần rà soát</strong><small>Đã báo cáo bởi học viên</small></span><span class="queue-count">2</span></a>
+              </div>
+            </section>
+
+            <section class="panel" aria-labelledby="role-title">
+              <div class="panel-head"><div><h2 id="role-title">Cơ cấu tài khoản</h2><p>Phân bổ theo vai trò hệ thống</p></div></div>
+              <div class="role-content">
+                <div class="donut" role="img" aria-label="Người học 68 phần trăm, giảng viên 14 phần trăm, maintainer 12 phần trăm, admin 6 phần trăm"><div class="donut-label"><strong>12,8K</strong><small>Tài khoản</small></div></div>
+                <div class="role-legend">
+                  <div class="role-row"><i></i><span>Người học</span><strong>68%</strong></div>
+                  <div class="role-row"><i class="instructor"></i><span>Giảng viên</span><strong>14%</strong></div>
+                  <div class="role-row"><i class="maintainer"></i><span>Maintainer</span><strong>12%</strong></div>
+                  <div class="role-row"><i class="admin"></i><span>Admin</span><strong>6%</strong></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel quick-panel" id="quick-actions" aria-labelledby="quick-title">
+              <div class="panel-head"><div><h2 id="quick-title">Truy cập nhanh</h2><p>Các tác vụ quản trị thường dùng</p></div></div>
+              <div class="quick-actions">
+                <a class="quick-action" href="#users"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><div><strong>Thêm tài khoản</strong><small>Gán vai trò</small></div></a>
+                <a class="quick-action" href="#quick-actions"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="9"/></svg></span><div><strong>Tạo danh mục</strong><small>Nội dung hệ thống</small></div></a>
+                <a class="quick-action" href="#queue"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m5 12 4 4L19 6"/></svg></span><div><strong>Duyệt hồ sơ</strong><small>12 yêu cầu mới</small></div></a>
+                <a class="quick-action" href="#revenue"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg></span><div><strong>Xem báo cáo</strong><small>Doanh thu &amp; nội dung</small></div></a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <footer class="layout-footer">© 2026 EDUMY · Trung tâm quản trị hệ thống</footer>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quản lý doanh thu và giao dịch EDUMY">
+  <title>Doanh thu &amp; giao dịch — EDUMY Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-50:#eff4ff;--primary-100:#dbe8ff;--primary-200:#bfd3ff;--primary-300:#93b4ff;--primary-500:#2558e5;--primary-600:#1d44cd;--primary-700:#1634a1;--primary-900:#0e1f5a;
+      --secondary-50:#fff0ed;--secondary-500:#ff6b4a;--secondary-600:#e65132;
+      --neutral-0:#ffffff;--neutral-50:#f8fafc;--neutral-100:#f1f5f9;--neutral-200:#e2e8f0;--neutral-300:#cbd5e1;--neutral-400:#94a3b8;--neutral-500:#64748b;--neutral-600:#475569;--neutral-700:#334155;--neutral-800:#1e293b;--neutral-900:#0f172a;
+      --success-50:#ecfdf5;--success-500:#10b981;--success-600:#059669;--warning-50:#fffbeb;--warning-100:#fef3c7;--warning-500:#f59e0b;--warning-600:#d97706;--error-50:#fff1f2;--error-100:#ffe4e6;--error-500:#f43f5e;--error-600:#e11d48;--info-50:#f0f9ff;--info-500:#0ea5e9;--info-600:#0284c7;
+      --text-primary:var(--neutral-900);--text-secondary:var(--neutral-600);--border-default:var(--neutral-200);--sidebar-width:252px;
+      --shadow-card:0 1px 2px rgba(15,23,42,.03),0 8px 24px rgba(15,23,42,.045);--shadow-active:0 7px 18px rgba(37,88,229,.22);--shadow-button:0 4px 12px rgba(37,88,229,.18);--backdrop:rgba(15,23,42,.5);
+      --font:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    }
+  </style>
+  <link rel="stylesheet" href="../../../shared/styles/admin-management.css">
+  <style>
+    .period-tools { display: flex; align-items: center; gap: 9px; }
+    .revenue-grid { display: grid; grid-template-columns: minmax(0,1.62fr) minmax(300px,.88fr); gap: 17px; margin-bottom: 17px; }
+    .chart-panel, .mix-panel { padding: 20px; }
+    .chart-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .chart-heading h2 { margin: 0 0 5px; font-size: 16px; }
+    .chart-heading p { margin: 0; color: var(--neutral-500); font-size: 10px; }
+    .chart-total { margin-bottom: 17px; }
+    .chart-total strong { font-size: 26px; line-height: 1; letter-spacing: -.04em; }
+    .chart-total span { margin-left: 8px; color: var(--success-600); font-size: 10px; font-weight: 700; }
+    .line-chart { position: relative; height: 190px; margin-left: 38px; border-bottom: 1px solid var(--neutral-200); background: repeating-linear-gradient(to bottom,var(--neutral-0) 0,var(--neutral-0) calc(25% - 1px),var(--neutral-100) 25%); }
+    .line-chart svg { width: 100%; height: 100%; overflow: visible; }
+    .x-labels { display: flex; justify-content: space-between; margin: 8px 0 0 38px; color: var(--neutral-500); font-size: 9px; }
+    .y-labels { position: absolute; inset: 0 auto 0 -40px; display: flex; flex-direction: column; justify-content: space-between; color: var(--neutral-400); font-size: 9px; }
+    .legend { display: flex; align-items: center; gap: 12px; color: var(--neutral-500); font-size: 9px; }
+    .legend span { display: flex; align-items: center; gap: 5px; }
+    .legend i { width: 8px; height: 8px; background: var(--primary-500); border-radius: 3px; }
+    .legend i.orange { background: var(--secondary-500); }
+    .mix-content { display: flex; align-items: center; gap: 22px; min-height: 180px; }
+    .donut { position: relative; width: 122px; height: 122px; display: grid; place-items: center; flex: 0 0 auto; background: conic-gradient(var(--primary-500) 0 72%,var(--secondary-500) 72% 91%,var(--success-500) 91% 100%); border-radius: 50%; }
+    .donut::before { position: absolute; width: 78px; height: 78px; content:""; background: var(--neutral-0); border-radius: 50%; }
+    .donut-copy { position: relative; z-index: 1; text-align: center; }
+    .donut-copy strong { display: block; font-size: 17px; }
+    .donut-copy small { display: block; margin-top: 3px; color: var(--neutral-500); font-size: 8px; }
+    .mix-list { flex: 1; display: grid; gap: 13px; }
+    .mix-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; color: var(--neutral-600); font-size: 10px; }
+    .mix-row i { width: 8px; height: 8px; background: var(--primary-500); border-radius: 3px; }
+    .mix-row i.orange { background: var(--secondary-500); }
+    .mix-row i.green { background: var(--success-500); }
+    .mix-row strong { color: var(--neutral-800); font-size: 11px; }
+    @media(max-width:1100px){.revenue-grid{grid-template-columns:1fr}.mix-content{justify-content:center}.mix-list{max-width:260px}}
+    @media(max-width:720px){.period-tools{width:100%}.period-tools>*{flex:1}.legend{display:none}.chart-panel,.mix-panel{padding:17px}.line-chart{height:160px}.mix-content{flex-wrap:wrap}.mix-list{min-width:180px}}
+  </style>
+</head>
+<body>
+  <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Mở hoặc đóng menu quản trị">
+  <div class="layout">
+    <aside class="sidebar" aria-label="Điều hướng quản trị">
+      <div class="brand">
+        <a class="brand-mark" href="../../../index.html" aria-label="EDUMY — trang điều hướng"><img src="../../../shared/logo/logo-removebg-preview.png" alt=""></a>
+        <div><strong>EDUMY</strong><small>Quản trị hệ thống</small></div>
+        <label class="sidebar-close" for="nav-toggle" aria-label="Đóng menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></label>
+      </div>
+      <nav class="side-nav" aria-label="Menu quản trị chính">
+        <p class="nav-caption">Điều hành</p>
+        <a class="nav-link" href="../dashboard/dashboard.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Tổng quan</a>
+        <a class="nav-link" href="../statistics-reports/statistics-reports.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>Báo cáo</a>
+        <p class="nav-caption">Quản lý</p>
+        <a class="nav-link" href="../user-management/user-management.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Người dùng</a>
+        <a class="nav-link" href="../course-management/course-management.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Khóa học</a>
+        <a class="nav-link" href="../exam-management/exam-management.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Bài thi</a>
+        <a class="nav-link active" href="revenue-management.html" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h3"/></svg>Doanh thu</a>
+        <a class="nav-link" href="../instructor-approval/instructor-approval.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg>Duyệt giảng viên<span class="nav-badge">17</span></a>
+        <p class="nav-caption">Cấu hình</p>
+        <a class="nav-link" href="../category-management/category-management.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Danh mục</a>
+        <a class="nav-link" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg>Cài đặt hệ thống</a>
+      </nav>
+      <div class="side-bottom"><div class="side-user"><span class="avatar">SA</span><div><strong>System Admin</strong><span>Quản trị viên</span></div></div><a class="nav-link side-exit" href="../../../Web/Home/home.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/></svg>Về trang học viên</a></div>
+    </aside>
+    <label class="mobile-backdrop" for="nav-toggle" aria-hidden="true"></label>
+    <div class="main-shell">
+      <header class="topbar">
+        <label class="menu-toggle" for="nav-toggle" aria-label="Mở menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></label>
+        <div class="breadcrumb"><span>Quản trị hệ thống</span><span aria-hidden="true">/</span><strong>Doanh thu</strong></div>
+        <div class="top-actions">
+          <label class="global-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="search" placeholder="Tìm kiếm toàn hệ thống..." aria-label="Tìm kiếm toàn hệ thống"></label>
+          <button class="icon-button" type="button" aria-label="Thông báo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="notify-dot" aria-hidden="true"></span></button>
+          <div class="profile-chip"><span class="avatar">SA</span><div><strong>System Admin</strong><small>Admin</small></div></div>
+        </div>
+      </header>
+
+      <main class="content">
+        <header class="page-head">
+          <div><p class="eyebrow">Tài chính &amp; đối soát</p><h1>Doanh thu</h1><p class="page-sub">Theo dõi đơn thanh toán, giao dịch ngân hàng và các trường hợp cần đối soát.</p></div>
+          <div class="period-tools"><select class="filter-select" aria-label="Khoảng thời gian"><option>Tháng 09/2026</option><option>Tháng 08/2026</option><option>Quý III/2026</option></select><button class="primary-button" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Xuất báo cáo</button></div>
+        </header>
+
+        <aside class="data-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span><strong>Dữ liệu minh họa.</strong> Model PaymentOrder và PaymentTransaction đã có, nhưng backend hiện chưa cung cấp controller quản trị doanh thu.</span></aside>
+
+        <section class="kpi-grid" aria-label="Tổng quan doanh thu">
+          <article class="kpi"><span class="kpi-icon success"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM7 10h4M17 9v6"/></svg></span><div><strong>684,2 tr ₫</strong><span>Doanh thu đã đối soát</span></div></article>
+          <article class="kpi"><span class="kpi-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg></span><div><strong>1.284</strong><span>Đơn đã thanh toán</span></div></article>
+          <article class="kpi"><span class="kpi-icon orange"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span><div><strong>532.900 ₫</strong><span>Giá trị đơn trung bình</span></div></article>
+          <article class="kpi"><span class="kpi-icon error"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.7 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z"/></svg></span><div><strong>7</strong><span>Cần đối soát thủ công</span></div></article>
+        </section>
+
+        <div class="revenue-grid">
+          <section class="panel chart-panel" aria-labelledby="trend-title">
+            <div class="chart-heading"><div><h2 id="trend-title">Xu hướng doanh thu</h2><p>So sánh tổng tiền đã thanh toán và số tiền giảm giá</p></div><div class="legend"><span><i></i>Thực thu</span><span><i class="orange"></i>Giảm giá</span></div></div>
+            <div class="chart-total"><strong>684,2 triệu ₫</strong><span>↑ 12,6% tháng trước</span></div>
+            <div class="line-chart" role="img" aria-label="Biểu đồ doanh thu theo tuần trong tháng 9">
+              <div class="y-labels"><span>200tr</span><span>150tr</span><span>100tr</span><span>50tr</span><span>0</span></div>
+              <svg viewBox="0 0 640 190" preserveAspectRatio="none" aria-hidden="true">
+                <defs><linearGradient id="area-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--primary-500)" stop-opacity=".18"/><stop offset="100%" stop-color="var(--primary-500)" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 150 C70 145,90 120,160 126 S255 80,320 94 S420 54,480 72 S560 32,640 42 L640 190 L0 190 Z" fill="url(#area-fill)"/>
+                <path d="M0 150 C70 145,90 120,160 126 S255 80,320 94 S420 54,480 72 S560 32,640 42" fill="none" stroke="var(--primary-500)" stroke-width="4" stroke-linecap="round"/>
+                <path d="M0 174 C80 169,105 162,160 165 S255 144,320 151 S420 134,480 139 S570 122,640 126" fill="none" stroke="var(--secondary-500)" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7"/>
+              </svg>
+            </div>
+            <div class="x-labels"><span>01/09</span><span>08/09</span><span>15/09</span><span>22/09</span><span>30/09</span></div>
+          </section>
+
+          <section class="panel mix-panel" aria-labelledby="mix-title">
+            <div class="chart-heading"><div><h2 id="mix-title">Nguồn doanh thu</h2><p>Phân bổ theo sản phẩm đã bán</p></div></div>
+            <div class="mix-content">
+              <div class="donut" role="img" aria-label="Khóa học 72 phần trăm, đề thi 19 phần trăm, khác 9 phần trăm"><div class="donut-copy"><strong>684,2tr</strong><small>Tổng thực thu</small></div></div>
+              <div class="mix-list"><div class="mix-row"><i></i><span>Khóa học</span><strong>72%</strong></div><div class="mix-row"><i class="orange"></i><span>Đề thi</span><strong>19%</strong></div><div class="mix-row"><i class="green"></i><span>Gói khác</span><strong>9%</strong></div></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel" aria-labelledby="transaction-title">
+          <div class="panel-head"><div><h2 id="transaction-title">Đơn hàng &amp; giao dịch</h2><p>Đối chiếu PaymentOrder với webhook PaymentTransaction</p></div><span class="result-count">1.336 giao dịch</span></div>
+          <form class="toolbar">
+            <label class="table-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="search" placeholder="Mã giao dịch, mã thanh toán..." aria-label="Tìm giao dịch"></label>
+            <select class="filter-select" aria-label="Lọc trạng thái đơn"><option>Tất cả đơn hàng</option><option>Đã thanh toán</option><option>Chờ thanh toán</option><option>Thất bại</option><option>Đã hủy</option><option>Hết hạn</option></select>
+            <select class="filter-select" aria-label="Lọc đối soát"><option>Tất cả đối soát</option><option>Đã khớp</option><option>Chưa khớp</option><option>Lệch số tiền</option><option>Trùng lặp</option></select>
+            <span class="toolbar-spacer"></span><button class="filter-button" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span>Bộ lọc</span></button>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Mã đơn</th><th>Người mua</th><th>Ngân hàng</th><th>Mã giao dịch</th><th>Tổng tiền</th><th>Giảm giá</th><th>Trạng thái đơn</th><th>Đối soát</th><th>Thời gian</th><th></th></tr></thead>
+              <tbody>
+                <tr><td><div class="entity"><span class="entity-thumb green">VCB</span><span><strong>#PAY-98241</strong><small>EDU98241</small></span></div></td><td>Nguyễn Minh Anh</td><td>Vietcombank</td><td>SEP-874921</td><td class="money">1.249.000 ₫</td><td>150.000 ₫</td><td><span class="status">Đã thanh toán</span></td><td><span class="status info">Đã khớp</span></td><td>23/09 · 09:18</td><td><div class="actions"><button class="action-button" type="button" aria-label="Xem giao dịch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></td></tr>
+                <tr><td><div class="entity"><span class="entity-thumb">MB</span><span><strong>#PAY-98240</strong><small>EDU98240</small></span></div></td><td>Trần Gia Bảo</td><td>MB Bank</td><td>SEP-874920</td><td class="money">799.000 ₫</td><td>0 ₫</td><td><span class="status">Đã thanh toán</span></td><td><span class="status info">Đã khớp</span></td><td>23/09 · 08:52</td><td><div class="actions"><button class="action-button" type="button" aria-label="Xem giao dịch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></td></tr>
+                <tr><td><div class="entity"><span class="entity-thumb orange">TCB</span><span><strong>Chưa xác định</strong><small>EDU-UNKNOWN</small></span></div></td><td>—</td><td>Techcombank</td><td>SEP-874919</td><td class="money">599.000 ₫</td><td>—</td><td><span class="status pending">Chờ xử lý</span></td><td><span class="status failed">Chưa khớp</span></td><td>23/09 · 08:31</td><td><div class="actions"><button class="action-button" type="button" aria-label="Đối soát giao dịch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div></td></tr>
+                <tr><td><div class="entity"><span class="entity-thumb green">ACB</span><span><strong>#PAY-98238</strong><small>EDU98238</small></span></div></td><td>Lê Thu Phương</td><td>ACB</td><td>SEP-874918</td><td class="money">1.590.000 ₫</td><td>200.000 ₫</td><td><span class="status">Đã thanh toán</span></td><td><span class="status info">Đã khớp</span></td><td>22/09 · 21:46</td><td><div class="actions"><button class="action-button" type="button" aria-label="Xem giao dịch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></td></tr>
+                <tr><td><div class="entity"><span class="entity-thumb orange">VCB</span><span><strong>#PAY-98237</strong><small>EDU98237</small></span></div></td><td>Phạm Quốc Huy</td><td>Vietcombank</td><td>SEP-874917</td><td class="money">899.000 ₫</td><td>50.000 ₫</td><td><span class="status expired">Hết hạn</span></td><td><span class="status pending">Lệch số tiền</span></td><td>22/09 · 20:12</td><td><div class="actions"><button class="action-button" type="button" aria-label="Đối soát giao dịch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <nav class="pagination" aria-label="Phân trang giao dịch"><p>Hiển thị 1–5 trong 1.336 giao dịch</p><button class="page-button" type="button" aria-label="Trang trước"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button><button class="page-button active" type="button" aria-current="page">1</button><button class="page-button" type="button">2</button><button class="page-button" type="button">3</button><button class="page-button" type="button">…</button><button class="page-button" type="button">268</button><button class="page-button" type="button" aria-label="Trang sau"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button></nav>
+        </section>
+      </main>
+      <footer class="layout-footer">© 2026 EDUMY · Trung tâm quản trị hệ thống</footer>
+    </div>
+  </div>
+</body>
+</html>
